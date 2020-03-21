@@ -1,23 +1,18 @@
 import { PrismaClient } from '@prisma/client'
-import { Nullable, ID } from './types'
+import { TaskServiceBase, TaskFindOneArgs, TaskFindManyArgs } from 'shared-interfaces'
 
-export interface GetTaskArgs {
-  id: ID
+export class TaskService implements TaskServiceBase {
+  constructor(public prisma: PrismaClient) {}
+
+  findOne({ id }: TaskFindOneArgs) {
+    return this.prisma.task.findOne({ where: { id } })
+  }
+
+  findMany({ ids }: TaskFindManyArgs) {
+    return this.prisma.task.findMany({ where: { id: { in: ids } } })
+  }
 }
 
-export interface GetTasksArgs {
-  ids?: Nullable<ID[]>
-}
-
-export const taskService = (client: PrismaClient) => ({
-  getTask: ({ id }: GetTaskArgs) => {
-    return client.task.findOne({ where: { id } })
-  },
-  getTasks: ({ ids }: GetTasksArgs) => {
-    return client.task.findMany({ where: { id: { in: ids } } })
-  },
-})
-
-export const services = (client: PrismaClient) => ({
-  task: taskService(client),
+export const createServices = (prisma: PrismaClient) => ({
+  task: new TaskService(prisma),
 })
