@@ -29,6 +29,6 @@ lerna-debug.log*
 !.env.template
 !.env.local
 
-# Custom
+# Testing
 prisma/migrations
-prisma/dev.db
+temp
