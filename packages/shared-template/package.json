@@ -10,7 +10,7 @@
     "clean": "rm -rf dist",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint src.{ts,tsx} --fix",
-    "build": "echo TODO",
+    "build": "tsc -p tsconfig.build.json",
     "start": "echo TODO",
     "dev": "echo TODO",
     "test": "jest"

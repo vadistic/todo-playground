@@ -8,6 +8,8 @@
     "declaration": true,
     "sourceMap": true,
 
+    "incremental": true,
+
     /* Strict Type-Checking Options */
     "strict": true,
 

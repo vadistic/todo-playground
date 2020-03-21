@@ -6,6 +6,8 @@
     "lib": ["ESNext"],
     "allowJs": false,
 
+    "incremental": true,
+
     /* Strict Type-Checking Options */
     "strict": true,
 

@@ -10,7 +10,7 @@
     "clean": "rm -rf dist",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint src.{ts,tsx} --fix",
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.build.json",
     "start": "node dist/main",
     "dev": "ts-node-dev --no-notify --respawn --transpileOnly src/main",
     "test": "jest",

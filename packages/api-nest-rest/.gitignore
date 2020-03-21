@@ -1,6 +1,9 @@
 node_modules
+
+# Build
 build
 dist
+.tsbuildinfo
 
 # Logs
 *.log
@@ -29,3 +32,5 @@ lerna-debug.log*
 !.env.template
 !.env.local
 
+# Testing
+temp

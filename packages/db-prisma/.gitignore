@@ -1,6 +1,9 @@
 node_modules
+
+# Build
 build
 dist
+*.tsbuildinfo
 
 # Logs
 *.log
