@@ -21,7 +21,7 @@
     "migrate:up": "prisma2 migrate up --experimental"
   },
   "dependencies": {
-    "@todo/shared-interfaces": "0.1.0",
+    "@todo/shared-db": "0.1.0",
     "@prisma/client": "^2.0.0-preview024"
   },
   "devDependencies": {

@@ -1,5 +1,5 @@
 {
-  "name": "@todo/shared-interfaces",
+  "name": "@todo/shared-db",
   "version": "0.1.0",
   "description": "Testing stacks with todo apps",
   "repository": "https://github.com/vadistic/todo",

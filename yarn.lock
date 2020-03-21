@@ -9962,6 +9962,11 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
+typeorm-cursor-pagination@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/typeorm-cursor-pagination/-/typeorm-cursor-pagination-0.2.2.tgz#3ec476936a948145b7ddf5a4d248176a571c8049"
+  integrity sha512-sViBGJeZnKuTEkA80/t2dFlgEN2qRskub3hH0ozCHPF1CuViRRNWViYz1hdxPu+EtuaK9hAVD6AGMG1bEAZTAA==
+
 typeorm@^0.2.24:
   version "0.2.24"
   resolved "https://registry.yarnpkg.com/typeorm/-/typeorm-0.2.24.tgz#cd0fbd907326873a96c98e290fca49c589f0ffa8"

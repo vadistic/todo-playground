@@ -14,10 +14,11 @@
     "test": "jest"
   },
   "dependencies": {
-    "@todo/shared-interfaces": "0.1.0",
+    "@todo/shared-db": "0.1.0",
     "reflect-metadata": "^0.1.13",
     "sqlite": "^3.0.3",
-    "typeorm": "^0.2.24"
+    "typeorm": "^0.2.24",
+    "typeorm-cursor-pagination": "^0.2.2"
   },
   "devDependencies": {
     "@vadistic/eslint-config-node": "^0.1.8",
