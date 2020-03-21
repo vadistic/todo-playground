@@ -1,5 +1,5 @@
 import { PrimaryGeneratedColumn, Column, Entity } from 'typeorm'
-import { TaskEntityBase, ID, Nullable } from 'shared-interfaces'
+import { TaskEntityBase, ID, Nullable } from '@todo/shared-interfaces'
 
 @Entity({ name: 'Task' })
 export class TaskEntity implements TaskEntityBase {

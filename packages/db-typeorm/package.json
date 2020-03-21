@@ -1,5 +1,5 @@
 {
-  "name": "db-typeorm",
+  "name": "@todo/db-typeorm",
   "version": "0.1.0",
   "description": "Testing stacks with todo apps",
   "repository": "https://github.com/vadistic/todo",
@@ -14,8 +14,8 @@
     "test": "jest"
   },
   "dependencies": {
+    "@todo/shared-interfaces": "0.1.0",
     "reflect-metadata": "^0.1.13",
-    "shared-interfaces": "0.1.0",
     "sqlite": "^3.0.3",
     "typeorm": "^0.2.24"
   },

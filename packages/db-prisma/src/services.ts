@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-import { TaskServiceBase, TaskFindOneArgs, TaskFindManyArgs } from 'shared-interfaces'
+import { TaskServiceBase, TaskFindOneArgs, TaskFindManyArgs } from '@todo/shared-interfaces'
 
 export class TaskService implements TaskServiceBase {
   constructor(public prisma: PrismaClient) {}

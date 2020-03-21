@@ -1,5 +1,5 @@
 import { Connection, In } from 'typeorm'
-import { TaskFindOneArgs, TaskFindManyArgs, TaskServiceBase } from 'shared-interfaces'
+import { TaskFindOneArgs, TaskFindManyArgs, TaskServiceBase } from '@todo/shared-interfaces'
 import { TaskEntity } from './entities'
 
 export class TaskService implements TaskServiceBase {

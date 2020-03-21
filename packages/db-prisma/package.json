@@ -1,5 +1,5 @@
 {
-  "name": "db-prisma",
+  "name": "@todo/db-prisma",
   "version": "0.1.0",
   "description": "Testing stacks with todo apps",
   "repository": "https://github.com/vadistic/todo",
@@ -21,8 +21,8 @@
     "migrate:up": "prisma2 migrate up --experimental"
   },
   "dependencies": {
-    "@prisma/client": "^2.0.0-preview024",
-    "shared-interfaces": "0.1.0"
+    "@todo/shared-interfaces": "0.1.0",
+    "@prisma/client": "^2.0.0-preview024"
   },
   "devDependencies": {
     "@vadistic/eslint-config-node": "^0.1.8",

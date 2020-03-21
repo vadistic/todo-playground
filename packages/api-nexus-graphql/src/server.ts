@@ -4,5 +4,5 @@ import { createContext } from './context'
 
 export const server = new ApolloServer({
   schema,
-  context: createContext(),
+  context: createContext,
 })

@@ -1,11 +1,11 @@
-import { PrismaClient } from '@prisma/client'
+import { createDb, DbPrisma, PrismaClient } from '@todo/db-prisma'
 
-const prisma = new PrismaClient()
+export const prisma = new PrismaClient()
 
 export interface Context {
-  prisma: PrismaClient
+  db: DbPrisma
 }
 
-export function createContext(): Context {
-  return { prisma }
+export const createContext = async (): Promise<Context> => {
+  return { db: await createDb() }
 }

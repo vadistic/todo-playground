@@ -1,5 +1,5 @@
 {
-  "name": "api-nest-rest",
+  "name": "@todo/api-nest-rest",
   "version": "0.1.0",
   "description": "Testing stacks with todo apps",
   "repository": "https://github.com/vadistic/todo",

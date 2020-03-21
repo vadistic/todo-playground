@@ -1,8 +1,6 @@
 import { nexusPrismaPlugin } from 'nexus-prisma'
 import { makeSchema, objectType, intArg } from 'nexus'
 
-import { taskService } from 'db-prisma'
-
 const Task = objectType({
   name: 'Task',
   definition(t) {
@@ -22,7 +20,7 @@ const Query = objectType({
         id: intArg({ nullable: false }),
       },
       resolve: (_, args, ctx) => {
-        return taskService(ctx.prisma).getTask(args)
+        return ctx.db.services.task.findOne(args)
       },
     })
 
@@ -34,7 +32,7 @@ const Query = objectType({
         ids: intArg({ nullable: true, list: true }),
       },
       resolve: (_, args, ctx) => {
-        return taskService(ctx.prisma).getTasks(args)
+        return ctx.db.services.task.findMany(args)
       },
     })
   },
