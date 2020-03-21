@@ -5,6 +5,8 @@
     "module": "CommonJS",
     "lib": ["ESNext"],
     "allowJs": false,
+    "declaration": true,
+    "sourceMap": true,
 
     /* Strict Type-Checking Options */
     "strict": true,
