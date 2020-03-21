@@ -10,7 +10,7 @@ export interface TaskFindManyArgs {
 }
 
 export interface TaskServiceBase {
-  findOne(args: TaskFindOneArgs): Promisable<TaskEntityBase>
+  findOne(args: TaskFindOneArgs): Promisable<Nullable<TaskEntityBase>>
 
-  findMany(args: TaskFindManyArgs): Promisable<TaskEntityBase>
+  findMany(args: TaskFindManyArgs): Promisable<TaskEntityBase[]>
 }

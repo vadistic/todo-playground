@@ -1,0 +1,29 @@
+{
+  "name": "db-typeorm",
+  "version": "0.1.0",
+  "description": "Testing stacks with todo apps",
+  "repository": "https://github.com/vadistic/todo",
+  "author": "Jakub Wadas <vadistic@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "clean": "rm -rf dist",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "lint": "eslint src.{ts,tsx} --fix",
+    "build": "tsc -b tsconfig.build.json",
+    "test": "jest"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.1.13",
+    "shared-interfaces": "0.1.0",
+    "sqlite": "^3.0.3",
+    "typeorm": "^0.2.24"
+  },
+  "devDependencies": {
+    "@vadistic/eslint-config-node": "^0.1.8",
+    "@vadistic/prettier-config": "^0.1.8",
+    "eslint": "^6.8.0",
+    "prettier": "^1.19.1",
+    "typescript": "^3.8.3"
+  }
+}
