@@ -1,0 +1,13 @@
+{
+  "name": "todo",
+  "version": "0.1.0",
+  "description": "Testing stacks with todo apps",
+  "main": "index.js",
+  "repository": "git@github.com:vadistic/todo.git",
+  "author": "Jakub Wadas <vadistic@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@vadistic/prettier-config": "^0.1.8"
+  }
+}
