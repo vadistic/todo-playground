@@ -1,0 +1,19 @@
+{
+  "name": "template",
+  "version": "0.1.0",
+  "description": "Testing stacks with todo apps",
+  "repository": "https://github.com/vadistic/todo",
+  "author": "Jakub Wadas <vadistic@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "clean": "rm -rf dist",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "lint": "eslint src.{ts,tsx} --fix",
+    "build": "echo TODO",
+    "start": "echo TODO",
+    "test": "jest"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

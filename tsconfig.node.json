@@ -2,13 +2,9 @@
   "compilerOptions": {
     /* Basic Options */
     "target": "es2018",
-    "module": "ESNext",
+    "module": "CommonJS",
     "lib": ["ESNext"],
     "allowJs": false,
-    "jsx": "preserve",
-    "declaration": true,
-    "incremental": true,
-    "isolatedModules": true,
 
     /* Strict Type-Checking Options */
     "strict": true,
