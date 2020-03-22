@@ -1,8 +1,15 @@
-import { PrimaryGeneratedColumn, Column, Entity, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import {
+  PrimaryGeneratedColumn,
+  Column,
+  Entity,
+  CreateDateColumn,
+  UpdateDateColumn,
+  BaseEntity,
+} from 'typeorm'
 import { TaskEntityBase, ID, Nullable, DateTime } from '@todo/shared-db'
 
 @Entity({ name: 'Task' })
-export class TaskEntity implements TaskEntityBase {
+export class TaskEntity extends BaseEntity implements TaskEntityBase {
   @PrimaryGeneratedColumn('increment')
   id!: ID
 

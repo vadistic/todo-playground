@@ -1,30 +1,39 @@
 import { Connection, In, Like, LessThan, MoreThan, FindOperator, Between } from 'typeorm'
-import { TaskFindOneArgs, TaskFindManyArgs, TaskServiceBase, Nullable } from '@todo/shared-db'
+import {
+  TaskFindOneArgs,
+  TaskFindManyArgs,
+  TaskServiceBase,
+  Nullable,
+  TaskCreateOneArgs,
+  TaskUpdateOneArgs,
+  TaskDeleteOneArgs,
+} from '@todo/shared-db'
 import { buildPaginator } from 'typeorm-cursor-pagination'
 
 import { TaskEntity } from './entities'
 
-const MAX_RESULTS = 100
+const RESULTS_MAX = 100
+const RESULTS_DEFUALT = 20
 
 export class TaskService implements TaskServiceBase {
   constructor(public ctn: Connection, public repo = ctn.getRepository(TaskEntity)) {}
 
-  async findOne({ id }: TaskFindOneArgs) {
-    return this.repo.findOne(id)
+  async findOne(args: TaskFindOneArgs) {
+    return this.repo.findOne(args.where.id)
   }
 
   async findMany(args: TaskFindManyArgs) {
     const qb = this.repo.createQueryBuilder().where({
-      id: cond(In, args.ids),
-      finished: args.finished,
-      name: cond(Like, args.name),
-      content: cond(Like, args.content),
-      createdAt: range(args.createdAfter, args.createdBefore),
-      updatedAt: range(args.updatedAfter, args.updatedBefore),
+      id: cond(In, args.where.ids),
+      finished: args.where.finished,
+      name: cond(Like, args.where.name),
+      content: cond(Like, args.where.content),
+      createdAt: range(args.where.createdAfter, args.where.createdBefore),
+      updatedAt: range(args.where.updatedAfter, args.where.updatedBefore),
     })
 
-    if (args.limit && args.limit > MAX_RESULTS) {
-      throw Error(`Exceeded service result limit. MAX_RESULTS = ${MAX_RESULTS}`)
+    if (args.limit && args.limit > RESULTS_MAX) {
+      throw Error(`Exceeded service result limit. RESULTS_MAX = ${RESULTS_MAX}`)
     }
 
     if (!args.after && !args.before) {
@@ -34,16 +43,28 @@ export class TaskService implements TaskServiceBase {
     const paginator = buildPaginator({
       entity: TaskEntity,
       query: {
-        limit: args.limit = 20,
+        limit: args.limit ?? RESULTS_DEFUALT,
         order: 'DESC',
         beforeCursor: args.before ? '' + args.before : undefined,
         afterCursor: args.after ? '' + args.after : undefined,
       },
     })
 
-    const { data, cursor } = await paginator.paginate(qb)
+    const { data } = await paginator.paginate(qb)
 
     return data
+  }
+
+  async createOne(args: TaskCreateOneArgs) {
+    return this.repo.create(args.data).save({ reload: true })
+  }
+
+  async updateOne(args: TaskUpdateOneArgs) {
+    return this.repo.create({ ...args.data, id: args.where.id }).save({ reload: true })
+  }
+
+  async deleteOne(args: TaskDeleteOneArgs) {
+    return this.repo.remove(this.repo.create({ id: args.where.id }))
   }
 }
 

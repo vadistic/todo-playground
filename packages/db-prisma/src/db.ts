@@ -9,7 +9,7 @@ export interface DbPrisma {
 export const createDb = async (): Promise<DbPrisma> => {
   const prisma = new PrismaClient()
 
-  await prisma.connect()
+  // await prisma.connect()
 
   const services = createServices(prisma)
 

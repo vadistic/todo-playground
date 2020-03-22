@@ -33,5 +33,4 @@ lerna-debug.log*
 !.env.local
 
 # Testing
-prisma/migrations
 temp

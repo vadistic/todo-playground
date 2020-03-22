@@ -3,21 +3,20 @@ import { TaskEntityBase, ID, DateTime } from './entities'
 
 export type OrderDirection = 'ASC' | 'DESC'
 
-export interface OrderDirectionArgs {
-  order: OrderDirection
-}
+export type SystemColumnNames = 'id' | 'createdAt' | 'updatedAt'
 
 export interface PaginationArgs {
   limit?: Nullable<number>
   after?: Nullable<ID>
   before?: Nullable<ID>
+  order?: OrderDirection
 }
 
-export interface TaskFindOneArgs {
+export interface TaskWhereUnique {
   id: ID
 }
 
-export interface TaskFindManyFilters extends PaginationArgs {
+export interface TaskWhereFilters {
   ids?: Nullable<ID[]>
 
   // time filters
@@ -32,10 +31,35 @@ export interface TaskFindManyFilters extends PaginationArgs {
   finished?: Nullable<boolean>
 }
 
-export type TaskFindManyArgs = TaskFindManyFilters & PaginationArgs & OrderDirectionArgs
+export interface TaskFindOneArgs {
+  where: TaskWhereUnique
+}
+
+export interface TaskFindManyArgs extends PaginationArgs {
+  where: TaskWhereFilters
+}
+
+export interface TaskCreateOneArgs {
+  data: Omit<TaskEntityBase, SystemColumnNames>
+}
+
+export interface TaskUpdateOneArgs {
+  where: TaskWhereUnique
+  data: Partial<Omit<TaskEntityBase, SystemColumnNames>>
+}
+
+export interface TaskDeleteOneArgs {
+  where: TaskWhereUnique
+}
 
 export interface TaskServiceBase {
   findOne(args: TaskFindOneArgs): Promisable<Nullable<TaskEntityBase>>
 
   findMany(args: TaskFindManyArgs): Promisable<TaskEntityBase[]>
+
+  createOne(args: TaskCreateOneArgs): Promisable<TaskEntityBase>
+
+  updateOne(args: TaskUpdateOneArgs): Promisable<TaskEntityBase>
+
+  deleteOne(args: TaskDeleteOneArgs): Promisable<TaskEntityBase>
 }

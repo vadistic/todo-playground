@@ -16,17 +16,21 @@
     "test": "jest",
     "generate": "prisma2 generate",
     "postinstall": "npm -s run generate",
-    "migrate": "yarn migrate:save && yarn migrate:up",
-    "migrate:save": "prisma2 migrate save --experimental",
-    "migrate:up": "prisma2 migrate up --experimental"
+    "db:clean": "rm -rf temp",
+    "db:cptest": "cp ./temp/dev.db ./temp/test.db",
+    "db:setup": "yarn db:clean && yarn db:migrate:save && yarn db:migrate:up && yarn db:cptest",
+    "db:migrate:save": "prisma2 migrate save --experimental --name init",
+    "db:migrate:up": "prisma2 migrate up --experimental -c"
   },
   "dependencies": {
-    "@todo/shared-db": "0.1.0",
-    "@prisma/client": "^2.0.0-preview024"
+    "@prisma/client": "^2.0.0-preview024",
+    "@todo/shared-db": "0.1.0"
   },
   "devDependencies": {
     "@vadistic/eslint-config-node": "^0.1.8",
     "@vadistic/prettier-config": "^0.1.8",
+    "cross-env": "^7.0.2",
+    "dotenv": "^8.2.0",
     "eslint": "^6.8.0",
     "prettier": "^1.19.1",
     "prisma2": "^2.0.0-preview024",

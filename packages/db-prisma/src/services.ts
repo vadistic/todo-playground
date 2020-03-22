@@ -1,26 +1,54 @@
 import { PrismaClient } from '@prisma/client'
-import { TaskServiceBase, TaskFindOneArgs, TaskFindManyArgs, Nullable } from '@todo/shared-db'
+import {
+  TaskServiceBase,
+  TaskFindOneArgs,
+  TaskFindManyArgs,
+  Nullable,
+  TaskCreateOneArgs,
+  TaskUpdateOneArgs,
+  TaskDeleteOneArgs,
+} from '@todo/shared-db'
 
-const MAX_RESULTS = 100
+const RESULTS_MAX = 100
+const RESULTS_DEFUALT = 20
 
 export class TaskService implements TaskServiceBase {
   constructor(public prisma: PrismaClient) {}
 
-  async findOne({ id }: TaskFindOneArgs) {
-    return this.prisma.task.findOne({ where: { id } })
+  async findOne(args: TaskFindOneArgs) {
+    return this.prisma.task.findOne({ where: { id: args.where.id } })
   }
 
-  findMany(args: TaskFindManyArgs) {
-    if (args.limit && args.limit > MAX_RESULTS) {
-      throw Error(`Exceeded service result limit. MAX_RESULTS = ${MAX_RESULTS}`)
+  async findMany(args: TaskFindManyArgs) {
+    if (args.limit && args.limit > RESULTS_MAX) {
+      throw Error(`Exceeded service result limit. RESULTS_MAX = ${RESULTS_MAX}`)
     }
 
+    // TODO: make so mapped fn for those tetrary ops
+    // TODO: date range fn
     return this.prisma.task.findMany({
-      where: { id: ifDefined(args.ids, { in: args.ids }) },
+      where: {
+        id: args.where.ids ? { in: args.where.ids } : undefined,
+        name: args.where.name ? { contains: args.where.name } : undefined,
+        content: args.where.content ? { contains: args.where.content } : undefined,
+        finished: args.where.finished ? { equals: args.where.finished } : undefined,
+      },
       after: ifDefined(args.after, { id: args.after }),
       before: ifDefined(args.before, { id: args.before }),
-      first: ifDefined(args.limit, args.limit) ?? 0,
+      first: ifDefined(args.limit, args.limit) ?? RESULTS_DEFUALT,
     })
+  }
+
+  async createOne(args: TaskCreateOneArgs) {
+    return this.prisma.task.create({ data: args.data })
+  }
+
+  async updateOne(args: TaskUpdateOneArgs) {
+    return this.prisma.task.update({ where: { id: args.where.id }, data: args.data })
+  }
+
+  async deleteOne(args: TaskDeleteOneArgs) {
+    return this.prisma.task.delete({ where: { id: args.where.id } })
   }
 }
 
