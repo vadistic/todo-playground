@@ -1,0 +1,33 @@
+{
+  "name": "@todo/shared-styles",
+  "version": "0.1.0",
+  "description": "Testing stacks with todo apps",
+  "repository": "https://github.com/vadistic/todo",
+  "author": "Jakub Wadas <vadistic@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "clean": "rm -rf dist",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "lint": "eslint src.{ts,tsx} --fix",
+    "build": "parcel build src/styles.scss && cp src/styles.scss dist",
+    "start": "echo TODO",
+    "dev": "yarn parcel src/index.html",
+    "test": "jest"
+  },
+  "dependencies": {
+    "milligram": "^1.3.0"
+  },
+  "devDependencies": {
+    "@vadistic/eslint-config-react": "^0.1.8",
+    "@vadistic/prettier-config": "^0.1.8",
+    "autoprefixer": "^9.7.4",
+    "eslint": "^6.8.0",
+    "parcel": "^2.0.0-alpha.3.2",
+    "postcss": "^7.0.27",
+    "precss": "^4.0.0",
+    "prettier": "^1.19.1",
+    "sass": "^1.26.3",
+    "typescript": "^3.8.3"
+  }
+}

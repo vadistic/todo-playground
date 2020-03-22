@@ -1,0 +1,115 @@
+@import 'https://fonts.googleapis.com/css?family=Roboto:300, 300italic, 700, 700italic';
+@import 'https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css';
+
+@import 'milligram/src/milligram.sass';
+
+$color-initial: #fff !default;
+$color-primary: #9b4dca !default;
+$color-secondary: #606c76 !default;
+$color-tertiary: #f4f5f6 !default;
+$color-quaternary: #d1d1d1 !default;
+$color-quinary: #e1e1e1 !default;
+
+$sans: 'Titillium Web', sans-serif;
+
+/* 1 rem = 10px */
+
+@mixin flex($direction) {
+  display: flex;
+  flex-direction: $direction;
+
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  @include flex(column);
+
+  margin: auto;
+  max-width: 60rem;
+}
+
+.app header {
+  width: 100%;
+
+  .title {
+    font-size: 10rem;
+    color: $color-primary;
+  }
+}
+
+.app main {
+  display: grid;
+  width: 100%;
+
+  .form {
+    padding: 1rem;
+    resize: none;
+  }
+
+  .list {
+    list-style: none;
+
+    .item {
+      font-size: large;
+      margin: 1rem 0;
+      padding: 1rem;
+
+      user-select: initial;
+
+      box-shadow: 0.5rem 0.5rem 1rem $color-tertiary;
+
+      .name {
+        font-size: larger;
+      }
+
+      .content {
+        font-size: smaller;
+      }
+    }
+  }
+}
+
+.app section.controls {
+  @include flex(row);
+
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem 0;
+  width: 100%;
+  font-size: smaller;
+
+  .count {
+    height: 100%;
+  }
+
+  .filters {
+    @include flex(row);
+    flex-basis: 0;
+
+    list-style: none;
+    margin: 0;
+
+    li {
+      margin: 0;
+
+      .button {
+        margin: 0;
+      }
+    }
+  }
+}
+
+footer {
+  @include flex(column);
+
+  margin-top: 5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: smaller;
+}
