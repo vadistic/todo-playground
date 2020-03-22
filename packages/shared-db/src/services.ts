@@ -67,3 +67,7 @@ export interface TaskServiceBase {
 export interface ServicesBase {
   task: TaskServiceBase
 }
+
+export interface DbBase {
+  services: ServicesBase
+}

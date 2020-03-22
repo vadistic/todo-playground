@@ -14,8 +14,11 @@
     "build": "tsc -p tsconfig.build.json",
     "test": "jest"
   },
-  "dependencies": {},
+  "dependencies": {
+    "faker": "^4.1.0"
+  },
   "devDependencies": {
+    "@types/faker": "^4.1.10",
     "@vadistic/eslint-config-node": "^0.1.8",
     "@vadistic/prettier-config": "^0.1.8",
     "eslint": "^6.8.0",

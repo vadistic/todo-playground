@@ -1,35 +1,43 @@
-import { ServicesBase } from '../services'
+import { DbBase, SystemColumnNames } from '../services'
+import { TaskEntityBase } from '../entities'
 
-export const taskBasicTests = (dbCb: () => { services: ServicesBase }) => {
-  const taskFixture = {
-    id: 1,
-    name: 'My unique task',
+export const testTaskBasic = (dbCb: () => DbBase) => {
+  const pluckSysFields = <T>(val: T): Omit<T, SystemColumnNames> => {
+    const cp: any = { ...val }
+
+    'id' in cp && delete cp.id
+    'createdAt' in cp && delete cp.createdAt
+    'updatedAt' in cp && delete cp.updatedAt
+
+    return cp
+  }
+
+  let fixture: TaskEntityBase = {
+    id: 123,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    name: 'My unique task 123',
     content: null,
     finished: false,
   }
 
-  it('createOne', async () => {
-    const { id, ...data } = taskFixture
+  beforeAll(async () => {
+    const res = await dbCb().services.task.createOne({ data: pluckSysFields(fixture) })
 
-    const res = await dbCb().services.task.createOne({ data })
-
-    expect(res).toMatchObject(data)
-
-    // set id for further tests
-    taskFixture.id = id
+    fixture = res
   })
 
-  it('findOne', async () => {
+  it('createOne & findOne', async () => {
     const res = await dbCb().services.task.findOne({
-      where: { id: taskFixture.id },
+      where: { id: fixture.id },
     })
 
-    expect(res).toMatchObject(taskFixture)
+    expect(res).toMatchObject(pluckSysFields(fixture))
   })
 
   it('findMany > name filter ok', async () => {
     const [res] = await dbCb().services.task.findMany({ where: { name: 'My' } })
-    expect(res).toMatchObject(taskFixture)
+    expect(res).toMatchObject(pluckSysFields(fixture))
   })
 
   it('findMany > name filter fail', async () => {
@@ -43,26 +51,35 @@ export const taskBasicTests = (dbCb: () => { services: ServicesBase }) => {
   it('updateOne', async () => {
     const updateData = { name: 'My renamed task', finished: true }
 
-    const res = await dbCb().services.task.updateOne({
-      where: { id: 1 },
+    const res1 = await dbCb().services.task.updateOne({
+      where: { id: fixture.id },
       data: updateData,
     })
 
-    expect(res).toMatchObject({
-      ...taskFixture,
+    const res2 = await dbCb().services.task.findOne({ where: { id: fixture.id } })
+
+    const fix = {
+      ...pluckSysFields(fixture),
       ...updateData,
-    })
+    }
+
+    // from update
+    expect(res1).toMatchObject(fix)
+    // from find
+    expect(res2).toMatchObject(fix)
   })
 
-  it('deleteOne', async () => {
+  it('deleteOne > returns deleted record', async () => {
     const res = await dbCb().services.task.deleteOne({
-      where: { id: 1 },
+      where: { id: fixture.id },
     })
 
-    expect(res.id).toBe(taskFixture.id)
+    expect(res.id).toBe(fixture.id)
+  })
 
-    const res2 = await dbCb().services.task.findOne({ where: { id: 1 } })
+  it('deleteOne > really deletes record', async () => {
+    const res = await dbCb().services.task.findOne({ where: { id: fixture.id } })
 
-    expect(res2).toBe(null)
+    expect(res).toBe(null)
   })
 }

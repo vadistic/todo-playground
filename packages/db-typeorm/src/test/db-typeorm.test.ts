@@ -1,4 +1,4 @@
-import { taskBasicTests } from '@todo/shared-db'
+import { testTaskBasic } from '@todo/shared-db'
 import './setup-test-db'
 import { createDb, DbTypeOrm } from '..'
 
@@ -17,5 +17,5 @@ describe('db-typeorm > basic', () => {
     expect(db.ctn.isConnected).toBeTruthy()
   })
 
-  taskBasicTests(() => db)
+  testTaskBasic(() => db)
 })
