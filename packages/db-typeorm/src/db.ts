@@ -5,13 +5,14 @@ import { createServices } from './services'
 
 export const entities = [TaskEntity]
 
-export const DB_PATH = path.join(__dirname, '../temp/dev.db')
+export const DB_PATH = path.join(process.cwd(), process.env.SQLITE_URL ?? 'temp/dev.db')
 
 export const connectionOptions: ConnectionOptions = {
   type: 'sqlite',
   database: DB_PATH,
   entities,
-  logging: true,
+  logging: ['error'],
+  synchronize: true,
 }
 
 export interface DbTypeOrm {

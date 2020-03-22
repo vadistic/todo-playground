@@ -1,58 +1,102 @@
-import { Connection, In, Like, LessThan, MoreThan, FindOperator, Between } from 'typeorm'
+import { Connection, SelectQueryBuilder } from 'typeorm'
 import {
   TaskFindOneArgs,
   TaskFindManyArgs,
   TaskServiceBase,
-  Nullable,
   TaskCreateOneArgs,
   TaskUpdateOneArgs,
   TaskDeleteOneArgs,
+  TaskEntityBase,
 } from '@todo/shared-db'
 import { buildPaginator } from 'typeorm-cursor-pagination'
 
 import { TaskEntity } from './entities'
 
-const RESULTS_MAX = 100
-const RESULTS_DEFUALT = 20
+const DEFAULT_LIMIT = 20
 
 export class TaskService implements TaskServiceBase {
   constructor(public ctn: Connection, public repo = ctn.getRepository(TaskEntity)) {}
 
   async findOne(args: TaskFindOneArgs) {
-    return this.repo.findOne(args.where.id)
+    const res = await this.repo.findOne(args.where.id)
+    return res ?? null
   }
 
   async findMany(args: TaskFindManyArgs) {
-    const qb = this.repo.createQueryBuilder().where({
-      id: cond(In, args.where.ids),
-      finished: args.where.finished,
-      name: cond(Like, args.where.name),
-      content: cond(Like, args.where.content),
-      createdAt: range(args.where.createdAfter, args.where.createdBefore),
-      updatedAt: range(args.where.updatedAfter, args.where.updatedBefore),
-    })
+    const qb = this.repo.createQueryBuilder('task').select('task.*')
 
-    if (args.limit && args.limit > RESULTS_MAX) {
-      throw Error(`Exceeded service result limit. RESULTS_MAX = ${RESULTS_MAX}`)
+    // TODO: this really should be generalised
+    const filter = (qb: SelectQueryBuilder<TaskEntity>) => {
+      const {
+        ids,
+        name,
+        content,
+        finished,
+        createdBefore,
+        createdAfter,
+        updatedBefore,
+        updatedAfter,
+      } = args.where
+
+      const skip = '1=1'
+
+      type Defined<T> = T extends undefined ? never : T
+      const def = <T>(val: T): val is Defined<T> => val !== undefined
+
+      qb.andWhere(def(ids) ? 'task.id IN (...:ids)' : skip, { ids })
+        .andWhere(def(name) ? 'task.name LIKE :name' : skip, { name: `%${name}%` })
+        .andWhere(def(content) ? 'task.content LIKE :content' : skip, {
+          content: `%${content}%`,
+        })
+        .andWhere(def(finished) ? 'task.finished = :finished' : skip, { finished })
+        .andWhere(
+          def(createdBefore) && def(createdAfter)
+            ? 'task.createdAt BETWEEN :createdBefore AND :createdAfter'
+            : def(createdBefore)
+            ? 'task.createdAt <= :createdBefore'
+            : def(createdAfter)
+            ? 'task.createdAt >= :createdAfter'
+            : skip,
+          { createdBefore, createdAfter },
+        )
+        .andWhere(
+          def(updatedBefore) && def(updatedAfter)
+            ? 'task.updatedAt BETWEEN :updatedBefore AND :updatedAfter'
+            : def(updatedBefore)
+            ? 'task.updatedAt <= :updatedBefore'
+            : def(updatedAfter)
+            ? 'task.updatedAt >= :updatedAfter'
+            : skip,
+          { updatedBefore, updatedAfter },
+        )
+
+      return qb
     }
 
+    // sqlite does not support booleans AND typeorm qb does not support transforms
+    const tranformResult = (arr: TaskEntityBase[]): TaskEntityBase[] =>
+      arr.map(res => ({
+        ...res,
+        finished: !!res.finished,
+      }))
+
     if (!args.after && !args.before) {
-      return qb.execute()
+      return tranformResult(await filter(qb).execute())
     }
 
     const paginator = buildPaginator({
       entity: TaskEntity,
       query: {
-        limit: args.limit ?? RESULTS_DEFUALT,
+        limit: args.limit ?? DEFAULT_LIMIT,
         order: 'DESC',
         beforeCursor: args.before ? '' + args.before : undefined,
         afterCursor: args.after ? '' + args.after : undefined,
       },
     })
 
-    const { data } = await paginator.paginate(qb)
+    const { data } = await paginator.paginate(filter(qb))
 
-    return data
+    return tranformResult(data)
   }
 
   async createOne(args: TaskCreateOneArgs) {
@@ -64,22 +108,14 @@ export class TaskService implements TaskServiceBase {
   }
 
   async deleteOne(args: TaskDeleteOneArgs) {
-    return this.repo.remove(this.repo.create({ id: args.where.id }))
+    const res = await this.repo.findOneOrFail(args.where.id)
+    const cp = { ...res }
+
+    await this.repo.remove(res)
+
+    return cp
   }
 }
-
-// ────────────────────────────────────────────────────────────────────────────────
-
-type FindFn<T> = (val: T) => FindOperator<T>
-
-const cond = <T>(op: FindFn<T>, val: Nullable<T>) => {
-  if (val === null || val === undefined) return
-
-  return op(val)
-}
-
-const range = <T>(from: Nullable<T>, to: Nullable<T>) =>
-  to && from ? Between(to, from) : to ? LessThan(to) : cond(MoreThan, from)
 
 // ────────────────────────────────────────────────────────────────────────────────
 

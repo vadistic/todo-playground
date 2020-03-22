@@ -12,7 +12,7 @@ afterAll(async () => {
   await db.prisma.disconnect()
 })
 
-describe('db-prisma basic', () => {
+describe('db-prisma > basic', () => {
   it('connects', async () => {
     expect(typeof (await db.prisma.task.count())).toBe('number')
   })
@@ -75,8 +75,4 @@ describe('db-prisma basic', () => {
 
     expect(res2).toBe(null)
   })
-})
-
-describe('db-prisma complex', () => {
-  it('create like 20 tasks', () => {})
 })

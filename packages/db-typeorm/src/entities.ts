@@ -25,6 +25,9 @@ export class TaskEntity extends BaseEntity implements TaskEntityBase {
   @Column('text', { nullable: true })
   content: Nullable<string>
 
-  @Column('boolean', { default: false })
+  @Column('boolean', {
+    default: false,
+    // transformer: { to: (val: boolean) => (val ? 1 : 0), from: (val: number) => !!val },
+  })
   finished!: boolean
 }
