@@ -10,7 +10,10 @@
     "clean": "rm -rf dist",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint src.{ts,tsx} --fix",
-    "build": "parcel build src/styles.scss && cp src/styles.scss dist",
+    "build": "yarn build:min && yarn build:normal && yarn build:cp",
+    "build:min": "parcel build src/styles.scss && cp dist/styles.css dist/styles.min.css",
+    "build:normal": "parcel build --no-minify src/styles.scss",
+    "build:cp": "cp src/styles.scss dist",
     "start": "echo TODO",
     "dev": "yarn parcel src/index.html",
     "test": "jest"
