@@ -63,3 +63,7 @@ export interface TaskServiceBase {
 
   deleteOne(args: TaskDeleteOneArgs): Promisable<TaskEntityBase>
 }
+
+export interface ServicesBase {
+  task: TaskServiceBase
+}
