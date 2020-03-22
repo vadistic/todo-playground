@@ -7,11 +7,16 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist && rm -f ./*.tsbuildinfo",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint src.{ts,tsx} --fix",
     "build": "tsc -p tsconfig.build.json",
-    "test": "jest"
+    "test": "jest",
+    "db:clean": "rm -rf temp",
+    "db:init": "echo noop",
+    "db:seed": "ts-node -T ./src/scripts/seed.ts",
+    "db:cptest": "cp ./temp/dev.db ./temp/test.db",
+    "db:setup": "yarn db:clean && yarn db:init && yarn db:seed && yarn db:cptest"
   },
   "dependencies": {
     "@todo/shared-db": "0.1.0",

@@ -20,7 +20,7 @@ const Query = objectType({
         id: intArg({ nullable: false }),
       },
       resolve: (_, args, ctx) => {
-        return ctx.db.services.task.findOne(args)
+        return ctx.db.services.task.findOne({ where: { id: args.id } })
       },
     })
 
@@ -32,7 +32,7 @@ const Query = objectType({
         ids: intArg({ nullable: true, list: true }),
       },
       resolve: (_, args, ctx) => {
-        return ctx.db.services.task.findMany(args)
+        return ctx.db.services.task.findMany({ where: { ids: args.ids } })
       },
     })
   },
