@@ -1,7 +1,7 @@
 import f from 'faker'
-import { BackendBase, TaskCreateOneArgs } from '../interfaces'
+import { ModuleBase, TaskCreateOneArgs } from '../interfaces'
 
-export const seedTasks = (db: BackendBase) => {
+export const seedTasks = (ctx: ModuleBase) => {
   f.seed(1234)
 
   const generateTaskData = (): TaskCreateOneArgs['data'] => ({
@@ -11,6 +11,6 @@ export const seedTasks = (db: BackendBase) => {
   })
 
   return Promise.all(
-    Array.from({ length: 50 }).map(() => db.services.task.createOne({ data: generateTaskData() })),
+    Array.from({ length: 50 }).map(() => ctx.services.task.createOne({ data: generateTaskData() })),
   )
 }

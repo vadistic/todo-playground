@@ -1,22 +1,22 @@
 import './setup'
-import { BackendMongoose, createBackend } from '../create'
+import { MongooseModule, createModule } from '../create'
 
-let mod = (undefined as unknown) as BackendMongoose
+let ctx = (undefined as unknown) as MongooseModule
 
 beforeAll(async () => {
-  mod = await createBackend()
+  ctx = await createModule()
 })
 
 afterAll(async () => {
-  await mod.db.disconnect()
+  await ctx.db.disconnect()
 })
 
 describe('db-mongoose', () => {
   it('connects', () => {
-    expect(mod.db.connection.readyState).toBe(1)
+    expect(ctx.db.connection.readyState).toBe(1)
   })
 
   it('deletes empty keys from filters', async () => {
-    await mod.services.task.findMany({ where: { content: 'abc' } })
+    await ctx.services.task.findMany({ where: { content: 'abc' } })
   })
 })

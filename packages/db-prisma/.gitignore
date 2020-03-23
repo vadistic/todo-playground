@@ -34,3 +34,5 @@ lerna-debug.log*
 
 # Testing
 temp
+
+prisma/migrations

@@ -13,8 +13,13 @@ function clone_temp_db () {
     mongodump --archive --db=test | mongorestore --archive  --nsFrom='test.*' --nsTo='test-temp.*'
 }
 
+
 function bootstrap () {
     run_docker
+    
+    # seed
+    
+    clone_test_db
 }
 
 "$@"

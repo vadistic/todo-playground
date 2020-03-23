@@ -1,8 +1,7 @@
 import path from 'path'
 
-export const getDbFile = (name: string): string => path.join(process.cwd(), `temp/${name}.db`)
-// ! from prisma.schema
-export const getDbUrl = (name: string): string => `file:../temp/${name}.db`
+export const getDbFile = (dbName: string): string => path.join(process.cwd(), `temp/${dbName}.db`)
+export const getDbUrl = (dbName: string): string => `file:temp/${dbName}.db`
 
 const DB_NAME = process.env.DB_NAME || 'dev'
 const DB_FILE = process.env.DB_NAME || getDbFile(DB_NAME)

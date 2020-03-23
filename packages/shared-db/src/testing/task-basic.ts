@@ -1,6 +1,6 @@
-import { TaskBase, BackendBase, SystemColumnNames } from '../interfaces'
+import { TaskBase, ModuleBase, SystemColumnNames } from '../interfaces'
 
-export const testTaskBasic = (dbCb: () => BackendBase) => {
+export const testTaskBasic = (getCtx: () => ModuleBase) => {
   const pluckSysFields = <T>(val: T): Omit<T, SystemColumnNames> => {
     const cp: any = { ...val }
 
@@ -12,7 +12,7 @@ export const testTaskBasic = (dbCb: () => BackendBase) => {
   }
 
   let fixture: TaskBase = {
-    id: 123,
+    id: 'aaa-123',
     createdAt: new Date(),
     updatedAt: new Date(),
     name: 'My unique task 123',
@@ -21,13 +21,13 @@ export const testTaskBasic = (dbCb: () => BackendBase) => {
   }
 
   beforeAll(async () => {
-    const res = await dbCb().services.task.createOne({ data: pluckSysFields(fixture) })
+    const res = await getCtx().services.task.createOne({ data: pluckSysFields(fixture) })
 
     fixture = res
   })
 
   it('createOne & findOne', async () => {
-    const res = await dbCb().services.task.findOne({
+    const res = await getCtx().services.task.findOne({
       where: { id: fixture.id },
     })
 
@@ -35,12 +35,12 @@ export const testTaskBasic = (dbCb: () => BackendBase) => {
   })
 
   it('findMany > name filter ok', async () => {
-    const [res] = await dbCb().services.task.findMany({ where: { name: 'My' } })
+    const [res] = await getCtx().services.task.findMany({ where: { name: 'My' } })
     expect(res).toMatchObject(pluckSysFields(fixture))
   })
 
   it('findMany > name filter fail', async () => {
-    const res = await dbCb().services.task.findMany({
+    const res = await getCtx().services.task.findMany({
       where: { name: 'assdjh34489u3@#$%^&' },
     })
 
@@ -50,12 +50,12 @@ export const testTaskBasic = (dbCb: () => BackendBase) => {
   it('updateOne', async () => {
     const updateData = { name: 'My renamed task', finished: true }
 
-    const res1 = await dbCb().services.task.updateOne({
+    const res1 = await getCtx().services.task.updateOne({
       where: { id: fixture.id },
       data: updateData,
     })
 
-    const res2 = await dbCb().services.task.findOne({ where: { id: fixture.id } })
+    const res2 = await getCtx().services.task.findOne({ where: { id: fixture.id } })
 
     const fix = {
       ...pluckSysFields(fixture),
@@ -69,7 +69,7 @@ export const testTaskBasic = (dbCb: () => BackendBase) => {
   })
 
   it('deleteOne > returns deleted record', async () => {
-    const res = await dbCb().services.task.deleteOne({
+    const res = await getCtx().services.task.deleteOne({
       where: { id: fixture.id },
     })
 
@@ -77,7 +77,7 @@ export const testTaskBasic = (dbCb: () => BackendBase) => {
   })
 
   it('deleteOne > really deletes record', async () => {
-    const res = await dbCb().services.task.findOne({ where: { id: fixture.id } })
+    const res = await getCtx().services.task.findOne({ where: { id: fixture.id } })
 
     expect(res).toBe(null)
   })

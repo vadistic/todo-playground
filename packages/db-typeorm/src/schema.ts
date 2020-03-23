@@ -6,11 +6,11 @@ import {
   UpdateDateColumn,
   BaseEntity,
 } from 'typeorm'
-import { TaskEntityBase, ID, Nullable, DateTime } from '@todo/shared-db'
+import { TaskBase, ID, Nullable, DateTime } from '@todo/shared-db'
 
 @Entity({ name: 'Task' })
-export class TaskEntity extends BaseEntity implements TaskEntityBase {
-  @PrimaryGeneratedColumn('increment')
+export class TaskEntity extends BaseEntity implements TaskBase {
+  @PrimaryGeneratedColumn('uuid')
   id!: ID
 
   @CreateDateColumn()

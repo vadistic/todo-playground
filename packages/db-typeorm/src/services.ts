@@ -6,11 +6,11 @@ import {
   TaskCreateOneArgs,
   TaskUpdateOneArgs,
   TaskDeleteOneArgs,
-  TaskEntityBase,
+  TaskBase,
 } from '@todo/shared-db'
 import { buildPaginator } from 'typeorm-cursor-pagination'
 
-import { TaskEntity } from './entities'
+import { TaskEntity } from './schema'
 
 const DEFAULT_LIMIT = 20
 
@@ -74,7 +74,7 @@ export class TaskService implements TaskServiceBase {
     }
 
     // sqlite does not support booleans AND typeorm qb does not support transforms
-    const tranformResult = (arr: TaskEntityBase[]): TaskEntityBase[] =>
+    const tranformResult = (arr: TaskBase[]): TaskBase[] =>
       arr.map(res => ({
         ...res,
         finished: !!res.finished,

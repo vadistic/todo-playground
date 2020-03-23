@@ -1,13 +1,13 @@
 import mongoose, { Model, Mongoose } from 'mongoose'
 import { TaskSchema, TaskDocument } from './schema'
 import { createServices } from './services'
-import { DB_URL } from './config'
+import { CONFIG } from './config'
 
 export interface Models {
   task: Model<TaskDocument>
 }
 
-export interface BackendMongoose {
+export interface MongooseModule {
   db: Mongoose
   services: ReturnType<typeof createServices>
   models: Models
@@ -15,8 +15,8 @@ export interface BackendMongoose {
 
 const TaskModel = mongoose.model<TaskDocument>('Task', TaskSchema)
 
-export const createBackend = async (): Promise<BackendMongoose> => {
-  await mongoose.connect(DB_URL, {
+export const createModule = async (): Promise<MongooseModule> => {
+  await mongoose.connect(CONFIG.DB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     loggerLevel: 'error',

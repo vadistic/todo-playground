@@ -1,20 +1,11 @@
 import { seedTasks } from '@todo/shared-db'
-import { createDb } from '../db'
+import { createModule } from '../create'
 
 export const seed = async () => {
   process.env.SQLITE_URL = '/temp/dev.db'
 
-  const db = await createDb()
-  await seedTasks(db)
+  const mod = await createModule()
+  await seedTasks(mod)
 }
 
 seed()
-  .then(() => {
-    console.log('Seed ok!')
-    // dunno why ts-node hangs
-    process.exit()
-  })
-  .catch(e => {
-    console.log('Seed fail!')
-    console.error(e)
-  })

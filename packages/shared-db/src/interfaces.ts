@@ -1,6 +1,6 @@
 import { Nullable } from './types'
 
-export type ID = number | string
+export type ID = string
 export type DateTime = Date
 
 export type OrderDirection = 'ASC' | 'DESC'
@@ -88,6 +88,6 @@ export interface ServicesBase {
   task: TaskServiceBase
 }
 
-export interface BackendBase {
+export interface ModuleBase {
   services: ServicesBase
 }

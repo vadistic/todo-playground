@@ -1,4 +1,4 @@
 import 'reflect-metadata'
 
-export * from './entities'
-export * from './db'
+export * from './schema'
+export * from './create'

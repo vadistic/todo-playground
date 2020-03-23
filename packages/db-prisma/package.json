@@ -8,21 +8,15 @@
   "private": true,
   "main": "dist/index.js",
   "scripts": {
+    "scripts": "sh ./scripts.sh",
     "clean": "rm -rf dist *.tsbuildinfo",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint src.{ts,tsx} --fix",
     "build": "tsc -p tsconfig.build.json",
-    "start": "echo TODO",
-    "test": "jest",
+    "test": "sh ./scripts.sh clone_temp_db && yarn jest",
     "generate": "prisma2 generate",
     "postinstall": "npm -s run generate",
-    "db:clean": "rm -rf temp",
-    "db:init": "yarn db:migrate:save && yarn db:migrate:up",
-    "db:seed": "ts-node -T ./src/scripts/seed.ts",
-    "db:cptest": "cp ./temp/dev.db ./temp/test.db",
-    "db:migrate:save": "prisma2 migrate save --experimental --name init",
-    "db:migrate:up": "prisma2 migrate up --experimental -c",
-    "db:setup": "yarn db:clean && yarn db:init && yarn db:seed && yarn db:cptest"
+    "bootstrap": "yarn scripts bootstrap"
   },
   "dependencies": {
     "@prisma/client": "^2.0.0-preview024",

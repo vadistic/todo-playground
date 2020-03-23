@@ -1,7 +1,7 @@
 import { TaskFindOneArgs, TaskServiceBase, TaskFindManyArgs } from '@todo/shared-db'
-import { FilterQuery } from 'mongoose'
 import { Models } from './create'
 import { TaskDocument } from './schema'
+import { makeFilter } from './utils'
 
 export class TaskService implements Partial<TaskServiceBase> {
   constructor(public models: Models) {}
@@ -31,20 +31,3 @@ export class TaskService implements Partial<TaskServiceBase> {
 export const createServices = (models: Models) => ({
   task: new TaskService(models),
 })
-
-// ────────────────────────────────────────────────────────────────────────────────
-
-const filterKeys = <T>(from: T, cond: (key: string) => boolean): Partial<T> => {
-  const cp = { ...from }
-
-  for (const key of Object.keys(from)) {
-    if (cond(key)) {
-      delete cp[key as keyof T]
-    }
-  }
-
-  return cp
-}
-
-const makeFilter = <T>(args: any, filter: FilterQuery<T>) =>
-  filterKeys(filter, key => (key === '_id' ? args.ids === undefined : args[key] === undefined))
