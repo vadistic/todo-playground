@@ -1,2 +1,2 @@
 export type Nullable<T> = T | undefined | null
-export type Promisable<T> = T | Promise<T>
+export type PromiseLike<T> = T | Promise<T>

@@ -1,7 +1,6 @@
-import { DbBase, SystemColumnNames } from '../services'
-import { TaskEntityBase } from '../entities'
+import { TaskBase, BackendBase, SystemColumnNames } from '../interfaces'
 
-export const testTaskBasic = (dbCb: () => DbBase) => {
+export const testTaskBasic = (dbCb: () => BackendBase) => {
   const pluckSysFields = <T>(val: T): Omit<T, SystemColumnNames> => {
     const cp: any = { ...val }
 
@@ -12,7 +11,7 @@ export const testTaskBasic = (dbCb: () => DbBase) => {
     return cp
   }
 
-  let fixture: TaskEntityBase = {
+  let fixture: TaskBase = {
     id: 123,
     createdAt: new Date(),
     updatedAt: new Date(),

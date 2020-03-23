@@ -1,7 +1,7 @@
 import f from 'faker'
-import { DbBase, TaskCreateOneArgs } from '../services'
+import { BackendBase, TaskCreateOneArgs } from '../interfaces'
 
-export const seedTasks = (db: DbBase) => {
+export const seedTasks = (db: BackendBase) => {
   f.seed(1234)
 
   const generateTaskData = (): TaskCreateOneArgs['data'] => ({
