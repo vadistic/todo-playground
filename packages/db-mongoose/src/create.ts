@@ -1,5 +1,5 @@
 import mongoose, { Model, Mongoose } from 'mongoose'
-import { TaskSchema, TaskDocument } from './schema'
+import { TaskDocument, TaskModel } from './schema'
 import { createServices } from './services'
 import { CONFIG } from './config'
 
@@ -12,8 +12,6 @@ export interface MongooseModule {
   services: ReturnType<typeof createServices>
   models: Models
 }
-
-const TaskModel = mongoose.model<TaskDocument>('Task', TaskSchema)
 
 export const createModule = async (): Promise<MongooseModule> => {
   await mongoose.connect(CONFIG.DB_URL, {

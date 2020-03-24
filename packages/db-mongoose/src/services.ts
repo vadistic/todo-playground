@@ -1,30 +1,44 @@
-import { TaskFindOneArgs, TaskServiceBase, TaskFindManyArgs } from '@todo/shared-db'
+import {
+  TaskFindOneArgs,
+  TaskServiceBase,
+  TaskFindManyArgs,
+  TaskCreateOneArgs,
+  TaskBase,
+} from '@todo/shared-db'
 import { Models } from './create'
-import { TaskDocument } from './schema'
-import { makeFilter } from './utils'
+import { TaskDocument, TaskModel } from './schema'
+import { makeFilter, fixId } from './utils'
 
 export class TaskService implements Partial<TaskServiceBase> {
   constructor(public models: Models) {}
 
   async findOne(args: TaskFindOneArgs) {
-    const res = await this.models.task.findOne({})
+    const res = await this.models.task.findById(args.where.id).lean()
 
-    return res
+    return fixId(res) as TaskBase
   }
 
   async findMany(args: TaskFindManyArgs) {
-    const query = makeFilter<TaskDocument>(
-      {
-        _id: { $in: args.where.ids as string[] },
-        name: { $regex: `.*${args.where.name}.*` },
-        content: { $regex: `.*${args.where.content}.*` },
-      },
-      args.where,
-    )
+    const cond = makeFilter<TaskDocument>(args.where, {
+      _id: { $in: args.where.ids as string[] },
+      name: { $regex: `.*${args.where.name}.*` },
+      content: { $regex: `.*${args.where.content}.*` },
+      finished: { $eq: args.where.finished },
+      createdAt: { $gte: args.where.createdAfter, $lte: args.where.createdBefore },
+      updatedAt: { $gte: args.where.updatedAfter, $lte: args.where.updatedBefore },
+    })
 
-    const res = await this.models.task.find(query)
+    const res = await this.models.task.find(cond).lean()
 
-    return res
+    return res.map(fixId)
+  }
+
+  async createOne(args: TaskCreateOneArgs) {
+    const doc = new TaskModel(args.data)
+
+    const res = await doc.save()
+
+    return res.toObject()
   }
 }
 
