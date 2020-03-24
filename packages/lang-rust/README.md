@@ -4,6 +4,26 @@
 
 Hello world :)
 
+## Stack
+
+### Requirements
+
+`rustc` / `rustup` / `cargo`
+
+https://www.rust-lang.org/tools/install
+
+### Libs
+
+- lang: `rust`
+- db: `sqlite`
+- orm: [`diesel`](https://github.com/diesel-rs/diesel)
+- graphql: [`juniper`](https://github.com/graphql-rust/juniper)
+- http framework: (TODO: evaluate)
+  - https://github.com/hyperium/hyper
+  - https://github.com/iron/iron
+  - https://github.com/SergioBenitez/Rocket
+  - https://github.com/seanmonstar/warp
+
 ## Resources
 
 - https://doc.rust-lang.org/book/
@@ -11,16 +31,3 @@ Hello world :)
 - https://stevedonovan.github.io/rust-gentle-intro/
 - https://learning-rust.github.io/docs/
 - https://rust-lang-nursery.github.io/rust-cookbook/
-
-## Stack
-
-- lang: rust
-- db: sqlite
-- orm: https://github.com/diesel-rs/diesel
-- graphql: https://github.com/graphql-rust/juniper
-
-- http framework: (TODO: evaluate)
-  - https://github.com/hyperium/hyper
-  - https://github.com/iron/iron
-  - https://github.com/SergioBenitez/Rocket
-  - https://github.com/seanmonstar/warp
