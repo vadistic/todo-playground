@@ -10,7 +10,8 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "lerna run build"
+    "build": "lerna run build --ignore=lang=*",
+    "bump": "lerna exec ncu --ignore=lang=*"
   },
   "devDependencies": {
     "@types/jest": "^25.1.4",

@@ -1,24 +1,21 @@
 # @todo/lang-dotnet
 
-## Status
-
-Hello world :)
+C# .NET Core backend. Currently in tutorial-rest-api phase.
 
 ## Stack
 
-### Requirements
+- lang: `C#`
+- db: ??
+- orm: [`efcore`](https://github.com/dotnet/efcore)
+- graphql: [`graphql-dotnet`](https://github.com/graphql-dotnet/graphql-dotnet)
+- framework: `.NET Core`
 
-`dotnet-runtime` / `dotnet-sdk`
+### Requiremens
+
+- `dotnet-runtime`
+- `dotnet-sdk`
 
 https://www.rust-lang.org/tools/install
-
-### Libs
-
-- lang: `C#`
-- db: `sqlite`
-- orm: [`entity-framework/efcore`](https://github.com/dotnet/efcore)
-- graphql: [`graphql-dotnet`](https://github.com/graphql-dotnet/graphql-dotnet)
-- framework: `.NET`
 
 ## Resources
 

@@ -1,18 +1,8 @@
 # @todo/lang-rust
 
-## Status
-
-Hello world :)
+Rust backend in hello world phase :)
 
 ## Stack
-
-### Requirements
-
-`rustc` / `rustup` / `cargo`
-
-https://www.rust-lang.org/tools/install
-
-### Libs
 
 - lang: `rust`
 - db: `sqlite`
@@ -23,6 +13,14 @@ https://www.rust-lang.org/tools/install
   - https://github.com/iron/iron
   - https://github.com/SergioBenitez/Rocket
   - https://github.com/seanmonstar/warp
+
+### Requirements
+
+`rustc` / `rustup` / `cargo`
+
+https://www.rust-lang.org/tools/install
+
+### Libs
 
 ## Resources
 

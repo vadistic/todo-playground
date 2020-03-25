@@ -1,13 +1,18 @@
 # @todo/lang-go
 
-## Status
-
 TODO
 
 ## Stack
 
-### Requirements
+- lang: `go`
+- orm: ??
+- graphql: https://github.com/graphql-go/graphql OR https://github.com/graph-gophers/graphql-go
+- db: ??
 
-### Libs
+### Requiremens
+
+- `go/golang`
+
+https://golang.org/doc/install
 
 ## Resources

@@ -28,7 +28,7 @@
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "eslint": "^6.8.0",
-    "prettier": "^1.19.1",
+    "prettier": "^2.0.2",
     "prisma2": "^2.0.0-preview024",
     "typescript": "^3.8.3"
   }

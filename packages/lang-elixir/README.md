@@ -1,19 +1,26 @@
 # @todo/lang-elixir
 
-## Status
+Elixir + Phoenix + Absinthe api. And maybe web app?
 
-TODO
+In boilerplate phase
 
 ## Stack
 
+- lang: `elixir`
+- framework: `phoenix`
+- graphql: `absinthe`
+- orm: `ecto`
+- db: `postgres`
+
 ### Requirements
 
-`elixir`, `hex`, `phx_new`, `inotify-tools`
+- `elixir`
+- `hex`
+- `phx_new`
+- `inotify-tools` (for some reason...)
 
 https://elixir-lang.org/install.html
 https://hexdocs.pm/phoenix/installation.html
-
-### Libs
 
 ## Resources
 

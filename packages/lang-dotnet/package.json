@@ -1,6 +1,7 @@
 {
   "name": "@todo/lang-dotnet",
   "scripts": {
+    "scripts": "sh ./scripts.sh",
     "build": "dotnet build src/Api",
     "start": "dotnet run -p src/Api",
     "dev": "dotnet watch run -p src/Api"

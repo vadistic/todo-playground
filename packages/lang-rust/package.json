@@ -7,12 +7,13 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "clean": "rm -rf target",
+    "scripts": "sh ./scripts.sh",
+    "clean": "cargo clean",
     "format": "cargo fmt",
     "lint": "cargo check",
     "build": "cargo build",
     "start": "cargo run",
-    "dev": "echo TODO",
+    "dev": "echo 'no dev watch script'",
     "test": "cargo test"
   }
 }

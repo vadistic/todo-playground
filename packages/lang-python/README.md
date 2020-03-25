@@ -1,13 +1,13 @@
 # @todo/lang-python
 
-## Status
-
 TODO
 
 ## Stack
 
-### Requirements
+- lang: `python`
 
-### Libs
+### Requiremens
+
+- `python`
 
 ## Resources
