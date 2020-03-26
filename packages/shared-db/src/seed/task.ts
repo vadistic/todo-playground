@@ -1,5 +1,5 @@
 import f from 'faker'
-import { ModuleBase, TaskCreateOneArgs, TaskBase } from '../interfaces'
+import { ModuleBase, TaskBase } from '../interfaces'
 
 const SEED_SIZE = 50
 const SEED_VALUE = 1233
@@ -23,13 +23,12 @@ export const generateTask = (): TaskBase => {
   }
 }
 
-export const generateTasks = (size = SEED_SIZE) =>
-  Array.from({ length: SEED_SIZE }).map(generateTask)
+export const generateTasks = (size = SEED_SIZE) => Array.from({ length: size }).map(generateTask)
 
 export const seedTasks = (ctx: ModuleBase) => {
   return Promise.all(
     generateTasks().map(({ id, createdAt, updatedAt, ...rest }) =>
-      ctx.services.task.createOne({ data: rest }),
+      ctx.service.task.createOne({ data: rest }),
     ),
   )
 }

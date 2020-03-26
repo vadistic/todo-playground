@@ -1,8 +1,8 @@
 #!/bin/bash
 
-function seed () {
-    echo 'seed()'
-    ts-node -T ./src/scripts/seed.ts
+function db_seed () {
+    echo 'db_seed()'
+    ts-node -T -e 'require("./src/test/seed").seed()'
 }
 
 function db_clean {
@@ -18,7 +18,7 @@ function db_cp_test {
 function bootstrap () {
     echo 'bootstrap()'
     db_clean
-    seed
+    db_seed
     db_cp_test
 }
 

@@ -89,5 +89,6 @@ export interface ServicesBase {
 }
 
 export interface ModuleBase {
-  services: ServicesBase
+  service: ServicesBase
+  close(): Promise<void>
 }

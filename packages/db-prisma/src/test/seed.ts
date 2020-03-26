@@ -5,5 +5,5 @@ export const seed = async () => {
   const ctx = await createModule()
   await seedTasks(ctx)
 
-  await ctx.prisma.disconnect()
+  await ctx.close()
 }

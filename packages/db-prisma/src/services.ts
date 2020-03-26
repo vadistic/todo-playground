@@ -7,6 +7,7 @@ import {
   TaskCreateOneArgs,
   TaskUpdateOneArgs,
   TaskDeleteOneArgs,
+  ServicesBase,
 } from '@todo/shared-db'
 
 const RESULTS_MAX = 100
@@ -62,6 +63,8 @@ const ifDefined = <T>(cond: any, val: Nullable<T>) => {
 
 // ────────────────────────────────────────────────────────────────────────────────
 
-export const createServices = (prisma: PrismaClient) => ({
-  task: new TaskService(prisma),
-})
+export class Services implements ServicesBase {
+  constructor(public prisma: PrismaClient) {}
+
+  public task = new TaskService(this.prisma)
+}

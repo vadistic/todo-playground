@@ -17,12 +17,15 @@
   },
   "dependencies": {
     "@todo/shared-db": "0.1.0",
+    "convict": "^5.2.0",
     "reflect-metadata": "^0.1.13",
-    "sqlite": "^3.0.6",
+    "sqlite": "^4.0.0-beta.7",
+    "sqlite3": "^4.1.1",
     "typeorm": "^0.2.24",
     "typeorm-cursor-pagination": "^0.2.2"
   },
   "devDependencies": {
+    "@types/convict": "^4.2.1",
     "@vadistic/eslint-config-node": "^0.1.8",
     "@vadistic/prettier-config": "^0.1.8",
     "eslint": "^6.8.0",

@@ -75,7 +75,7 @@ export class TaskService implements TaskServiceBase {
 
     // sqlite does not support booleans AND typeorm qb does not support transforms
     const tranformResult = (arr: TaskBase[]): TaskBase[] =>
-      arr.map(res => ({
+      arr.map((res) => ({
         ...res,
         finished: !!res.finished,
       }))
@@ -119,6 +119,8 @@ export class TaskService implements TaskServiceBase {
 
 // ────────────────────────────────────────────────────────────────────────────────
 
-export const createServices = (ctn: Connection) => ({
-  task: new TaskService(ctn),
-})
+export class Services {
+  constructor(public ctn: Connection) {}
+
+  public task = new TaskService(this.ctn)
+}

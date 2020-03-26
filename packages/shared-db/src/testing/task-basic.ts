@@ -21,13 +21,13 @@ export const runBasicTaskTests = (getCtx: () => ModuleBase) => {
   }
 
   beforeAll(async () => {
-    const res = await getCtx().services.task.createOne({ data: pluckSysFields(fixture) })
+    const res = await getCtx().service.task.createOne({ data: pluckSysFields(fixture) })
 
     fixture = res
   })
 
   it('createOne & findOne', async () => {
-    const res = await getCtx().services.task.findOne({
+    const res = await getCtx().service.task.findOne({
       where: { id: fixture.id },
     })
 
@@ -35,12 +35,12 @@ export const runBasicTaskTests = (getCtx: () => ModuleBase) => {
   })
 
   it('findMany > name filter ok', async () => {
-    const [res] = await getCtx().services.task.findMany({ where: { name: 'My' } })
+    const [res] = await getCtx().service.task.findMany({ where: { name: 'My' } })
     expect(res).toMatchObject(pluckSysFields(fixture))
   })
 
   it('findMany > name filter fail', async () => {
-    const res = await getCtx().services.task.findMany({
+    const res = await getCtx().service.task.findMany({
       where: { name: 'assdjh34489u3@#$%^&' },
     })
 
@@ -50,12 +50,12 @@ export const runBasicTaskTests = (getCtx: () => ModuleBase) => {
   it('updateOne', async () => {
     const updateData = { name: 'My renamed task', finished: true }
 
-    const res1 = await getCtx().services.task.updateOne({
+    const res1 = await getCtx().service.task.updateOne({
       where: { id: fixture.id },
       data: updateData,
     })
 
-    const res2 = await getCtx().services.task.findOne({ where: { id: fixture.id } })
+    const res2 = await getCtx().service.task.findOne({ where: { id: fixture.id } })
 
     const fix = {
       ...pluckSysFields(fixture),
@@ -69,7 +69,7 @@ export const runBasicTaskTests = (getCtx: () => ModuleBase) => {
   })
 
   it('deleteOne > returns deleted record', async () => {
-    const res = await getCtx().services.task.deleteOne({
+    const res = await getCtx().service.task.deleteOne({
       where: { id: fixture.id },
     })
 
@@ -77,7 +77,7 @@ export const runBasicTaskTests = (getCtx: () => ModuleBase) => {
   })
 
   it('deleteOne > really deletes record', async () => {
-    const res = await getCtx().services.task.findOne({ where: { id: fixture.id } })
+    const res = await getCtx().service.task.findOne({ where: { id: fixture.id } })
 
     expect(res).toBe(null)
   })

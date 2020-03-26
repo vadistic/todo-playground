@@ -2,10 +2,8 @@ import { seedTasks } from '@todo/shared-db'
 import { createModule } from '../create'
 
 export const seed = async () => {
-  process.env.SQLITE_URL = '/temp/dev.db'
+  const ctx = await createModule()
+  await seedTasks(ctx)
 
-  const mod = await createModule()
-  await seedTasks(mod)
+  await ctx.close()
 }
-
-seed()

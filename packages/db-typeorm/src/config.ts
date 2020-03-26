@@ -1,14 +1,20 @@
-import path from 'path'
+/* eslint-disable @typescript-eslint/camelcase */
+import convict from 'convict'
 
-export const getDbFile = (dbName: string): string => path.join(process.cwd(), `temp/${dbName}.db`)
-export const getDbUrl = (dbName: string): string => `file:temp/${dbName}.db`
+export const config = convict({
+  env: {
+    format: ['production', 'development', 'test'],
+    default: 'development',
+    env: 'NODE_ENV',
+  },
+  debug: {
+    env: 'DEBUG',
+    default: false,
+  },
+  db_file: {
+    env: 'DB_FILE',
+    default: '',
+  },
+})
 
-const DB_NAME = process.env.DB_NAME || 'dev'
-const DB_FILE = process.env.DB_NAME || getDbFile(DB_NAME)
-const DB_URL = process.env.DB_URL || getDbUrl(DB_NAME)
-
-export const CONFIG = {
-  DB_NAME,
-  DB_FILE,
-  DB_URL,
-}
+config.loadFile('./.env.json')

@@ -1,37 +1,43 @@
 import { ConnectionOptions, Connection, createConnection, Repository } from 'typeorm'
+import { ModuleBase } from '@todo/shared-db'
 import { TaskEntity } from './schema'
-import { createServices } from './services'
-import { CONFIG } from './config'
-
-export const connectionOptions: ConnectionOptions = {
-  type: 'sqlite',
-  database: CONFIG.DB_FILE,
-  entities: [TaskEntity],
-  logging: ['error'],
-  synchronize: true,
-}
+import { Services } from './services'
+import { config } from './config'
 
 export interface Repositories {
   task: Repository<TaskEntity>
 }
 
-export interface TypeormModule {
+export interface TypeormModule extends ModuleBase {
   ctn: Connection
-  repos: Repositories
-  services: ReturnType<typeof createServices>
+  repo: Repositories
+  service: Services
 }
 
 export const createModule = async (): Promise<TypeormModule> => {
-  const ctn = await createConnection(connectionOptions)
-  const services = createServices(ctn)
+  const connectionOptions: ConnectionOptions = {
+    type: 'sqlite',
+    database: config.get('db_file'),
+    entities: [TaskEntity],
+    logging: config.get('debug') ? 'all' : ['error'],
+    synchronize: true,
+  }
 
-  const repos = {
+  const ctn = await createConnection(connectionOptions)
+  const service = new Services(ctn)
+
+  const repo = {
     task: ctn.getRepository(TaskEntity),
+  }
+
+  const close = async () => {
+    await ctn.close()
   }
 
   return {
     ctn,
-    services,
-    repos,
+    service,
+    repo,
+    close,
   }
 }

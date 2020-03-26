@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import convict from 'convict'
 
 export const config = convict({

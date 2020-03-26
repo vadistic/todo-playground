@@ -1,4 +1,12 @@
 {
   "extends": "../../tsconfig.cjs.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "baseUrl": ".",
+
+    "paths": {
+      "@todo/db-shared": ["../shared-db/src"]
+    }
+  },
   "exclude": ["node_modules", "dist"]
 }

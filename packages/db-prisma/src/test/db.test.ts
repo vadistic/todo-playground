@@ -9,13 +9,12 @@ let ctx: PrismaModule
 
 beforeAll(async () => {
   ctx = await createModule()
-  await cleanup()
   await seedTasks(ctx)
 })
 
 afterAll(async () => {
   await cleanup()
-  await ctx.prisma.disconnect()
+  await ctx.close()
 })
 
 const cleanup = async () => {
@@ -32,7 +31,7 @@ describe('db-prisma > basic', () => {
   runBasicTaskTests(() => ctx)
 
   test('db is seeded', async () => {
-    const res = await ctx.services.task.findMany({ where: {} })
+    const res = await ctx.service.task.findMany({ where: {} })
 
     expect(res.length).toBeGreaterThanOrEqual(20)
   })
