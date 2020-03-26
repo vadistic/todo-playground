@@ -1,6 +1,6 @@
 import { TaskBase, ModuleBase, SystemColumnNames } from '../interfaces'
 
-export const testTaskBasic = (getCtx: () => ModuleBase) => {
+export const runBasicTaskTests = (getCtx: () => ModuleBase) => {
   const pluckSysFields = <T>(val: T): Omit<T, SystemColumnNames> => {
     const cp: any = { ...val }
 

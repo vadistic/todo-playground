@@ -1,6 +1,7 @@
 #!/bin/bash
 
 function run_docker () {
+    echo 'run_docker()'
     HAS_CONTAINER=$(sudo docker ps -a | grep "mongodb")
     
     
@@ -13,12 +14,19 @@ function run_docker () {
     fi
 }
 
+function run_mongoku () {
+    echo 'run_mongoku()'
+    sudo docker run -d --name mongoku -p 3100:3100 huggingface/mongoku
+}
+
 # https://docs.mongodb.com/v4.0/release-notes/4.0-compatibility/#deprecate-copydb-clone-cmds
-function clone_test_db () {
+function db_cp_test () {
+    echo 'db_cp_test()'
     mongodump --archive --db=dev | mongorestore --archive  --nsFrom='dev.*' --nsTo='test.*'
 }
 
-function clone_temp_db () {
+function db_cp_temp () {
+    echo 'db_cp_temp()'
     mongodump --archive --db=test | mongorestore --archive  --nsFrom='test.*' --nsTo='test-temp.*'
 }
 
@@ -28,7 +36,7 @@ function bootstrap () {
     
     # seed
     
-    clone_test_db
+    db_cp_test
 }
 
 "$@"

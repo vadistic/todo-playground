@@ -3233,6 +3233,13 @@
   resolved "https://registry.yarnpkg.com/@types/source-list-map/-/source-list-map-0.1.2.tgz#0078836063ffaf17412349bba364087e0ac02ec9"
   integrity sha512-K5K+yml8LTo9bWJI/rECfIPrGgxdpeNbj+d53lwN4QjW1MCwlkhUms+gtdzigTeUyBr09+u8BwOIY3MXvHdcsA==
 
+"@types/sqlite3@^3.1.6":
+  version "3.1.6"
+  resolved "https://registry.yarnpkg.com/@types/sqlite3/-/sqlite3-3.1.6.tgz#554ce76f886eb187cfc86e2f0bb67cbac4f568ce"
+  integrity sha512-OBsK0KIGUICExQ/ZvnPY4cKx5Kz4NcrVyGTIvOL5y4ajXu7r++RfBajfpGfGDmDVCKcoCDX1dO84/oeyeITnxA==
+  dependencies:
+    "@types/node" "*"
+
 "@types/stack-utils@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-1.0.1.tgz#0a851d3bd96498fa25c33ab7278ed3bd65f06c3e"
@@ -12864,7 +12871,7 @@ sql-template-strings@^2.2.2:
   resolved "https://registry.yarnpkg.com/sql-template-strings/-/sql-template-strings-2.2.2.tgz#3f11508a25addfce217a3042a9d300c3193b96ff"
   integrity sha1-PxFQiiWt384hejBCqdMAwxk7lv8=
 
-sqlite3@^4.0.0:
+sqlite3@^4.0.0, sqlite3@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/sqlite3/-/sqlite3-4.1.1.tgz#539a42e476640796578e22d589b3283c28055242"
   integrity sha512-CvT5XY+MWnn0HkbwVKJAyWEMfzpAPwnTiB3TobA5Mri44SrTovmmh499NPQP+gatkeOipqPlBLel7rn4E/PCQg==
@@ -12881,6 +12888,11 @@ sqlite@^3.0.6:
     sqlite3 "^4.0.0"
   optionalDependencies:
     sql-template-strings "^2.2.2"
+
+sqlite@^4.0.0-beta.7:
+  version "4.0.0-beta.7"
+  resolved "https://registry.yarnpkg.com/sqlite/-/sqlite-4.0.0-beta.7.tgz#0dfc80ac457a6d95314e6ac5552a8bc14a442c02"
+  integrity sha512-gSaRaCLPuNXMw21zoJQGhGMsCHaFpYl+vwxt09EadyEEoNoEuCRpCermqXgcFEl/57EgUSN2a1KX25Zj13SU3Q==
 
 sshpk@^1.7.0:
   version "1.16.1"

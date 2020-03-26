@@ -1,25 +1,25 @@
 #!/bin/bash
 
 function seed () {
-    echo 'seed...'
+    echo 'seed()'
     ts-node -T ./src/scripts/seed.ts
 }
 
-function clean_db {
-    echo 'clean_db...'
+function db_clean {
+    echo 'db_clean()'
     rm -rf temp/*.db
 }
 
-function cp_test_db {
-    echo 'cp_test_db...'
+function db_cp_test {
+    echo 'db_cp_test()'
     cp ./temp/dev.db ./temp/test.db
 }
 
 function bootstrap () {
-    echo 'bootstrap...'
-    clean_db
+    echo 'bootstrap()'
+    db_clean
     seed
-    cp_test_db
+    db_cp_test
 }
 
 

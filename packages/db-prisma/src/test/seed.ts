@@ -4,6 +4,6 @@ import { createModule } from '../create'
 export const seed = async () => {
   const ctx = await createModule()
   await seedTasks(ctx)
-}
 
-seed()
+  await ctx.prisma.disconnect()
+}

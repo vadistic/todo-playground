@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, PrismaClientOptions } from '@prisma/client'
 import { createServices } from './services'
 
 export interface PrismaModule {
@@ -7,22 +7,10 @@ export interface PrismaModule {
 }
 
 export const createModule = async (): Promise<PrismaModule> => {
-  const prisma = new PrismaClient({
-    log: [
-      {
-        level: 'info',
-        emit: 'stdout',
-      },
-      {
-        level: 'query',
-        emit: 'stdout',
-      },
-      {
-        level: 'warn',
-        emit: 'event',
-      },
-    ],
-  })
+  // ! do not use log/loglevel config or tests hang for some reason....
+  const opts: PrismaClientOptions = {}
+
+  const prisma = new PrismaClient(opts)
 
   await prisma.connect()
 

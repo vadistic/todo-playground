@@ -1,6 +1,6 @@
 import './setup'
 
-import { testTaskBasic } from '@todo/shared-db'
+import { runBasicTaskTests } from '@todo/shared-db'
 import { createModule, TypeormModule } from '../create'
 
 let ctx = (undefined as unknown) as TypeormModule
@@ -18,5 +18,5 @@ describe('db-typeorm > basic', () => {
     expect(ctx.ctn.isConnected).toBeTruthy()
   })
 
-  testTaskBasic(() => ctx)
+  runBasicTaskTests(() => ctx)
 })

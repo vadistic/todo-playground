@@ -13,7 +13,7 @@
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint src.{ts,tsx} --fix",
     "build": "tsc -p tsconfig.build.json",
-    "test": "sh ./scripts.sh clone_temp_db && yarn jest",
+    "test": "jest",
     "generate": "prisma2 generate",
     "postinstall": "npm -s run generate",
     "bootstrap": "yarn scripts bootstrap"
@@ -21,10 +21,13 @@
   "dependencies": {
     "@prisma/client": "^2.0.0-preview024",
     "@todo/shared-db": "0.1.0",
-    "convict": "^5.2.0"
+    "convict": "^5.2.0",
+    "sqlite": "^4.0.0-beta.7",
+    "sqlite3": "^4.1.1"
   },
   "devDependencies": {
     "@types/convict": "^4.2.1",
+    "@types/sqlite3": "^3.1.6",
     "@vadistic/eslint-config-node": "^0.1.8",
     "@vadistic/prettier-config": "^0.1.8",
     "cross-env": "^7.0.2",
