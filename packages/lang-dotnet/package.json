@@ -8,8 +8,8 @@
   "private": true,
   "scripts": {
     "scripts": "sh ./scripts.sh",
-    "build": "dotnet build src/Api",
-    "start": "dotnet run -p src/Api",
-    "dev": "dotnet watch run -p src/Api"
+    "build": "dotnet build Api",
+    "start": "dotnet run -p Api",
+    "dev": "dotnet watch run -p Api"
   }
 }
