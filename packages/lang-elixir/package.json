@@ -1,5 +1,5 @@
 {
-  "name": "@todo/lang-dotnet",
+  "name": "@todo/lang-elixir",
   "version": "0.1.0",
   "description": "Testing stacks with todo apps",
   "repository": "https://github.com/vadistic/todo",
@@ -8,8 +8,8 @@
   "private": true,
   "scripts": {
     "scripts": "sh ./scripts.sh",
-    "build": "dotnet build src/Api",
-    "start": "dotnet run -p src/Api",
-    "dev": "dotnet watch run -p src/Api"
+    "build": "mix",
+    "start": "mix phx.server",
+    "dev": "mix phx.server"
   }
 }

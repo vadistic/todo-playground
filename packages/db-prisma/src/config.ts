@@ -1,15 +1,48 @@
-import path from 'path'
+import convict from 'convict'
 
-export const getDbFile = (name: string): string => path.join(process.cwd(), `temp/${name}.db`)
-// ! from prisma.schema
-export const getDbUrl = (name: string): string => `file:../temp/${name}.db`
+export const config = convict({
+  env: {
+    doc: 'The application environment.',
+    format: ['production', 'development', 'test'],
+    default: 'development',
+    env: 'NODE_ENV',
+  },
+  db: {
+    file: {
+      doc: 'sqlite database file',
+      env: 'DB_FILE',
+      type: String,
+    },
+    url: {
+      doc: 'sqlite database url for prisma',
+      env: 'DB_URL',
+      type: String,
+    },
+  },
+  db_test: {
+    file: {
+      doc: 'sqlite template database file',
+      env: 'DB_FILE_TEST',
+      type: String,
+    },
+    url: {
+      doc: 'sqlite template database url for prisma',
+      env: 'DB_URL_TEST',
+      type: String,
+    },
+  },
+  db_temp: {
+    file: {
+      doc: 'sqlite temporary database file',
+      env: 'DB_FILE_TEST',
+      type: String,
+    },
+    url: {
+      doc: 'sqlite temporary database url for prisma',
+      env: 'DB_URL_TEST',
+      type: String,
+    },
+  },
+})
 
-const DB_NAME = process.env.DB_NAME || 'dev'
-const DB_FILE = process.env.DB_NAME || getDbFile(DB_NAME)
-const DB_URL = process.env.DB_URL || getDbUrl(DB_NAME)
-
-export const CONFIG = {
-  DB_NAME,
-  DB_FILE,
-  DB_URL,
-}
+config.loadFile('./.env.json')

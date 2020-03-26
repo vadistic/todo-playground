@@ -10,6 +10,7 @@
     "packages/*"
   ],
   "scripts": {
+    "clean": "rm -rf .pacel-cache && yarn lerna run clean",
     "build": "lerna run build --ignore=lang=*",
     "bump": "lerna exec ncu --ignore=lang=*"
   },

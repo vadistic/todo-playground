@@ -1,10 +1,4 @@
 import fs from 'fs'
-import { getDbFile } from '../config'
+import { config } from '../config'
 
-const DB_NAME_TEST = 'test'
-
-if (!process.env.DB_NAME) {
-  process.env.DB_NAME = 'test-temp'
-}
-
-fs.copyFileSync(getDbFile(DB_NAME_TEST), getDbFile(process.env.DB_NAME))
+fs.copyFileSync(config.get('db_test.file'), config.get('db_test.file'))

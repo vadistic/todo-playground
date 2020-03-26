@@ -13,6 +13,6 @@ type Query {
 
 type Task {
   content: String
-  id: Int!
+  id: String!
   name: String!
 }

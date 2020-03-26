@@ -7,7 +7,22 @@ export interface PrismaModule {
 }
 
 export const createModule = async (): Promise<PrismaModule> => {
-  const prisma = new PrismaClient()
+  const prisma = new PrismaClient({
+    log: [
+      {
+        level: 'info',
+        emit: 'stdout',
+      },
+      {
+        level: 'query',
+        emit: 'stdout',
+      },
+      {
+        level: 'warn',
+        emit: 'event',
+      },
+    ],
+  })
 
   await prisma.connect()
 

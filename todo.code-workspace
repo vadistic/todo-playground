@@ -1,0 +1,63 @@
+{
+  "folders": [
+    {
+      "name": "root",
+      "path": "."
+    },
+    {
+      "path": "packages/api-apollo-graphql"
+    },
+    {
+      "path": "packages/api-fastify-rest"
+    },
+    {
+      "path": "packages/api-lambda-rest"
+    },
+    {
+      "path": "packages/api-nest-graphql"
+    },
+    {
+      "path": "packages/api-nest-rest"
+    },
+    {
+      "path": "packages/api-nexus-graphql"
+    },
+    {
+      "path": "packages/db-fauna"
+    },
+    {
+      "path": "packages/db-mongoose"
+    },
+    {
+      "path": "packages/db-prisma"
+    },
+    {
+      "path": "packages/db-typeorm"
+    },
+    {
+      "path": "packages/lang-dotnet"
+    },
+    {
+      "path": "packages/lang-elixir"
+    },
+    {
+      "path": "packages/lang-go"
+    },
+    {
+      "path": "packages/lang-python"
+    },
+    {
+      "path": "packages/lang-rust"
+    },
+    {
+      "path": "packages/shared-db"
+    },
+    {
+      "path": "packages/shared-styles"
+    },
+    {
+      "path": "packages/template"
+    }
+  ],
+  "settings": {}
+}

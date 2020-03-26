@@ -49,7 +49,7 @@ export interface NexusGenFieldTypes {
   }
   Task: { // field return type
     content: string | null; // String
-    id: number; // Int!
+    id: string; // String!
     name: string; // String!
   }
 }
