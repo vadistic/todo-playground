@@ -35,23 +35,27 @@ export type ValueConfig<A, C> = {
 
 /** build map from args/aliased to value keys */
 const builAliasMap = <A, V>(cfg: ValueConfig<A, V>) => {
-  const aliasMap: StringMap = {}
+  const aliasMap: StringMap<string[]> = {}
 
   Object.entries<any>(cfg).forEach(([key, val]) => {
     if (isObject(val) && '$keys' in val)
       val.$keys.forEach((alias: string) => {
-        aliasMap[alias] = key
+        if (!aliasMap[alias]) aliasMap[alias] = []
+
+        aliasMap[alias].push(key)
       })
   })
+
+  console.log(aliasMap)
 
   return aliasMap
 }
 
 /**
  * takes callback from args to value;
- * then filter from value those kays that are undefined in args;
+ * then filter from value those kays that are undefined in args
  *
- * and to be more fun - support lazy computed many-to-one object key mappings
+ * and to be more fun - support lazy computed many-to-many object key mappings
  */
 export const buildFilter = <A, V>(cfgFn: (args: A) => ValueConfig<A, V>) => {
   const getMap = lazy(builAliasMap)
@@ -68,29 +72,45 @@ export const buildFilter = <A, V>(cfgFn: (args: A) => ValueConfig<A, V>) => {
     const aliasMap = getMap(cfg)
 
     Object.entries(args).forEach(([key, val]) => {
-      const target = aliasMap[key] ?? key
+      const targets = aliasMap[key] ?? [key]
 
       const isUndef = val === undefined
-      const isCopied = res[target] !== undefined
+      const isAliased = key in aliasMap
 
       if (isUndef) return
-      if (isCopied) return
 
-      const isAliased = key in aliasMap
-      const isNullified = isAliased
-        ? (cfg[target].$keys as string[]).every(
-            (alias) => args[alias as keyof A] === undefined || args[alias as keyof A] === null,
-          )
-        : val === null
-
-      // nulls are meaningfull
-      // use {equals} filter AND only if all mapped keys are null/undef
-      if (isNullified) {
-        res[target] = { equals: null }
+      // easy mode
+      if (!isAliased) {
+        res[key] = cfg[key] !== null ? cfg[key] : { equals: null }
         return
       }
 
-      res[target] = isAliased ? cfg[target].$value : cfg[target]
+      // means all arg values poiting to this config value are null or undefined
+      const isNullified = targets.every((target) =>
+        (cfg[target].$keys as string[]).every(
+          (alias) => args[alias as keyof A] === undefined || args[alias as keyof A] === null,
+        ),
+      )
+
+      // nulls are meaningfull for filters
+      // use {equals} filter
+      if (isNullified) {
+        targets.forEach((target) => {
+          if (cfg[target].$value === null) {
+            res[target] = { equals: null }
+          }
+        })
+        return
+      }
+
+      targets.forEach((target) => {
+        // I think I'm lost :<
+        // not sure is some null cases apply here...
+        // => will fix if tests fail
+        if (cfg[target].$value !== undefined) {
+          res[target] = cfg[target].$value
+        }
+      })
     })
 
     return res

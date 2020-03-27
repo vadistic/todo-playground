@@ -36,11 +36,19 @@ export class TaskService implements Shared.TaskServiceBase {
   private findManyArgs = buildFilter<Shared.TaskFindManyArgs, Client.FindManyTaskArgs>((args) => {
     return {
       where: this.whereFilter(args.where),
+      first: { $keys: ['limit'], $value: !args.before ? args.limit : undefined },
+      last: { $keys: ['limit'], $value: args.before ? args.limit : undefined },
+      after: { id: args.after },
+      before: { id: args.before },
+      // TODO: multiple direction filters?
+      orderBy: { $keys: ['order'], $value: { name: args.order === 'ASC' ? 'asc' : 'desc' } },
     }
   })
 
-  async findMany(args: Shared.TaskFindManyArgs) {
+  async findMany(args?: Shared.TaskFindManyArgs) {
     const filter = this.findManyArgs(args)
+
+    console.log(filter)
 
     return this.prisma.task.findMany(filter)
   }
