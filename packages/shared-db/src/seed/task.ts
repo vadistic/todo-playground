@@ -7,7 +7,7 @@ const SEED_VALUE = 1233
 f.seed(SEED_VALUE)
 
 export const generateTask = (): TaskBase => {
-  const createdAt = f.date.recent()
+  const createdAt = f.date.recent(f.random.number({ min: 1, max: 45 }))
   const now = new Date()
 
   // half were updated
@@ -18,7 +18,7 @@ export const generateTask = (): TaskBase => {
     createdAt,
     updatedAt,
     name: f.hacker.phrase(),
-    content: f.random.boolean ? f.lorem.paragraphs(2) : undefined,
+    content: f.random.boolean() ? f.lorem.paragraphs(2) : undefined,
     finished: f.random.boolean(),
   }
 }

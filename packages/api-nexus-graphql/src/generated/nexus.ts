@@ -4,10 +4,17 @@
  */
 
 import * as Context from "../context"
-import * as prisma from "@prisma/client"
-
-
-
+import { core } from "nexus"
+declare global {
+  interface NexusGenCustomInputMethods<TypeName extends string> {
+    date<FieldName extends string>(fieldName: FieldName, opts?: core.ScalarInputFieldConfig<core.GetGen3<"inputTypes", TypeName, FieldName>>): void // "Date";
+  }
+}
+declare global {
+  interface NexusGenCustomOutputMethods<TypeName extends string> {
+    date<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "Date";
+  }
+}
 declare global {
   interface NexusGenCustomOutputProperties<TypeName extends string> {
     crud: NexusPrisma<TypeName, 'crud'>
@@ -20,6 +27,19 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  TaskWhereFilterInput: { // input type
+    content?: string | null; // String
+    createdAfter?: any | null; // Date
+    createdBefore?: any | null; // Date
+    finished?: boolean | null; // Boolean
+    ids?: string | null; // ID
+    name?: string | null; // String
+    updatedAfter?: any | null; // Date
+    updatedBefore?: any | null; // Date
+  }
+  TaskWhereUniqueInput: { // input type
+    id: string; // ID!
+  }
 }
 
 export interface NexusGenEnums {
@@ -28,15 +48,26 @@ export interface NexusGenEnums {
 export interface NexusGenRootTypes {
   Mutation: {};
   Query: {};
-  Task: prisma.Task;
+  Task: { // root type
+    content?: string | null; // String
+    createdAt: any; // DateTime!
+    finished: boolean; // Boolean!
+    id: string; // String!
+    name: string; // String!
+    updatedAt: any; // DateTime!
+  }
   String: string;
   Int: number;
   Float: number;
   Boolean: boolean;
   ID: string;
+  Date: any;
+  DateTime: any;
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  TaskWhereFilterInput: NexusGenInputs['TaskWhereFilterInput'];
+  TaskWhereUniqueInput: NexusGenInputs['TaskWhereUniqueInput'];
 }
 
 export interface NexusGenFieldTypes {
@@ -49,18 +80,21 @@ export interface NexusGenFieldTypes {
   }
   Task: { // field return type
     content: string | null; // String
+    createdAt: any; // DateTime!
+    finished: boolean; // Boolean!
     id: string; // String!
     name: string; // String!
+    updatedAt: any; // DateTime!
   }
 }
 
 export interface NexusGenArgTypes {
   Query: {
     task: { // args
-      id: number; // Int!
+      where: NexusGenInputs['TaskWhereUniqueInput']; // TaskWhereUniqueInput!
     }
     tasks: { // args
-      ids?: number[] | null; // [Int!]
+      where?: NexusGenInputs['TaskWhereFilterInput'] | null; // TaskWhereFilterInput
     }
   }
 }
@@ -72,13 +106,13 @@ export interface NexusGenInheritedFields {}
 
 export type NexusGenObjectNames = "Mutation" | "Query" | "Task";
 
-export type NexusGenInputNames = never;
+export type NexusGenInputNames = "TaskWhereFilterInput" | "TaskWhereUniqueInput";
 
 export type NexusGenEnumNames = never;
 
 export type NexusGenInterfaceNames = never;
 
-export type NexusGenScalarNames = "Boolean" | "Float" | "ID" | "Int" | "String";
+export type NexusGenScalarNames = "Boolean" | "Date" | "DateTime" | "Float" | "ID" | "Int" | "String";
 
 export type NexusGenUnionNames = never;
 

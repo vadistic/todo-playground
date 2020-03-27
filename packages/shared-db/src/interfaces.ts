@@ -54,16 +54,20 @@ export interface TaskFindOneArgs {
 }
 
 export interface TaskFindManyArgs extends PaginationArgs {
-  where: TaskWhereFilters
+  where?: TaskWhereFilters
 }
 
+export type TaskCreateData = Omit<TaskBase, SystemColumnNames>
+
+export type TaskUpdateData = Partial<Omit<TaskBase, SystemColumnNames>>
+
 export interface TaskCreateOneArgs {
-  data: Omit<TaskBase, SystemColumnNames>
+  data: TaskCreateData
 }
 
 export interface TaskUpdateOneArgs {
   where: TaskWhereUnique
-  data: Partial<Omit<TaskBase, SystemColumnNames>>
+  data: TaskUpdateData
 }
 
 export interface TaskDeleteOneArgs {

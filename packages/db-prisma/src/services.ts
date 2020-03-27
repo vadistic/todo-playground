@@ -1,43 +1,48 @@
-import { PrismaClient } from '@prisma/client'
+import Client, { PrismaClient } from '@prisma/client'
 import {
-  TaskServiceBase,
-  TaskFindOneArgs,
-  TaskFindManyArgs,
-  Nullable,
   TaskCreateOneArgs,
   TaskUpdateOneArgs,
   TaskDeleteOneArgs,
   ServicesBase,
 } from '@todo/shared-db'
 
-const RESULTS_MAX = 100
-const RESULTS_DEFUALT = 20
+import * as Shared from '@todo/shared-db'
+import { buildFilter, range } from './utils'
 
-export class TaskService implements TaskServiceBase {
+export class TaskService implements Shared.TaskServiceBase {
   constructor(public prisma: PrismaClient) {}
 
-  async findOne(args: TaskFindOneArgs) {
+  async findOne(args: Shared.TaskFindOneArgs) {
     return this.prisma.task.findOne({ where: { id: args.where.id } })
   }
 
-  async findMany(args: TaskFindManyArgs) {
-    if (args.limit && args.limit > RESULTS_MAX) {
-      throw Error(`Exceeded service result limit. RESULTS_MAX = ${RESULTS_MAX}`)
-    }
+  // ────────────────────────────────────────────────────────────────────────────────
 
-    // TODO: make so mapped fn for those tetrary ops
-    // TODO: date range fn
-    return this.prisma.task.findMany({
-      where: {
-        id: args.where.ids ? { in: args.where.ids } : undefined,
-        name: args.where.name ? { contains: args.where.name } : undefined,
-        content: args.where.content ? { contains: args.where.content } : undefined,
-        finished: args.where.finished ? { equals: args.where.finished } : undefined,
-      },
-      after: ifDefined(args.after, { id: args.after }),
-      before: ifDefined(args.before, { id: args.before }),
-      first: ifDefined(args.limit, args.limit) ?? RESULTS_DEFUALT,
-    })
+  private whereFilter = buildFilter<Shared.TaskWhereFilters, Client.TaskWhereInput>((where) => ({
+    id: { $keys: ['ids'], $value: { in: where.ids } },
+    name: { contains: where.name },
+    content: { contains: where.content },
+    finished: { equals: where.finished },
+    createdAt: {
+      $keys: ['createdAfter', 'createdBefore'],
+      $value: range({ from: where.createdAfter, to: where.createdBefore }),
+    },
+    updatedAt: {
+      $keys: ['updatedAfter', 'updatedBefore'],
+      $value: range({ from: where.updatedAfter, to: where.updatedBefore }),
+    },
+  }))
+
+  private findManyArgs = buildFilter<Shared.TaskFindManyArgs, Client.FindManyTaskArgs>((args) => {
+    return {
+      where: this.whereFilter(args.where),
+    }
+  })
+
+  async findMany(args: Shared.TaskFindManyArgs) {
+    const filter = this.findManyArgs(args)
+
+    return this.prisma.task.findMany(filter)
   }
 
   async createOne(args: TaskCreateOneArgs) {
@@ -51,14 +56,6 @@ export class TaskService implements TaskServiceBase {
   async deleteOne(args: TaskDeleteOneArgs) {
     return this.prisma.task.delete({ where: { id: args.where.id } })
   }
-}
-
-// ────────────────────────────────────────────────────────────────────────────────
-
-const ifDefined = <T>(cond: any, val: Nullable<T>) => {
-  if (val === null || cond === undefined) return
-
-  return val
 }
 
 // ────────────────────────────────────────────────────────────────────────────────

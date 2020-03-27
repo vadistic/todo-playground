@@ -1,9 +1,10 @@
 import { ModuleBase } from '@todo/shared-db'
 import { PrismaClient, PrismaClientOptions } from '@prisma/client'
-import { createServices } from './services'
+import { Services } from './services'
 
 export interface PrismaModule extends ModuleBase {
   prisma: PrismaClient
+  service: Services
 }
 
 export const createModule = async (): Promise<PrismaModule> => {
@@ -12,7 +13,7 @@ export const createModule = async (): Promise<PrismaModule> => {
 
   const prisma = new PrismaClient(opts)
 
-  const service = createServices(prisma)
+  const service = new Services(prisma)
 
   const init = async () => {
     await prisma.connect()

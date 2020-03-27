@@ -2,17 +2,40 @@
 ### Do not make changes to this file directly
 
 
+"""Date scalar type"""
+scalar Date
+
+scalar DateTime
+
 type Mutation {
   noop: Boolean!
 }
 
 type Query {
-  task(id: Int!): Task
-  tasks(ids: [Int!]): [Task!]!
+  task(where: TaskWhereUniqueInput!): Task
+  tasks(where: TaskWhereFilterInput): [Task!]!
 }
 
 type Task {
   content: String
+  createdAt: DateTime!
+  finished: Boolean!
   id: String!
   name: String!
+  updatedAt: DateTime!
+}
+
+input TaskWhereFilterInput {
+  content: String
+  createdAfter: Date
+  createdBefore: Date
+  finished: Boolean
+  ids: ID
+  name: String
+  updatedAfter: Date
+  updatedBefore: Date
+}
+
+input TaskWhereUniqueInput {
+  id: ID!
 }

@@ -1,11 +1,10 @@
-import { ApolloServer } from 'apollo-server'
-import { createContext } from './context'
 import { makeSchema } from 'nexus'
-import * as types from './schema'
 import { nexusPrismaPlugin } from 'nexus-prisma'
 
+import * as types from './schema'
+
 export const schema = makeSchema({
-  types: types,
+  types,
   plugins: [nexusPrismaPlugin()],
   outputs: {
     schema: __dirname + '/schema.graphql',
@@ -20,9 +19,4 @@ export const schema = makeSchema({
       },
     ],
   },
-})
-
-export const server = new ApolloServer({
-  schema,
-  context: createContext,
 })
