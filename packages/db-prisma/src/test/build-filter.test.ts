@@ -1,5 +1,5 @@
-import Client from '@prisma/client'
 import * as Shared from '@todo/shared-db'
+import * as Client from '../generated/client'
 
 import { buildFilter, range } from '../utils'
 

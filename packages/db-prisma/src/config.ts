@@ -1,7 +1,7 @@
 import convict from 'convict'
 
 /* eslint-disable @typescript-eslint/camelcase */
-export const config = convict({
+export const configSchema = {
   env: {
     format: ['production', 'development', 'test'],
     default: 'development',
@@ -19,7 +19,9 @@ export const config = convict({
     env: 'DB_URL',
     default: '',
   },
-})
+}
 /* eslint-enable @typescript-eslint/camelcase */
 
-config.loadFile('./.env.json')
+export type ConfigSchema = typeof configSchema
+
+export const config = convict(configSchema)

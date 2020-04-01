@@ -2898,6 +2898,11 @@
   resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.0.0-beta.1.tgz#7e5f13db65244cf723323c3046d63cd744f2f026"
   integrity sha512-uMCthsNkLCmQiPs6veMdqT/Y4RWRbn8Y0GAfqvg+qStene6Pqid7DTrdN7hC+VYlY7Ok5Fxcb6oBis1jsOO7pQ==
 
+"@prisma/client@^2.0.0-beta.1":
+  version "2.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.0.0-beta.1.tgz#457d83167cf1657e16473ebf467a9b339d982932"
+  integrity sha512-4uRHUJs/RGc517wLZPrr9ZRq/NbUoPrX4Pa8mb4wIluJMxk4d1raE0O2/LBM5EcVH0RaoIA+dffTvPGfI3by+g==
+
 "@prisma/client@^2.0.0-preview024":
   version "2.0.0-preview024"
   resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.0.0-preview024.tgz#020f7c2d12e8c56fa7f096a83bc736f10a1d44a5"
@@ -3979,6 +3984,13 @@ apollo-server-plugin-base@^0.7.0:
   integrity sha512-//xgYrBYLQSr92W0z3mYsFGoVz3wxKNsv3KcOUBhbOCGTbjZgP7vHOE1vhHhRcpZKKXmjXTVONdrnNJ+XVGi6A==
   dependencies:
     apollo-server-types "^0.3.0"
+
+apollo-server-testing@^2.11.0:
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/apollo-server-testing/-/apollo-server-testing-2.11.0.tgz#3f6e25a6f04a60b0c839aa776a85e886209d1832"
+  integrity sha512-iqb20FYmkM6VJ9s4M78J8lXabZSDZCt8V2/As1x2zvgZ8bOdX77fR5UxrkkV/zR6bwd7252wIiHp/m9FF9O2zA==
+  dependencies:
+    apollo-server-core "^2.11.0"
 
 apollo-server-types@^0.3.0:
   version "0.3.0"
@@ -10134,7 +10146,7 @@ node-fetch-npm@^2.0.2:
     json-parse-better-errors "^1.0.0"
     safe-buffer "^5.1.1"
 
-node-fetch@^2.1.2, node-fetch@^2.2.0, node-fetch@^2.3.0, node-fetch@^2.5.0:
+node-fetch@^2.1.2, node-fetch@^2.2.0, node-fetch@^2.3.0, node-fetch@^2.5.0, node-fetch@^2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
   integrity sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==

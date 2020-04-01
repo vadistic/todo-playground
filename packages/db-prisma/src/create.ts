@@ -1,5 +1,5 @@
 import { ModuleBase } from '@todo/shared-db'
-import { PrismaClient, PrismaClientOptions } from '@prisma/client'
+import { PrismaClient, PrismaClientOptions } from './generated/client'
 import { Services } from './services'
 
 export interface PrismaModule extends ModuleBase {

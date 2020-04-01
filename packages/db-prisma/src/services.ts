@@ -1,4 +1,3 @@
-import Client, { PrismaClient } from '@prisma/client'
 import {
   TaskCreateOneArgs,
   TaskUpdateOneArgs,
@@ -7,10 +6,11 @@ import {
 } from '@todo/shared-db'
 
 import * as Shared from '@todo/shared-db'
+import * as Client from './generated/client'
 import { buildFilter, range } from './utils'
 
 export class TaskService implements Shared.TaskServiceBase {
-  constructor(public prisma: PrismaClient) {}
+  constructor(public prisma: Client.PrismaClient) {}
 
   async findOne(args: Shared.TaskFindOneArgs) {
     return this.prisma.task.findOne({ where: { id: args.where.id } })
@@ -73,7 +73,7 @@ export class TaskService implements Shared.TaskServiceBase {
 // ────────────────────────────────────────────────────────────────────────────────
 
 export class Services implements ServicesBase {
-  constructor(public prisma: PrismaClient) {}
+  constructor(public prisma: Client.PrismaClient) {}
 
   task = new TaskService(this.prisma)
 }

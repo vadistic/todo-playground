@@ -10,6 +10,7 @@
   "scripts": {
     "bootstrap": "yarn scripts bootstrap",
     "build": "tsc -p tsconfig.build.json",
+    "postbuild": "copyfiles -u 1 ./src/generated/client/** dist",
     "clean": "rm -rf dist *.tsbuildinfo",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "generate": "prisma generate",
@@ -18,7 +19,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@prisma/client": "^2.0.0-preview024",
+    "@prisma/client": "^2.0.0-beta.1",
     "@todo/shared-db": "^0.1.0",
     "convict": "^5.2.0",
     "sqlite": "^4.0.0-beta.7",
@@ -30,6 +31,7 @@
     "@types/sqlite3": "^3.1.6",
     "@vadistic/eslint-config-base": "^0.2.2",
     "@vadistic/prettier-config": "^0.2.2",
+    "copyfiles": "^2.2.0",
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "eslint": "^6.8.0",
