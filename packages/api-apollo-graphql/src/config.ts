@@ -1,21 +1,22 @@
 import convict from 'convict'
+import { configSchema as dbConfigSchema } from '@todo/db-prisma'
 
 /* eslint-disable @typescript-eslint/camelcase */
-export const config = convict({
-  env: {
-    format: ['production', 'development', 'test'],
-    default: 'development',
-    env: 'NODE_ENV',
+export const configSchema = {
+  ...dbConfigSchema,
+  port: {
+    env: 'PORT',
+    default: 8000,
+    format: 'port',
   },
-  debug: {
-    env: 'DEBUG',
-    default: false,
+  graphql_path: {
+    env: 'GRAPHQL_PATH',
+    default: 'graphql',
+    format: String,
   },
-  db_file: {
-    env: 'DB_FILE',
-    default: '',
-  },
-})
-/* eslint-enable @typescript-eslint/camelcase */
+}
 
-config.loadFile('./.env.json')
+export type ConfigSchema = typeof configSchema
+
+export const config = convict(configSchema)
+/* eslint-enable @typescript-eslint/camelcase */

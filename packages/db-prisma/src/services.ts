@@ -51,9 +51,6 @@ export class TaskService implements Shared.TaskServiceBase {
 
   async findMany(args?: Shared.TaskFindManyArgs) {
     const filter = this.findManyArgs(args)
-
-    console.log(filter)
-
     return this.prisma.task.findMany(filter)
   }
 

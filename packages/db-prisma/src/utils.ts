@@ -4,10 +4,10 @@ type StringMap<T = string> = {
   [key: string]: T
 }
 
-export const isObject = (val: any) => typeof val === 'object' && val !== null && !Array.isArray(val)
+const isObject = (val: any) => typeof val === 'object' && val !== null && !Array.isArray(val)
 
 /** simple lazy implementation */
-export const lazy = <P, R>(fn: (props: P) => R) => {
+const lazy = <P, R>(fn: (props: P) => R) => {
   let store: R
 
   return (props: P) => {

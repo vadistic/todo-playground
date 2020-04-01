@@ -1,9 +1,13 @@
-import { IResolvers } from 'apollo-server'
+import { IResolvers } from 'apollo-server-express'
 import { Context } from './context'
 
 export const resolvers: IResolvers = {
   Query: {
-    task: (_, args: any, ctx: Context) => ctx.services.task.findOne({ where: { id: args.id } }),
-    tasks: (_, args: any, ctx: Context) => ctx.services.task.findMany({ where: {} }),
+    task: async (_, args: any, ctx: Context) => {
+      return ctx.service.task.findOne({ where: { id: args.id } })
+    },
+    tasks: async (_, args: any, ctx: Context) => {
+      return ctx.service.task.findMany({ where: {} })
+    },
   },
 }
