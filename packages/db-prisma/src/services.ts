@@ -18,32 +18,36 @@ export class TaskService implements Shared.TaskServiceBase {
 
   // ────────────────────────────────────────────────────────────────────────────────
 
-  private whereFilter = buildFilter<Shared.TaskWhereFilters, Client.TaskWhereInput>((where) => ({
-    id: { $keys: ['ids'], $value: { in: where.ids } },
-    name: { contains: where.name },
-    content: { contains: where.content },
-    finished: { equals: where.finished },
-    createdAt: {
-      $keys: ['createdAfter', 'createdBefore'],
-      $value: range({ from: where.createdAfter, to: where.createdBefore }),
-    },
-    updatedAt: {
-      $keys: ['updatedAfter', 'updatedBefore'],
-      $value: range({ from: where.updatedAfter, to: where.updatedBefore }),
-    },
-  }))
+  private readonly whereFilter = buildFilter<Shared.TaskWhereFilters, Client.TaskWhereInput>(
+    (where) => ({
+      id: { $keys: ['ids'], $value: { in: where.ids } },
+      name: { contains: where.name },
+      content: { contains: where.content },
+      finished: { equals: where.finished },
+      createdAt: {
+        $keys: ['createdAfter', 'createdBefore'],
+        $value: range({ from: where.createdAfter, to: where.createdBefore }),
+      },
+      updatedAt: {
+        $keys: ['updatedAfter', 'updatedBefore'],
+        $value: range({ from: where.updatedAfter, to: where.updatedBefore }),
+      },
+    }),
+  )
 
-  private findManyArgs = buildFilter<Shared.TaskFindManyArgs, Client.FindManyTaskArgs>((args) => {
-    return {
-      where: this.whereFilter(args.where),
-      first: { $keys: ['limit'], $value: !args.before ? args.limit : undefined },
-      last: { $keys: ['limit'], $value: args.before ? args.limit : undefined },
-      after: { id: args.after },
-      before: { id: args.before },
-      // TODO: multiple direction filters?
-      orderBy: { $keys: ['order'], $value: { name: args.order === 'ASC' ? 'asc' : 'desc' } },
-    }
-  })
+  private readonly findManyArgs = buildFilter<Shared.TaskFindManyArgs, Client.FindManyTaskArgs>(
+    (args) => {
+      return {
+        where: this.whereFilter(args.where),
+        first: { $keys: ['limit'], $value: !args.before ? args.limit : undefined },
+        last: { $keys: ['limit'], $value: args.before ? args.limit : undefined },
+        after: { id: args.after },
+        before: { id: args.before },
+        // TODO: multiple direction filters?
+        orderBy: { $keys: ['order'], $value: { name: args.order === 'ASC' ? 'asc' : 'desc' } },
+      }
+    },
+  )
 
   async findMany(args?: Shared.TaskFindManyArgs) {
     const filter = this.findManyArgs(args)
@@ -71,5 +75,5 @@ export class TaskService implements Shared.TaskServiceBase {
 export class Services implements ServicesBase {
   constructor(public prisma: PrismaClient) {}
 
-  public task = new TaskService(this.prisma)
+  task = new TaskService(this.prisma)
 }

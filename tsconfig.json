@@ -1,0 +1,8 @@
+// this config is only for vscode eslint extension
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "composite": true
+  },
+  "include": ["packages/*/src"]
+}

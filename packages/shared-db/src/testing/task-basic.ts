@@ -1,5 +1,6 @@
 import { TaskBase, ModuleBase, SystemColumnNames } from '../interfaces'
 
+// eslint-disable-next-line jest/no-export
 export const runBasicTaskTests = (getCtx: () => ModuleBase) => {
   const pluckSysFields = <T>(val: T): Omit<T, SystemColumnNames> => {
     const cp: any = { ...val }

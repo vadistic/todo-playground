@@ -1,17 +1,17 @@
 {
   "name": "@todo/shared-db",
   "version": "0.1.0",
+  "private": true,
   "description": "Testing stacks with todo apps",
   "repository": "https://github.com/vadistic/todo",
-  "author": "Jakub Wadas <vadistic@gmail.com>",
   "license": "MIT",
-  "private": true,
+  "author": "Jakub Wadas <vadistic@gmail.com>",
   "main": "dist/index.js",
   "scripts": {
+    "build": "tsc -p tsconfig.build.json",
     "clean": "rm -rf dist *.tsbuildinfo",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "lint": "eslint src.{ts,tsx} --fix",
-    "build": "tsc -p tsconfig.build.json",
+    "lint": "eslint --ext ts,tsx src/**",
     "test": "jest"
   },
   "dependencies": {
@@ -19,8 +19,8 @@
   },
   "devDependencies": {
     "@types/faker": "^4.1.11",
-    "@vadistic/eslint-config-node": "^0.1.8",
-    "@vadistic/prettier-config": "^0.1.8",
+    "@vadistic/eslint-config-base": "^0.2.2",
+    "@vadistic/prettier-config": "^0.2.2",
     "eslint": "^6.8.0",
     "prettier": "^2.0.2",
     "typescript": "^3.8.3"

@@ -19,17 +19,17 @@ function db_cp_test () {
 function db_migrate_init () {
     echo 'db_migrate_init()'
     rm -rf prisma/migrations
-    yarn prisma2 migrate save --experimental --name init
+    yarn prisma migrate save --experimental --name init
 }
 
 function db_migrate () {
     echo 'db_migrate_init()'
-    yarn prisma2 migrate save --experimental --name init
+    yarn prisma migrate save --experimental --name init
 }
 
 function db_migrate_up () {
     echo 'db_migrate_up()'
-    yarn prisma2 migrate up --experimental -c
+    yarn prisma migrate up --experimental -c
 }
 
 

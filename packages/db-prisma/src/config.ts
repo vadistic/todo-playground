@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import convict from 'convict'
 
+/* eslint-disable @typescript-eslint/camelcase */
 export const config = convict({
   env: {
     format: ['production', 'development', 'test'],
@@ -20,5 +20,6 @@ export const config = convict({
     default: '',
   },
 })
+/* eslint-enable @typescript-eslint/camelcase */
 
 config.loadFile('./.env.json')

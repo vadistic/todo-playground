@@ -105,7 +105,7 @@ export const buildFilter = <A, V>(cfgFn: (args: A) => ValueConfig<A, V>) => {
 
       targets.forEach((target) => {
         // I think I'm lost :<
-        // not sure is some null cases apply here...
+        // not sure if some null cases apply here...
         // => will fix if tests fail
         if (cfg[target].$value !== undefined) {
           res[target] = cfg[target].$value

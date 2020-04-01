@@ -1,15 +1,15 @@
 {
   "name": "@todo/lang-elixir",
   "version": "0.1.0",
+  "private": true,
   "description": "Testing stacks with todo apps",
   "repository": "https://github.com/vadistic/todo",
-  "author": "Jakub Wadas <vadistic@gmail.com>",
   "license": "MIT",
-  "private": true,
+  "author": "Jakub Wadas <vadistic@gmail.com>",
   "scripts": {
-    "scripts": "sh ./scripts.sh",
     "build": "mix",
-    "start": "mix phx.server",
-    "dev": "mix phx.server"
+    "dev": "mix phx.server",
+    "scripts": "sh ./scripts.sh",
+    "start": "mix phx.server"
   }
 }

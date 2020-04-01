@@ -1,19 +1,19 @@
 {
   "name": "@todo/lang-rust",
   "version": "0.1.0",
+  "private": true,
   "description": "Testing stacks with todo apps",
   "repository": "https://github.com/vadistic/todo",
-  "author": "Jakub Wadas <vadistic@gmail.com>",
   "license": "MIT",
-  "private": true,
+  "author": "Jakub Wadas <vadistic@gmail.com>",
   "scripts": {
-    "scripts": "sh ./scripts.sh",
-    "clean": "cargo clean",
-    "format": "cargo fmt",
-    "lint": "cargo check",
     "build": "cargo build",
-    "start": "cargo run",
+    "clean": "cargo clean",
     "dev": "echo 'no dev watch script'",
+    "format": "cargo fmt",
+    "lint": "echo todo",
+    "scripts": "sh ./scripts.sh",
+    "start": "cargo run",
     "test": "cargo test"
   }
 }

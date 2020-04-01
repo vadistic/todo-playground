@@ -36,7 +36,7 @@ export class TaskService implements TaskServiceBase {
         createdAfter,
         updatedBefore,
         updatedAfter,
-      } = args.where
+      } = args.where ?? {}
 
       const skip = '1=1'
 
@@ -122,5 +122,5 @@ export class TaskService implements TaskServiceBase {
 export class Services {
   constructor(public ctn: Connection) {}
 
-  public task = new TaskService(this.ctn)
+  task = new TaskService(this.ctn)
 }
