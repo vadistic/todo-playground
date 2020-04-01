@@ -1,4 +1,35 @@
-import { objectType, inputObjectType, arg } from 'nexus'
+import { objectType, inputObjectType, arg, AllInputTypes } from 'nexus'
+
+interface FilterFieldConfig<T> {
+  required?: boolean
+  default?: T
+  list?: true | boolean[]
+}
+
+const eqInputName = <T extends AllInputTypes>(type: T, cfg?: FilterFieldConfig<T>) =>
+  [type, cfg?.required && 'Required', cfg?.list && 'List', 'EqualInput']
+    .filter(Boolean)
+    .join('') as AllInputTypes
+
+// required by default!
+const eqInput = <T extends AllInputTypes>(type: T, cfg?: FilterFieldConfig<T>) =>
+  inputObjectType({
+    name: eqInputName(type, cfg),
+    definition(t) {
+      t.field('eq', { ...cfg, required: cfg?.required ?? true, type })
+    },
+  })
+
+const scalars = ['DateTime', 'String', 'Int', 'Boolean', 'Float', 'ID']
+
+export const scalarEqInputs = scalars.flatMap((type) => [
+  eqInput(type as any),
+  eqInput(type as any, { list: true }),
+  eqInput(type as any, { required: true }),
+  eqInput(type as any, { list: true, required: true }),
+])
+
+// ────────────────────────────────────────────────────────────────────────────────
 
 export const Task = objectType({
   name: 'Task',
@@ -15,7 +46,7 @@ export const Task = objectType({
 const taskWhereUniqueInput = inputObjectType({
   name: `TaskWhereUniqueInput`,
   definition(t) {
-    t.id('id', { required: true })
+    t.field('id', { required: true, type: eqInputName('ID') })
   },
 })
 
@@ -24,16 +55,16 @@ const taskWhereUniqueArg = arg({ type: taskWhereUniqueInput, required: true })
 const taskWhereFilterInput = inputObjectType({
   name: `TaskWhereFilterInput`,
   definition(t) {
-    t.id('ids')
+    t.field('ids', { type: eqInputName('ID', { list: true }) })
 
-    t.date('updatedBefore')
-    t.date('updatedAfter')
-    t.date('createdBefore')
-    t.date('createdAfter')
+    t.field('updatedBefore', { type: eqInputName('DateTime') })
+    t.field('updatedAfter', { type: eqInputName('DateTime') })
+    t.field('createdBefore', { type: eqInputName('DateTime') })
+    t.field('createdAfter', { type: eqInputName('DateTime') })
 
-    t.string('name')
-    t.string('content')
-    t.boolean('finished')
+    t.field('name', { type: eqInputName('String') })
+    t.field('content', { type: eqInputName('String', { required: false }) })
+    t.field('finished', { type: eqInputName('Boolean') })
   },
 })
 
@@ -48,8 +79,8 @@ export const Query = objectType({
       args: {
         where: taskWhereUniqueArg,
       },
-      resolve: (_, args, ctx) => {
-        return ctx.service.task.findOne({ where: { id: args.where?.id } })
+      resolve: async (_, args, ctx) => {
+        return ctx.service.task.findOne({ where: { id: args.where.id.eq } })
       },
     })
 
@@ -60,8 +91,10 @@ export const Query = objectType({
       args: {
         where: taskWhereFilterArg,
       },
-      resolve: (_, args, ctx) => {
-        return ctx.service.task.findMany({ where: args.where ?? undefined })
+      resolve: async (_, args, ctx) => {
+        return ctx.service.task.findMany({
+          where: resolveFilterArgs(args.where),
+        })
       },
     })
   },
@@ -78,3 +111,15 @@ export const Mutation = objectType({
     })
   },
 })
+
+const resolveFilterArgs = <R>(args: any): R => {
+  const res: any = {}
+
+  for (const key of Object.keys(args)) {
+    if (args[key] && typeof args[key] === 'object' && args[key].eq !== undefined) {
+      res[key] = args[key].eq
+    }
+  }
+
+  return res
+}

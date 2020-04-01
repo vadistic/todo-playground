@@ -1,5 +1,5 @@
 import { config } from './config'
-import { createApi } from './server'
+import { createApi } from './create'
 
 const main = async () => {
   config.loadFile('./.env.json')

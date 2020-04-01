@@ -1,6 +1,8 @@
-import { gql } from 'apollo-server'
+import { gql } from 'apollo-server-express'
 
 export const typeDefs = gql`
+  scalar DateTime
+
   type Task {
     id: ID
     name: String!

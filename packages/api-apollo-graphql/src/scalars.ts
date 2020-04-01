@@ -1,10 +1,7 @@
-import { scalarType } from 'nexus'
-import { Kind } from 'graphql'
+import { GraphQLScalarType, Kind } from 'graphql'
 
-export const DateTime = scalarType({
-  name: 'DateTime',
-  asNexusMethod: 'date',
-  rootTyping: 'Date',
+export const DateTime = new GraphQLScalarType({
+  name: 'Date',
   description: 'Date scalar type',
   parseValue(value) {
     return new Date(value)

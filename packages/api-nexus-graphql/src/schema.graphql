@@ -2,10 +2,88 @@
 ### Do not make changes to this file directly
 
 
-"""Date scalar type"""
-scalar Date
+input BooleanEqualInput {
+  eq: Boolean!
+}
 
+input BooleanListEqualInput {
+  eq: [Boolean!]!
+}
+
+input BooleanRequiredEqualInput {
+  eq: Boolean!
+}
+
+input BooleanRequiredListEqualInput {
+  eq: [Boolean!]!
+}
+
+"""Date scalar type"""
 scalar DateTime
+
+input DateTimeEqualInput {
+  eq: DateTime!
+}
+
+input DateTimeListEqualInput {
+  eq: [DateTime!]!
+}
+
+input DateTimeRequiredEqualInput {
+  eq: DateTime!
+}
+
+input DateTimeRequiredListEqualInput {
+  eq: [DateTime!]!
+}
+
+input FloatEqualInput {
+  eq: Float!
+}
+
+input FloatListEqualInput {
+  eq: [Float!]!
+}
+
+input FloatRequiredEqualInput {
+  eq: Float!
+}
+
+input FloatRequiredListEqualInput {
+  eq: [Float!]!
+}
+
+input IDEqualInput {
+  eq: ID!
+}
+
+input IDListEqualInput {
+  eq: [ID!]!
+}
+
+input IDRequiredEqualInput {
+  eq: ID!
+}
+
+input IDRequiredListEqualInput {
+  eq: [ID!]!
+}
+
+input IntEqualInput {
+  eq: Int!
+}
+
+input IntListEqualInput {
+  eq: [Int!]!
+}
+
+input IntRequiredEqualInput {
+  eq: Int!
+}
+
+input IntRequiredListEqualInput {
+  eq: [Int!]!
+}
 
 type Mutation {
   noop: Boolean!
@@ -14,6 +92,22 @@ type Mutation {
 type Query {
   task(where: TaskWhereUniqueInput!): Task
   tasks(where: TaskWhereFilterInput): [Task!]!
+}
+
+input StringEqualInput {
+  eq: String!
+}
+
+input StringListEqualInput {
+  eq: [String!]!
+}
+
+input StringRequiredEqualInput {
+  eq: String!
+}
+
+input StringRequiredListEqualInput {
+  eq: [String!]!
 }
 
 type Task {
@@ -26,16 +120,16 @@ type Task {
 }
 
 input TaskWhereFilterInput {
-  content: String
-  createdAfter: Date
-  createdBefore: Date
-  finished: Boolean
-  ids: ID
-  name: String
-  updatedAfter: Date
-  updatedBefore: Date
+  content: StringEqualInput
+  createdAfter: DateTimeEqualInput
+  createdBefore: DateTimeEqualInput
+  finished: BooleanEqualInput
+  ids: IDListEqualInput
+  name: StringEqualInput
+  updatedAfter: DateTimeEqualInput
+  updatedBefore: DateTimeEqualInput
 }
 
 input TaskWhereUniqueInput {
-  id: ID!
+  id: IDEqualInput!
 }

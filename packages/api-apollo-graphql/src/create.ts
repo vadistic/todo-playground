@@ -14,7 +14,7 @@ export const createApi = async () => {
     typeDefs,
     resolvers,
     context: ctx,
-    debug: true,
+    debug: config.get('debug'),
     engine: false,
     introspection: true,
     playground: true,
