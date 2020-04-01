@@ -46,8 +46,6 @@ const builAliasMap = <A, V>(cfg: ValueConfig<A, V>) => {
       })
   })
 
-  console.log(aliasMap)
-
   return aliasMap
 }
 
