@@ -1,5 +1,5 @@
 export * from './config'
 export * from './resolvers'
 export * from './schema'
-export * from './create'
+export * from './create-api'
 export * from './context'

@@ -1,35 +1,6 @@
-import { objectType, inputObjectType, arg, AllInputTypes } from 'nexus'
-
-interface FilterFieldConfig<T> {
-  required?: boolean
-  default?: T
-  list?: true | boolean[]
-}
-
-const eqInputName = <T extends AllInputTypes>(type: T, cfg?: FilterFieldConfig<T>) =>
-  [type, cfg?.required && 'Required', cfg?.list && 'List', 'EqualInput']
-    .filter(Boolean)
-    .join('') as AllInputTypes
-
-// required by default!
-const eqInput = <T extends AllInputTypes>(type: T, cfg?: FilterFieldConfig<T>) =>
-  inputObjectType({
-    name: eqInputName(type, cfg),
-    definition(t) {
-      t.field('eq', { ...cfg, required: cfg?.required ?? true, type })
-    },
-  })
-
-const scalars = ['DateTime', 'String', 'Int', 'Boolean', 'Float', 'ID']
-
-export const scalarEqInputs = scalars.flatMap((type) => [
-  eqInput(type as any),
-  eqInput(type as any, { list: true }),
-  eqInput(type as any, { required: true }),
-  eqInput(type as any, { list: true, required: true }),
-])
-
-// ────────────────────────────────────────────────────────────────────────────────
+import { objectType, inputObjectType, arg } from 'nexus'
+import { TaskCreateData, TaskUpdateData } from '@todo/shared-db'
+import { eqInputName, UniqueIDInput, resolveEqFilterArgs } from './input'
 
 export const Task = objectType({
   name: 'Task',
@@ -43,16 +14,25 @@ export const Task = objectType({
   },
 })
 
-const taskWhereUniqueInput = inputObjectType({
-  name: `TaskWhereUniqueInput`,
+export const TaskCreateInput = inputObjectType({
+  name: 'TaskCreateInput',
   definition(t) {
-    t.field('id', { required: true, type: eqInputName('ID') })
+    t.string('name', { required: true })
+    t.string('content')
+    t.boolean('finished')
   },
 })
 
-const taskWhereUniqueArg = arg({ type: taskWhereUniqueInput, required: true })
+export const TaskUpdateInput = inputObjectType({
+  name: 'TaskUpdateInput',
+  definition(t) {
+    t.string('name')
+    t.string('content')
+    t.boolean('finished')
+  },
+})
 
-const taskWhereFilterInput = inputObjectType({
+export const TaskWhereFilterInput = inputObjectType({
   name: `TaskWhereFilterInput`,
   definition(t) {
     t.field('ids', { type: eqInputName('ID', { list: true }) })
@@ -68,7 +48,10 @@ const taskWhereFilterInput = inputObjectType({
   },
 })
 
-const taskWhereFilterArg = arg({ type: taskWhereFilterInput, required: false })
+const TaskWhereUniqueArg = arg({ type: UniqueIDInput, required: true })
+const TaskWhereFilterArg = arg({ type: TaskWhereFilterInput, required: false })
+const TaskCreateDataArg = arg({ type: TaskCreateInput, required: true })
+const TaskUpdateDataArg = arg({ type: TaskUpdateInput, required: true })
 
 export const Query = objectType({
   name: 'Query',
@@ -77,10 +60,10 @@ export const Query = objectType({
       type: Task,
       nullable: true,
       args: {
-        where: taskWhereUniqueArg,
+        where: TaskWhereUniqueArg,
       },
       resolve: async (_, args, ctx) => {
-        return ctx.service.task.findOne({ where: { id: args.where.id.eq } })
+        return ctx.service.task.findOne({ where: args.where })
       },
     })
 
@@ -89,11 +72,11 @@ export const Query = objectType({
       list: true,
       nullable: false,
       args: {
-        where: taskWhereFilterArg,
+        where: TaskWhereFilterArg,
       },
       resolve: async (_, args, ctx) => {
         return ctx.service.task.findMany({
-          where: resolveFilterArgs(args.where),
+          where: resolveEqFilterArgs(args.where),
         })
       },
     })
@@ -103,23 +86,35 @@ export const Query = objectType({
 export const Mutation = objectType({
   name: 'Mutation',
   definition(t) {
-    t.field('noop', {
-      type: 'Boolean',
-      resolve: () => {
-        return true
+    t.field('createTask', {
+      type: Task,
+      args: {
+        data: TaskCreateDataArg,
+      },
+      resolve: async (_, args, ctx) => {
+        return ctx.service.task.createOne({ data: args.data as TaskCreateData })
+      },
+    })
+
+    t.field('updateTask', {
+      type: Task,
+      args: {
+        where: TaskWhereUniqueArg,
+        data: TaskUpdateDataArg,
+      },
+      resolve: async (_, args, ctx) => {
+        return ctx.service.task.updateOne({ where: args.where, data: args.data as TaskUpdateData })
+      },
+    })
+
+    t.field('deleteTask', {
+      type: Task,
+      args: {
+        where: TaskWhereUniqueArg,
+      },
+      resolve: async (_, args, ctx) => {
+        return ctx.service.task.deleteOne({ where: args.where })
       },
     })
   },
 })
-
-const resolveFilterArgs = <R>(args: any): R => {
-  const res: any = {}
-
-  for (const key of Object.keys(args)) {
-    if (args[key] && typeof args[key] === 'object' && args[key].eq !== undefined) {
-      res[key] = args[key].eq
-    }
-  }
-
-  return res
-}

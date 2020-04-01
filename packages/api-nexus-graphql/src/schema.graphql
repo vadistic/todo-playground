@@ -3,11 +3,11 @@
 
 
 input BooleanEqualInput {
-  eq: Boolean!
+  eq: Boolean
 }
 
 input BooleanListEqualInput {
-  eq: [Boolean!]!
+  eq: [Boolean!]
 }
 
 input BooleanRequiredEqualInput {
@@ -22,11 +22,11 @@ input BooleanRequiredListEqualInput {
 scalar DateTime
 
 input DateTimeEqualInput {
-  eq: DateTime!
+  eq: DateTime
 }
 
 input DateTimeListEqualInput {
-  eq: [DateTime!]!
+  eq: [DateTime!]
 }
 
 input DateTimeRequiredEqualInput {
@@ -38,11 +38,11 @@ input DateTimeRequiredListEqualInput {
 }
 
 input FloatEqualInput {
-  eq: Float!
+  eq: Float
 }
 
 input FloatListEqualInput {
-  eq: [Float!]!
+  eq: [Float!]
 }
 
 input FloatRequiredEqualInput {
@@ -54,11 +54,11 @@ input FloatRequiredListEqualInput {
 }
 
 input IDEqualInput {
-  eq: ID!
+  eq: ID
 }
 
 input IDListEqualInput {
-  eq: [ID!]!
+  eq: [ID!]
 }
 
 input IDRequiredEqualInput {
@@ -70,11 +70,11 @@ input IDRequiredListEqualInput {
 }
 
 input IntEqualInput {
-  eq: Int!
+  eq: Int
 }
 
 input IntListEqualInput {
-  eq: [Int!]!
+  eq: [Int!]
 }
 
 input IntRequiredEqualInput {
@@ -86,20 +86,22 @@ input IntRequiredListEqualInput {
 }
 
 type Mutation {
-  noop: Boolean!
+  createTask(data: TaskCreateInput!): Task!
+  deleteTask(where: UniqueIDInput!): Task!
+  updateTask(data: TaskUpdateInput!, where: UniqueIDInput!): Task!
 }
 
 type Query {
-  task(where: TaskWhereUniqueInput!): Task
+  task(where: UniqueIDInput!): Task
   tasks(where: TaskWhereFilterInput): [Task!]!
 }
 
 input StringEqualInput {
-  eq: String!
+  eq: String
 }
 
 input StringListEqualInput {
-  eq: [String!]!
+  eq: [String!]
 }
 
 input StringRequiredEqualInput {
@@ -119,6 +121,18 @@ type Task {
   updatedAt: DateTime!
 }
 
+input TaskCreateInput {
+  content: String
+  finished: Boolean
+  name: String!
+}
+
+input TaskUpdateInput {
+  content: String
+  finished: Boolean
+  name: String
+}
+
 input TaskWhereFilterInput {
   content: StringEqualInput
   createdAfter: DateTimeEqualInput
@@ -130,6 +144,6 @@ input TaskWhereFilterInput {
   updatedBefore: DateTimeEqualInput
 }
 
-input TaskWhereUniqueInput {
-  id: IDEqualInput!
+input UniqueIDInput {
+  id: ID!
 }

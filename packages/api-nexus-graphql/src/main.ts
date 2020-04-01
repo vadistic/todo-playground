@@ -1,7 +1,13 @@
-import { server } from './server'
+import { config } from './config'
+import { createApi } from './create-api'
 
-const port = process.env.PORT ?? 4000
+const main = async () => {
+  config.loadFile('./.env.json')
+  const api = await createApi()
 
-server.listen({ port }, () =>
-  console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`),
-)
+  api.app.listen({ port: api.port }, () => {
+    console.log(`🚀 Server ready at ${api.url}`)
+  })
+}
+
+main()

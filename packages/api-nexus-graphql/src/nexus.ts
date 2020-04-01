@@ -9,7 +9,7 @@ const types = {
   Mutation,
   Task,
   DateTime,
-  scalarEqInputs,
+  ...scalarEqInputs,
 }
 
 export const schema = makeSchema({
