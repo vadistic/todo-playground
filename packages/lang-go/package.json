@@ -1,0 +1,8 @@
+{
+  "name": "@todo/lang-go",
+  "version": "0.1.0",
+  "description": "Testing stacks with todo apps",
+  "repository": "https://github.com/vadistic/todo",
+  "license": "MIT",
+  "author": "Jakub Wadas <vadistic@gmail.com>"
+}

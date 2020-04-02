@@ -6,7 +6,7 @@ TODO
 
 - lang: `go`
 - orm: ??
-- graphql: https://github.com/graphql-go/graphql OR https://github.com/graph-gophers/graphql-go
+- graphql: gqlgen
 - db: ??
 
 ### Requiremens
@@ -16,3 +16,10 @@ TODO
 https://golang.org/doc/install
 
 ## Resources
+
+https://github.com/golang-standards/project-layout
+https://gqlgen.com
+https://gobyexample.com
+
+https://dev.to/glyphack/introduction-to-graphql-server-with-golang-1npk
+https://medium.com/@ktrilaksono/create-your-first-simple-graphql-golang-application-with-go-gqlgen-793e11dc5fc4

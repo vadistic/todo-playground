@@ -1,0 +1,42 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+type Task {
+  id: ID!
+  name: String!
+  content: String
+  finished: Boolean!
+}
+
+input WhereUniqueInput {
+  id: ID!
+}
+
+input TaskCreateDataInput {
+  name: String!
+  content: String
+  finished: Boolean
+}
+
+input TaskUpdateDataInput {
+  name: String
+  content: String
+  finished: Boolean
+}
+
+input TaskUpdateInput {
+  name: String
+  content: String
+  finished: Boolean
+}
+
+type Query {
+  task(where: WhereUniqueInput!): Task!
+  tasks: [Task!]!
+}
+
+type Mutation {
+  createTask(data: TaskCreateDataInput!): Task!
+  updateTask(where: WhereUniqueInput!, data: TaskUpdateDataInput!): Task!
+}
