@@ -1,7 +1,7 @@
-import { TaskBase, ModuleBase, SystemColumnNames } from '../interfaces'
+import { TaskBase, DbBase, SystemColumnNames } from '../interfaces'
 
 // eslint-disable-next-line jest/no-export
-export const runBasicTaskTests = (getCtx: () => ModuleBase) => {
+export const runBasicTaskTests = (getDb: () => DbBase) => {
   const pluckSysFields = <T>(val: T): Omit<T, SystemColumnNames> => {
     const cp: any = { ...val }
 
@@ -22,13 +22,13 @@ export const runBasicTaskTests = (getCtx: () => ModuleBase) => {
   }
 
   beforeAll(async () => {
-    const res = await getCtx().service.task.createOne({ data: pluckSysFields(fixture) })
+    const res = await getDb().service.task.createOne({ data: pluckSysFields(fixture) })
 
     fixture = res
   })
 
   it('createOne & findOne', async () => {
-    const res = await getCtx().service.task.findOne({
+    const res = await getDb().service.task.findOne({
       where: { id: fixture.id },
     })
 
@@ -36,12 +36,12 @@ export const runBasicTaskTests = (getCtx: () => ModuleBase) => {
   })
 
   it('findMany > name filter ok', async () => {
-    const [res] = await getCtx().service.task.findMany({ where: { name: 'My' } })
+    const [res] = await getDb().service.task.findMany({ where: { name: 'My' } })
     expect(res).toMatchObject(pluckSysFields(fixture))
   })
 
   it('findMany > name filter fail', async () => {
-    const res = await getCtx().service.task.findMany({
+    const res = await getDb().service.task.findMany({
       where: { name: 'assdjh34489u3@#$%^&' },
     })
 
@@ -51,12 +51,12 @@ export const runBasicTaskTests = (getCtx: () => ModuleBase) => {
   it('updateOne', async () => {
     const updateData = { name: 'My renamed task', finished: true }
 
-    const res1 = await getCtx().service.task.updateOne({
+    const res1 = await getDb().service.task.updateOne({
       where: { id: fixture.id },
       data: updateData,
     })
 
-    const res2 = await getCtx().service.task.findOne({ where: { id: fixture.id } })
+    const res2 = await getDb().service.task.findOne({ where: { id: fixture.id } })
 
     const fix = {
       ...pluckSysFields(fixture),
@@ -70,7 +70,7 @@ export const runBasicTaskTests = (getCtx: () => ModuleBase) => {
   })
 
   it('deleteOne > returns deleted record', async () => {
-    const res = await getCtx().service.task.deleteOne({
+    const res = await getDb().service.task.deleteOne({
       where: { id: fixture.id },
     })
 
@@ -78,7 +78,7 @@ export const runBasicTaskTests = (getCtx: () => ModuleBase) => {
   })
 
   it('deleteOne > really deletes record', async () => {
-    const res = await getCtx().service.task.findOne({ where: { id: fixture.id } })
+    const res = await getDb().service.task.findOne({ where: { id: fixture.id } })
 
     expect(res).toBe(null)
   })

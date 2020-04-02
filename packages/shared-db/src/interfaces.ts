@@ -92,7 +92,7 @@ export interface ServicesBase {
   task: TaskServiceBase
 }
 
-export interface ModuleBase {
+export interface DbBase {
   service: ServicesBase
   close(): Promise<void>
 }

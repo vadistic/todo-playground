@@ -1,14 +1,38 @@
-export const getDbUrl = (name: string, host: string) => `mongodb://${host}/${name}`
+import convict from 'convict'
 
-const DB_NAME = process.env.DB_NAME || 'dev'
-const DB_HOST = process.env.DB_HOST || 'localhost'
-const DB_PORT = process.env.DB_PORT || '21017'
-
-const DB_URL = process.env.DB_URL || getDbUrl(DB_NAME, DB_HOST)
-
-export const CONFIG = {
-  DB_NAME,
-  DB_HOST,
-  DB_PORT,
-  DB_URL,
+/* eslint-disable @typescript-eslint/camelcase */
+export const configSchema = {
+  env: {
+    format: ['production', 'development', 'test'],
+    default: 'development',
+    env: 'NODE_ENV',
+  },
+  debug: {
+    env: 'DEBUG',
+    default: false,
+  },
+  db_name: {
+    env: 'DB_NAME',
+    default: 'dev',
+  },
+  db_host: {
+    env: 'DB_HOST',
+    default: 'localhost',
+  },
+  db_port: {
+    env: 'DB_PORT',
+    default: 21017,
+    format: 'port',
+  },
+  db_url: {
+    env: 'DB_URL',
+    default: 'mongodb://localhost/dev',
+  },
 }
+/* eslint-enable @typescript-eslint/camelcase */
+
+export type ConfigSchema = typeof configSchema
+
+export const config = convict(configSchema)
+
+export const getDbUrl = (host: string, name: string) => `mongodb://${host}/${name}`

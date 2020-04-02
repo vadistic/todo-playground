@@ -1,5 +1,5 @@
 export * from './services'
-export * from './create'
+export * from './create-db'
 export * from './config'
 export * from './utils'
 

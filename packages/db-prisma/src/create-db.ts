@@ -1,13 +1,13 @@
-import { ModuleBase } from '@todo/shared-db'
+import { DbBase } from '@todo/shared-db'
 import { PrismaClient, PrismaClientOptions } from './generated/client'
 import { Services } from './services'
 
-export interface PrismaModule extends ModuleBase {
+export interface PrismaDb extends DbBase {
   prisma: PrismaClient
   service: Services
 }
 
-export const createModule = async (): Promise<PrismaModule> => {
+export const createDb = async (): Promise<PrismaDb> => {
   // ! do not use log/loglevel config or tests hang for some reason....
   const opts: PrismaClientOptions = {}
 

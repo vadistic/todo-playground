@@ -3,29 +3,33 @@ import {
   TaskServiceBase,
   TaskFindManyArgs,
   TaskCreateOneArgs,
-  TaskBase,
+  TaskDeleteOneArgs,
+  TaskUpdateOneArgs,
 } from '@todo/shared-db'
-import { Models } from './create'
-import { TaskDocument, TaskModel } from './schema'
+import { Mongoose } from 'mongoose'
+import { Models } from './create-db'
+import { TaskDocument } from './schema'
 import { makeFilter, fixId } from './utils'
 
-export class TaskService implements Partial<TaskServiceBase> {
-  constructor(public models: Models) {}
+export class TaskService implements TaskServiceBase {
+  constructor(public models: Models, public mongoose: Mongoose) {}
 
   async findOne(args: TaskFindOneArgs) {
     const res = await this.models.task.findById(args.where.id).lean()
 
-    return fixId(res) as TaskBase
+    console.log(res)
+
+    return fixId(res)
   }
 
   async findMany(args: TaskFindManyArgs) {
     const cond = makeFilter<TaskDocument>(args.where, {
-      _id: { $in: args.where.ids as string[] },
-      name: { $regex: `.*${args.where.name}.*` },
-      content: { $regex: `.*${args.where.content}.*` },
-      finished: { $eq: args.where.finished },
-      createdAt: { $gte: args.where.createdAfter, $lte: args.where.createdBefore },
-      updatedAt: { $gte: args.where.updatedAfter, $lte: args.where.updatedBefore },
+      _id: { $in: args.where?.ids as string[] },
+      name: { $regex: `.*${args.where?.name}.*` },
+      content: { $regex: `.*${args.where?.content}.*` },
+      finished: { $eq: args.where?.finished },
+      createdAt: { $gte: args.where?.createdAfter, $lte: args.where?.createdBefore },
+      updatedAt: { $gte: args.where?.updatedAfter, $lte: args.where?.updatedBefore },
     })
 
     const res = await this.models.task.find(cond).lean()
@@ -34,14 +38,32 @@ export class TaskService implements Partial<TaskServiceBase> {
   }
 
   async createOne(args: TaskCreateOneArgs) {
-    const doc = new TaskModel(args.data)
+    const doc = await this.models.task.create(args.data)
 
-    const res = await doc.save()
+    return doc.toObject()
+  }
 
-    return res.toObject()
+  async updateOne(args: TaskUpdateOneArgs) {
+    const res = await this.models.task.findByIdAndUpdate(args.where.id, args.data).lean()
+
+    if (!res) {
+      throw Error('Cannot updateOne - Task not found')
+    }
+
+    return fixId(res)
+  }
+
+  async deleteOne(args: TaskDeleteOneArgs) {
+    const res = await this.models.task.findByIdAndDelete(args.where.id).lean()
+
+    if (!res) {
+      throw Error('Cannot deleteOne - Task not found')
+    }
+
+    return fixId(res)
   }
 }
 
-export const createServices = (models: Models) => ({
-  task: new TaskService(models),
+export const createServices = (models: Models, mongoose: Mongoose) => ({
+  task: new TaskService(models, mongoose),
 })

@@ -10,6 +10,9 @@ export const configureSchema = (schema: Schema) => {
   // add virtualised id getter
   schema.set('id', true)
 
+  // no versioning
+  schema.set('versionKey', false)
+
   // fix serialisers
   schema.set('toJSON', {
     virtuals: true,
@@ -27,18 +30,22 @@ export const configureSchema = (schema: Schema) => {
     },
   })
 
-  // lean always fetch virtual fields
-  // FIXME: this is a bit too hacky
-  schema.pre(/^find/, function(this: Query<any>, next) {
+  // FIXME: super brute force
+  schema.post(/^find/, function (this: Query<any>, doc, next) {
     const opts = (this as any)._mongooseOptions
 
+    // only do it for lean queries where nothing can break
     if (opts.lean) {
-      // also skip those in lean
-      this.select('-_id')
-      this.select('-__v')
-
-      if (opts.lean === true) opts.lean = { virtuals: true }
-      else opts.lean = { virtuals: true, ...opts.lean }
+      // handle findMany and such
+      if (Array.isArray(doc)) {
+        doc.forEach((el) => {
+          el.id = el._id.toString()
+          delete el._id
+        })
+      } else {
+        doc.id = doc._id.toString()
+        delete doc._id
+      }
     }
 
     next()

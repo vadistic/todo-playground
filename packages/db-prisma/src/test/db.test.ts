@@ -1,37 +1,37 @@
 import { runBasicTaskTests, seedTasks } from '@todo/shared-db'
-import { createModule, PrismaModule } from '../create'
+import { createDb, PrismaDb } from '../create-db'
 import { config } from '../config'
 
 config.loadFile('./.env.test.json')
 process.env.DB_URL = config.get('db_url')
 
-let ctx: PrismaModule
+let db: PrismaDb
 
 beforeAll(async () => {
-  ctx = await createModule()
-  await seedTasks(ctx)
+  db = await createDb()
+  await seedTasks(db)
 })
 
 afterAll(async () => {
   await cleanup()
-  await ctx.close()
+  await db.close()
 })
 
 const cleanup = async () => {
-  await ctx.prisma.task.deleteMany({ where: { id: { not: null } } })
+  await db.prisma.task.deleteMany({ where: { id: { not: null } } })
 }
 
 describe('db-prisma > basic', () => {
   test('connection', async () => {
-    const count = await ctx.prisma.task.count()
+    const count = await db.prisma.task.count()
 
     expect(typeof count).toBe('number')
   })
 
-  runBasicTaskTests(() => ctx)
+  runBasicTaskTests(() => db)
 
   test('db is seeded', async () => {
-    const res = await ctx.service.task.findMany({ where: {} })
+    const res = await db.service.task.findMany({ where: {} })
 
     expect(res.length).toBeGreaterThanOrEqual(20)
   })
@@ -39,7 +39,7 @@ describe('db-prisma > basic', () => {
 
 describe('db-prisma > filters', () => {
   test('string filters', async () => {
-    const [{ name, content }] = await ctx.service.task.findMany({
+    const [{ name, content }] = await db.service.task.findMany({
       where: { name: 'SMS', content: 'dolor' },
     })
 
@@ -48,13 +48,13 @@ describe('db-prisma > filters', () => {
   })
 
   test('null/undefined filters', async () => {
-    const res1 = await ctx.service.task.findMany({
+    const res1 = await db.service.task.findMany({
       where: { content: null },
     })
 
     expect(res1.every(({ content }) => content === null)).toBeTruthy()
 
-    const res2 = await ctx.service.task.findMany({
+    const res2 = await db.service.task.findMany({
       where: { content: undefined },
     })
 
@@ -65,7 +65,7 @@ describe('db-prisma > filters', () => {
 
 describe('db-prisma > pagination', () => {
   test('limit', async () => {
-    const res = await ctx.service.task.findMany({
+    const res = await db.service.task.findMany({
       limit: 4,
     })
 
@@ -73,7 +73,7 @@ describe('db-prisma > pagination', () => {
   })
 
   test('sort', async () => {
-    const res = await ctx.service.task.findMany({
+    const res = await db.service.task.findMany({
       limit: 7,
       order: 'DESC',
     })
@@ -86,11 +86,11 @@ describe('db-prisma > pagination', () => {
   test('after', async () => {
     const getName = (val: any) => val.name
 
-    const all = await ctx.service.task.findMany({ order: 'ASC' })
+    const all = await db.service.task.findMany({ order: 'ASC' })
 
-    const res1 = await ctx.service.task.findMany({ limit: 4, order: 'ASC' })
-    const res2 = await ctx.service.task.findMany({ limit: 4, after: res1[3].id, order: 'ASC' })
-    const res3 = await ctx.service.task.findMany({ limit: 4, after: res2[3].id, order: 'ASC' })
+    const res1 = await db.service.task.findMany({ limit: 4, order: 'ASC' })
+    const res2 = await db.service.task.findMany({ limit: 4, after: res1[3].id, order: 'ASC' })
+    const res3 = await db.service.task.findMany({ limit: 4, after: res2[3].id, order: 'ASC' })
 
     expect(res1.map(getName)).toEqual(all.slice(0, 4).map(getName))
     expect(res2.map(getName)).toEqual(all.slice(4, 8).map(getName))
@@ -100,10 +100,10 @@ describe('db-prisma > pagination', () => {
   test('before', async () => {
     const getName = (val: any) => val.name
 
-    const all = await ctx.service.task.findMany({ order: 'ASC' })
+    const all = await db.service.task.findMany({ order: 'ASC' })
 
-    const forward = await ctx.service.task.findMany({ limit: 12, order: 'ASC' })
-    const backward = await ctx.service.task.findMany({
+    const forward = await db.service.task.findMany({ limit: 12, order: 'ASC' })
+    const backward = await db.service.task.findMany({
       limit: 4,
       before: forward[10].id,
       order: 'ASC',

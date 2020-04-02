@@ -1,5 +1,5 @@
 import { ConnectionOptions, Connection, createConnection, Repository } from 'typeorm'
-import { ModuleBase } from '@todo/shared-db'
+import { DbBase } from '@todo/shared-db'
 import { TaskEntity } from './schema'
 import { Services } from './services'
 import { config } from './config'
@@ -8,13 +8,13 @@ export interface Repositories {
   task: Repository<TaskEntity>
 }
 
-export interface TypeormModule extends ModuleBase {
+export interface TypeormDb extends DbBase {
   ctn: Connection
   repo: Repositories
   service: Services
 }
 
-export const createModule = async (): Promise<TypeormModule> => {
+export const createDb = async (): Promise<TypeormDb> => {
   const connectionOptions: ConnectionOptions = {
     type: 'sqlite',
     database: config.get('db_file'),

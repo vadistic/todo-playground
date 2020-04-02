@@ -1,5 +1,5 @@
-import {  PrismaModule, createModule } from '@todo/db-prisma'
+import { PrismaDb, createDb } from '@todo/db-prisma'
 
-export type Context = PrismaModule
+export type Context = PrismaDb
 
-export const createContext = createModule
+export const createContext = createDb

@@ -1,9 +1,9 @@
 import { seedTasks } from '@todo/shared-db'
-import { createModule } from '../create'
+import { createDb } from '../create-db'
 
 export const seed = async () => {
-  const ctx = await createModule()
-  await seedTasks(ctx)
+  const db = await createDb()
+  await seedTasks(db)
 
-  await ctx.close()
+  await db.close()
 }

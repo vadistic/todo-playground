@@ -19,10 +19,12 @@
   },
   "dependencies": {
     "@todo/shared-db": "^0.1.0",
+    "convict": "^5.2.0",
     "mongoose": "^5.9.7",
     "mongoose-lean-virtuals": "^0.6.1"
   },
   "devDependencies": {
+    "@types/convict": "^4.2.1",
     "@vadistic/eslint-config-base": "^0.2.2",
     "@vadistic/prettier-config": "^0.2.2",
     "eslint": "^6.8.0",
