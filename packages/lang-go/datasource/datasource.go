@@ -2,39 +2,40 @@ package datasource
 
 import (
 	"todo-lang-go/datasource/model"
+	"todo-lang-go/logger"
 
 	"github.com/jinzhu/gorm"
 	"github.com/labstack/gommon/log"
 	_ "github.com/mattn/go-sqlite3"
 )
 
-type logger struct {
+func CreateDatasource() *gorm.DB {
+	db, err := gorm.Open("sqlite3", ":memory:")
+
+	// logging
+	logger := logger.CreateLogger("database")
+
+	db.LogMode(true)
+	db.SetLogger(gormLogger{logger})
+
+	if err != nil {
+		logger.Fatal("cannot open db", err)
+	}
+
+	if err := db.AutoMigrate(&model.Task{}).Error; err != nil {
+		logger.Fatal("cannot migrate\n", err)
+	} else {
+		logger.Info("migrated\n")
+	}
+
+	return db
+}
+
+type gormLogger struct {
 	instance *log.Logger
 }
 
-func (l logger) Print(values ...interface{}) {
-	l.instance.Info("my logger\n")
-
+func (l gormLogger) Print(values ...interface{}) {
 	query := values[3]
-
 	l.instance.Debug("query\n", query)
-}
-
-func Init() (*gorm.DB, error) {
-	db, err := gorm.Open("sqlite3", ":memory:")
-
-	// db logger
-	dbLog := log.New("database")
-	dbLog.SetHeader("[${time_rfc3339}] ${prefix} =>")
-	l := logger{dbLog}
-	db.LogMode(true)
-	db.SetLogger(l)
-
-	if err := db.AutoMigrate(&model.Task{}).Error; err != nil {
-		dbLog.Fatal("cannot migrate")
-	}
-
-	dbLog.Info("connected & migrated")
-
-	return db, err
 }

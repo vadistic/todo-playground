@@ -11,8 +11,13 @@ GORUN=$(GOCMD) run
 BINARY_NAME=mybinary
 
 # Env
-include .env
-export $(shell sed 's/=.*//' .env)
+export PORT=8000
+export VERSION=0.1.0
+export LOG_LEVEL=INFO
+export PKG_NAME=todo-lang-go
+
+# include .env
+# export $(shell sed 's/=.*//' .env)
 
 dev:
 	air
@@ -21,10 +26,10 @@ start:
 	$(GORUN) ./main.go
 
 build:
-	$(GOBUILD)
+	$(GOBUILD) ./main.go
 
 graphql:
 	$(GORUN) github.com/99designs/gqlgen generate
 
-smth:
-	echo $(PORT)
+test:
+	$(GOTEST) ./...

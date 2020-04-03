@@ -12,6 +12,7 @@ require (
 	github.com/labstack/gommon v0.3.0
 	github.com/mattn/go-colorable v0.1.6 // indirect
 	github.com/mattn/go-sqlite3 v2.0.3+incompatible
+	github.com/stretchr/testify v1.4.0
 	github.com/vektah/gqlparser/v2 v2.0.1
 	golang.org/x/sys v0.0.0-20200331124033-c3d80250170d // indirect
 )

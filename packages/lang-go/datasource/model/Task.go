@@ -21,7 +21,7 @@ type Task struct {
 
 	Name     string  `json:"name"`
 	Content  *string `json:"content"`
-	Finished bool    `json:"finished" gorm:"default:'false'"`
+	Finished bool    `json:"finished" gorm:"default:false"`
 }
 
 func (task *Task) BeforeCreate(scope *gorm.Scope) error {
