@@ -1,4 +1,6 @@
-# @todo
+# todo
+
+> Testing stacks with todo apps. Inspired by [realworld](https://github.com/gothinkster/realworld) & [todomvc](https://github.com/tastejs/todomvc)
 
 ## Goal
 
@@ -44,4 +46,4 @@ Randomising everything would be simply to much...
 
 ## References
 
-Inspired by [realworld](https://github.com/gothinkster/realworld) or [todomvc](https://github.com/tastejs/todomvc)
+Inspired by [realworld](https://github.com/gothinkster/realworld) & [todomvc](https://github.com/tastejs/todomvc)
