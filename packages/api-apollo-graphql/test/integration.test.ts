@@ -1,5 +1,6 @@
 import { createModule, Client } from '@todo/db-prisma'
 import { seedTasks } from '@todo/shared-db'
+
 import { config } from '../src/config'
 import { createTestClient, TestClient } from './create-test-client'
 
@@ -51,7 +52,7 @@ describe('api-apollo-graphql', () => {
   })
 
   it('query one task', async () => {
-    const id = tasks[Math.floor(Math.random() * tasks.length)].id
+    const { id } = tasks[Math.floor(Math.random() * tasks.length)]
 
     const TASK_QUERY = /* GraphQL */ `
       query Task($id: ID!) {

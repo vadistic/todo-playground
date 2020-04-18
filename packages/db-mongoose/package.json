@@ -11,8 +11,8 @@
     "build": "tsc -p tsconfig.build.json",
     "clean": "rm -rf dist *.tsbuildinfo",
     "dev": "echo TODO",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "lint": "eslint --ext ts,tsx src/**",
+    "format": "prettier --write src",
+    "lint": "eslint --ext ts,tsx src",
     "scripts": "sh ./scripts.sh",
     "start": "echo TODO",
     "test": "jest"
@@ -20,15 +20,10 @@
   "dependencies": {
     "@todo/shared-db": "^0.1.0",
     "convict": "^5.2.0",
-    "mongoose": "^5.9.7",
+    "mongoose": "^5.9.9",
     "mongoose-lean-virtuals": "^0.6.1"
   },
   "devDependencies": {
-    "@types/convict": "^4.2.1",
-    "@vadistic/eslint-config-base": "^0.2.2",
-    "@vadistic/prettier-config": "^0.2.2",
-    "eslint": "^6.8.0",
-    "prettier": "^2.0.2",
-    "typescript": "^3.8.3"
+    "@types/convict": "^4.2.1"
   }
 }

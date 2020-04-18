@@ -12,10 +12,6 @@ fn main() {
     }
 }
 
-fn print_hello() {
-    println!("Hello, world!");
-}
-
 fn add_two(val: i32) -> i32 {
     return val + 2;
 }

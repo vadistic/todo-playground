@@ -1,5 +1,5 @@
-import convict from 'convict'
 import { configSchema as dbConfigSchema } from '@todo/db-prisma'
+import convict from 'convict'
 
 /* eslint-disable @typescript-eslint/camelcase */
 export const configSchema = {

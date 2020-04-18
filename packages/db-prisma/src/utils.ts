@@ -21,10 +21,11 @@ const lazy = <P, R>(fn: (props: P) => R) => {
 export type Range = undefined | { lte: Date } | { gte: Date } | { lte: Date; gte: Date }
 
 export const range = ({ from, to }: { from: Nullable<Date>; to: Nullable<Date> }): Range => {
-  if (!from && !to) return undefined
-  if (!from && to) return { lte: to }
-  if (from && !to) return { gte: from }
   if (from && to) return { gte: from, lte: to }
+  if (from) return { gte: from }
+  if (to) return { lte: to }
+
+  return undefined
 }
 
 // ────────────────────────────────────────────────────────────────────────────────
@@ -75,11 +76,13 @@ export const buildFilter = <A, V>(cfgFn: (args: A) => ValueConfig<A, V>) => {
       const isUndef = val === undefined
       const isAliased = key in aliasMap
 
+      // skip keys with undef value (but handle null)
       if (isUndef) return
 
       // easy mode
       if (!isAliased) {
-        res[key] = cfg[key] !== null ? cfg[key] : { equals: null }
+        // is nullified both if arg val is null or cfg fn returned null
+        res[key] = val === null || cfg[key] === null ? { equals: null } : cfg[key]
         return
       }
 
@@ -94,7 +97,8 @@ export const buildFilter = <A, V>(cfgFn: (args: A) => ValueConfig<A, V>) => {
       // use {equals} filter
       if (isNullified) {
         targets.forEach((target) => {
-          if (cfg[target].$value === null) {
+          // also is nullified both if arg val is null or aliased cfg fn returned null
+          if (val === null || cfg[target].$value === null) {
             res[target] = { equals: null }
           }
         })
@@ -102,10 +106,7 @@ export const buildFilter = <A, V>(cfgFn: (args: A) => ValueConfig<A, V>) => {
       }
 
       targets.forEach((target) => {
-        // I think I'm lost :<
-        // not sure if some null cases apply here...
-        // => will fix if tests fail
-        if (cfg[target].$value !== undefined) {
+        if (val !== undefined) {
           res[target] = cfg[target].$value
         }
       })

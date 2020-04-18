@@ -1,3 +1,4 @@
+import { TaskBase, ID, Nullable, DateTime } from '@todo/shared-db'
 import {
   PrimaryGeneratedColumn,
   Column,
@@ -6,7 +7,6 @@ import {
   UpdateDateColumn,
   BaseEntity,
 } from 'typeorm'
-import { TaskBase, ID, Nullable, DateTime } from '@todo/shared-db'
 
 @Entity({ name: 'Task' })
 export class TaskEntity extends BaseEntity implements TaskBase {

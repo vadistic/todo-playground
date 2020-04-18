@@ -4,8 +4,8 @@ import {
   TaskDeleteOneArgs,
   ServicesBase,
 } from '@todo/shared-db'
-
 import * as Shared from '@todo/shared-db'
+
 import * as Client from './generated/client'
 import { buildFilter, range } from './utils'
 

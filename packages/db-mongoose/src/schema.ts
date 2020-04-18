@@ -1,6 +1,8 @@
+/* eslint-disable func-names */
+/* eslint-disable no-param-reassign */
+import { TaskBase } from '@todo/shared-db'
 import mongoose, { Document, Schema, Query } from 'mongoose'
 import mongooseLeanVirtuals from 'mongoose-lean-virtuals'
-import { TaskBase } from '@todo/shared-db'
 
 export const configureSchema = (schema: Schema) => {
   // add timestamps fields

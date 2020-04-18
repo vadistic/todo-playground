@@ -1,33 +1,25 @@
 {
   "compilerOptions": {
-    /* Basic Options */
     "target": "es2018",
-    "module": "CommonJS",
-    "lib": ["ESNext"],
+    "module": "commonjs",
+    "lib": ["esnext"],
+
     "allowJs": false,
     "declaration": true,
+    "declarationMap": true,
     "sourceMap": true,
-
     "incremental": true,
 
-    /* Strict Type-Checking Options */
     "strict": true,
 
-    /* Module Resolution Options */
     "moduleResolution": "node",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-
-    /* Experimental Options */
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
 
-    /* Advanced Options */
     "forceConsistentCasingInFileNames": true,
-
-    /* Additional Options */
     "resolveJsonModule": true,
     "removeComments": true
-    // "skipLibCheck": true,
   }
 }

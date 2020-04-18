@@ -1,8 +1,9 @@
 import { ApolloServer } from 'apollo-server-express'
 import express from 'express'
-import { schema } from './nexus'
-import { createContext } from './context'
+
 import { config } from './config'
+import { createContext } from './context'
+import { schema } from './nexus'
 
 export const createApi = async () => {
   const app = express()
@@ -10,7 +11,7 @@ export const createApi = async () => {
   const ctx = await createContext()
 
   const server = new ApolloServer({
-    schema: schema,
+    schema,
     context: ctx,
     debug: config.get('debug'),
     engine: false,
@@ -20,8 +21,7 @@ export const createApi = async () => {
 
   const graphqlPath = config.get('graphql_path').replace(/^\/|\/$/g, '')
   const port = config.get('port')
-  // TODO: add public url env or smth
-  const url = `http://` + 'localhost' + ':' + port + '/' + graphqlPath
+  const url = 'http://localhost:' + port + '/' + graphqlPath
 
   server.applyMiddleware({ app, path: '/' + graphqlPath })
 

@@ -16,8 +16,8 @@ export { PrismaClientInitializationError }
 export { PrismaClientValidationError }
 
 /**
- * Query Engine version: 2accb9c7eacdc984874eaeb63377fe705dfd3203
- * Prisma Client JS version: 2.0.0-beta.1
+ * Query Engine version: 76857c35ba1e1764dd5473656ecbbb2f739e1822
+ * Prisma Client JS version: 2.0.0-beta.2
  */
 export declare type PrismaVersion = {
   client: string
@@ -170,7 +170,7 @@ export declare function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLe
  * ```
  *
  * 
- * Read more in our [docs](https://github.com/prisma/prisma2/blob/master/docs/prisma-client-js/api.md).
+ * Read more in our [docs](https://github.com/prisma/prisma/blob/master/docs/prisma-client-js/api.md).
  */
 export declare class PrismaClient<T extends PrismaClientOptions = {}, U = keyof T extends 'log' ? T['log'] extends Array<LogLevel | LogDefinition> ? GetEvents<T['log']> : never : never> {
   /**
@@ -218,7 +218,7 @@ export declare class PrismaClient<T extends PrismaClientOptions = {}, U = keyof 
    * ```
    *
    * 
-   * Read more in our [docs](https://github.com/prisma/prisma2/blob/master/docs/prisma-client-js/api.md).
+   * Read more in our [docs](https://github.com/prisma/prisma/blob/master/docs/prisma-client-js/api.md).
    */
   constructor(optionsArg?: T);
   on<V extends U>(eventType: V, callback: V extends never ? never : (event: V extends 'query' ? QueryEvent : LogEvent) => void): void;
@@ -248,7 +248,7 @@ export declare class PrismaClient<T extends PrismaClientOptions = {}, U = keyof 
    * const result = await prisma.raw`SELECT * FROM User WHERE id = ${userId};`
   * ```
   * 
-  * Read more in our [docs](https://github.com/prisma/prisma2/blob/master/docs/prisma-client-js/api.md#raw-database-access).
+  * Read more in our [docs](https://github.com/prisma/prisma/blob/master/docs/prisma-client-js/api.md#raw-database-access).
   */
   raw<T = any>(query: string | TemplateStringsArray, ...values: any[]): Promise<T>;
 
@@ -303,10 +303,6 @@ export type TaskSelect = {
   finished?: boolean
 }
 
-export type TaskInclude = {
-
-}
-
 export type TaskGetPayload<
   S extends boolean | null | undefined | TaskArgs,
   U = keyof S
@@ -314,7 +310,7 @@ export type TaskGetPayload<
   ? Task
   : S extends undefined
   ? never
-  : S extends TaskArgs
+  : S extends FindManyTaskArgs
   ? 'include' extends U
     ? Task 
   : 'select' extends U
@@ -399,7 +395,7 @@ export interface TaskDelegate {
    *     // ... provide filter here
    *   },
    *   data: {
-   *     // ... provider data here
+   *     // ... provide data here
    *   }
    * })
    * 
@@ -432,7 +428,7 @@ export interface TaskDelegate {
    *     // ... provide filter here
    *   },
    *   data: {
-   *     // ... provider data here
+   *     // ... provide data here
    *   }
    * })
    * 
@@ -463,7 +459,7 @@ export interface TaskDelegate {
   /**
    * 
    */
-  count(): Promise<number>
+  count(args?: Omit<FindManyTaskArgs, 'select' | 'include'>): Promise<number>
 }
 
 export declare class TaskClient<T> implements Promise<T> {
@@ -518,10 +514,6 @@ export type FindOneTaskArgs = {
   **/
   select?: TaskSelect | null
   /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: TaskInclude | null
-  /**
    * Filter, which Task to fetch.
   **/
   where: TaskWhereUniqueInput
@@ -536,10 +528,6 @@ export type FindManyTaskArgs = {
    * Select specific fields to fetch from the Task
   **/
   select?: TaskSelect | null
-  /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: TaskInclude | null
   /**
    * Filter, which Tasks to fetch.
   **/
@@ -580,10 +568,6 @@ export type TaskCreateArgs = {
   **/
   select?: TaskSelect | null
   /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: TaskInclude | null
-  /**
    * The data needed to create a Task.
   **/
   data: TaskCreateInput
@@ -598,10 +582,6 @@ export type TaskUpdateArgs = {
    * Select specific fields to fetch from the Task
   **/
   select?: TaskSelect | null
-  /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: TaskInclude | null
   /**
    * The data needed to update a Task.
   **/
@@ -631,10 +611,6 @@ export type TaskUpsertArgs = {
   **/
   select?: TaskSelect | null
   /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: TaskInclude | null
-  /**
    * The filter to search for the Task to update in case it exists.
   **/
   where: TaskWhereUniqueInput
@@ -658,10 +634,6 @@ export type TaskDeleteArgs = {
   **/
   select?: TaskSelect | null
   /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: TaskInclude | null
-  /**
    * Filter which Task to delete.
   **/
   where: TaskWhereUniqueInput
@@ -684,10 +656,6 @@ export type TaskArgs = {
    * Select specific fields to fetch from the Task
   **/
   select?: TaskSelect | null
-  /**
-   * Choose, which related nodes to fetch as well.
-  **/
-  include?: TaskInclude | null
 }
 
 

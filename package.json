@@ -15,18 +15,19 @@
     "clean": "lerna run clean"
   },
   "devDependencies": {
-    "@types/jest": "^25.1.4",
-    "@types/node": "^13.9.8",
-    "@vadistic/eslint-config-react": "^0.2.2",
-    "@vadistic/prettier-config": "^0.2.2",
-    "@vadistic/tsask": "^0.2.1",
+    "@types/jest": "^25.2.1",
+    "@types/node": "^13.13.0",
+    "@vadistic/eslint-config": "^0.3.1",
+    "@vadistic/prettier-config": "^0.3.0",
+    "@vadistic/tsask": "^0.2.2",
     "eslint": "^6.8.0",
-    "eslint-plugin-prettier": "^3.1.2",
-    "jest": "^25.2.4",
+    "jest": "^25.3.0",
     "lerna": "^3.20.2",
-    "prettier": "^2.0.2",
-    "ts-jest": "^25.3.0",
-    "ts-node": "^8.8.1",
+    "prettier": "^2.0.4",
+    "ts-jest": "^25.4.0",
+    "ts-node": "^8.8.2",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "tsc-watch": "^4.2.3",
     "typescript": "^3.8.3"
   }
 }

@@ -1,4 +1,3 @@
-import { Connection, SelectQueryBuilder } from 'typeorm'
 import {
   TaskFindOneArgs,
   TaskFindManyArgs,
@@ -8,6 +7,7 @@ import {
   TaskDeleteOneArgs,
   TaskBase,
 } from '@todo/shared-db'
+import { Connection, SelectQueryBuilder } from 'typeorm'
 import { buildPaginator } from 'typeorm-cursor-pagination'
 
 import { TaskEntity } from './schema'
@@ -26,7 +26,7 @@ export class TaskService implements TaskServiceBase {
     const qb = this.repo.createQueryBuilder('task').select('task.*')
 
     // TODO: this really should be generalised
-    const filter = (qb: SelectQueryBuilder<TaskEntity>) => {
+    const filter = (_qb: SelectQueryBuilder<TaskEntity>) => {
       const {
         ids,
         name,
@@ -43,7 +43,8 @@ export class TaskService implements TaskServiceBase {
       type Defined<T> = T extends undefined ? never : T
       const def = <T>(val: T): val is Defined<T> => val !== undefined
 
-      qb.andWhere(def(ids) ? 'task.id IN (...:ids)' : skip, { ids })
+      _qb
+        .andWhere(def(ids) ? 'task.id IN (...:ids)' : skip, { ids })
         .andWhere(def(name) ? 'task.name LIKE :name' : skip, { name: `%${name}%` })
         .andWhere(def(content) ? 'task.content LIKE :content' : skip, {
           content: `%${content}%`,
@@ -70,7 +71,7 @@ export class TaskService implements TaskServiceBase {
           { updatedBefore, updatedAfter },
         )
 
-      return qb
+      return _qb
     }
 
     // sqlite does not support booleans AND typeorm qb does not support transforms

@@ -1,8 +1,9 @@
-import mongoose, { Model, Mongoose } from 'mongoose'
 import { DbBase } from '@todo/shared-db'
+import mongoose, { Model, Mongoose } from 'mongoose'
+
+import { config } from './config'
 import { TaskDocument, TaskModel } from './schema'
 import { createServices } from './services'
-import { config } from './config'
 
 export interface Models {
   task: Model<TaskDocument>

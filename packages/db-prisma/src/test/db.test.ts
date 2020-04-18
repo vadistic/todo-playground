@@ -1,6 +1,7 @@
 import { runBasicTaskTests, seedTasks } from '@todo/shared-db'
-import { createDb, PrismaDb } from '../create-db'
+
 import { config } from '../config'
+import { createDb, PrismaDb } from '../create-db'
 
 config.loadFile('./.env.test.json')
 process.env.DB_URL = config.get('db_url')

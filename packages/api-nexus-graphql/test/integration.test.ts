@@ -1,5 +1,6 @@
-import { createModule, Client } from '@todo/db-prisma'
+import { createDb, Client } from '@todo/db-prisma'
 import { seedTasks } from '@todo/shared-db'
+
 import { config } from '../src/config'
 import { createTestClient, TestClient } from './create-test-client'
 
@@ -9,9 +10,9 @@ let client: TestClient
 
 beforeAll(async () => {
   // seed
-  const ctx = await createModule()
-  await seedTasks(ctx)
-  await ctx.close()
+  const db = await createDb()
+  await seedTasks(db)
+  await db.close()
 
   client = await createTestClient()
 })
@@ -20,7 +21,7 @@ afterAll(async () => {
   await client.close()
 
   // clean
-  const ctx = await createModule()
+  const ctx = await createDb()
   await ctx.prisma.task.deleteMany({})
   await ctx.close()
 })
@@ -51,11 +52,11 @@ describe('api-nexus-graphql', () => {
   })
 
   it('query one task', async () => {
-    const id = tasks[Math.floor(Math.random() * tasks.length)].id
+    const { id } = tasks[Math.floor(Math.random() * tasks.length)]
 
     const TASK_QUERY = /* GraphQL */ `
-      query Task($id: ID!) {
-        task(id: $id) {
+      query Task($where: UniqueIDInput!) {
+        task(where: $where) {
           id
           name
           content
@@ -66,10 +67,10 @@ describe('api-nexus-graphql', () => {
 
     const { data, errors } = await client.execute<{ task: Client.Task }>({
       query: TASK_QUERY,
-      variables: { id },
+      variables: { where: { id } },
     })
 
     expect(errors).toBeUndefined()
-    expect(Object.keys(data?.task)).toContain(['id', 'name', 'content', 'finished'])
+    expect(Object.keys(data?.task)).toMatchObject(['id', 'name', 'content', 'finished'])
   })
 })

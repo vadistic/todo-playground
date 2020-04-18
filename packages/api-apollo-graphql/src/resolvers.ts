@@ -1,4 +1,5 @@
 import { IResolvers } from 'apollo-server-express'
+
 import { Context } from './context'
 
 export const resolvers: IResolvers = {

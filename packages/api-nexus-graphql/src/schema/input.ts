@@ -1,4 +1,4 @@
-import { AllInputTypes, inputObjectType } from 'nexus'
+import { AllInputTypes, inputObjectType } from '@nexus/schema'
 
 export const UniqueIDInput = inputObjectType({
   name: `UniqueIDInput`,

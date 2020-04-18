@@ -1,0 +1,7 @@
+{
+  "extends": [
+    "@vadistic/eslint-config/react",
+    "@vadistic/eslint-config/preset/prettier",
+    "./.eslintrc.base.json"
+  ]
+}

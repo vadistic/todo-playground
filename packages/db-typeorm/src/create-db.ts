@@ -1,8 +1,9 @@
-import { ConnectionOptions, Connection, createConnection, Repository } from 'typeorm'
 import { DbBase } from '@todo/shared-db'
+import { ConnectionOptions, Connection, createConnection, Repository } from 'typeorm'
+
+import { config } from './config'
 import { TaskEntity } from './schema'
 import { Services } from './services'
-import { config } from './config'
 
 export interface Repositories {
   task: Repository<TaskEntity>

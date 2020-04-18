@@ -1,6 +1,6 @@
 import * as Shared from '@todo/shared-db'
-import * as Client from '../generated/client'
 
+import * as Client from '../generated/client'
 import { buildFilter, range } from '../utils'
 
 describe('db-prisma > buildFilter', () => {

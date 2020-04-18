@@ -1,5 +1,6 @@
-import { objectType, inputObjectType, arg } from 'nexus'
+import { objectType, inputObjectType, arg } from '@nexus/schema'
 import { TaskCreateData, TaskUpdateData } from '@todo/shared-db'
+
 import { eqInputName, UniqueIDInput, resolveEqFilterArgs } from './input'
 
 export const Task = objectType({

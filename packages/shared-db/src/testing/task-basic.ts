@@ -5,9 +5,9 @@ export const runBasicTaskTests = (getDb: () => DbBase) => {
   const pluckSysFields = <T>(val: T): Omit<T, SystemColumnNames> => {
     const cp: any = { ...val }
 
-    'id' in cp && delete cp.id
-    'createdAt' in cp && delete cp.createdAt
-    'updatedAt' in cp && delete cp.updatedAt
+    if ('id' in cp) delete cp.id
+    if ('createdAt' in cp) delete cp.createdAt
+    if ('updatedAt' in cp) delete cp.updatedAt
 
     return cp
   }

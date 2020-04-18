@@ -10,8 +10,8 @@
     "bootstrap": "yarn scripts bootstrap",
     "build": "tsc -p tsconfig.build.json",
     "clean": "rm -rf dist temp *.tsbuildinfo",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "lint": "eslint --ext ts,tsx src/**",
+    "format": "prettier --write src",
+    "lint": "eslint --ext ts,tsx src",
     "scripts": "sh ./scripts.sh",
     "test": "jest"
   },
@@ -19,17 +19,12 @@
     "@todo/shared-db": "^0.1.0",
     "convict": "^5.2.0",
     "reflect-metadata": "^0.1.13",
-    "sqlite": "^4.0.0-beta.7",
+    "sqlite": "^4.0.7",
     "sqlite3": "^4.1.1",
     "typeorm": "^0.2.24",
     "typeorm-cursor-pagination": "^0.2.2"
   },
   "devDependencies": {
-    "@types/convict": "^4.2.1",
-    "@vadistic/eslint-config-base": "^0.2.2",
-    "@vadistic/prettier-config": "^0.2.2",
-    "eslint": "^6.8.0",
-    "prettier": "^2.0.2",
-    "typescript": "^3.8.3"
+    "@types/convict": "^4.2.1"
   }
 }

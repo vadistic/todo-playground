@@ -3,7 +3,8 @@
 
 function db_clean () {
     echo 'db_clean()'
-    rm -rf temp/*.db
+    # need be in sync with .env.json/.env.test.json
+    rm -rf tmp/*.db
 }
 
 function db_seed () {
@@ -13,7 +14,8 @@ function db_seed () {
 
 function db_cp_test () {
     echo 'db_cp_test()'
-    cp ./temp/dev.db ./temp/test.db
+    # need be in sync with .env.json/.env.test.json
+    cp ./tmp/dev.db ./tmp/test.db
 }
 
 function db_migrate_init () {

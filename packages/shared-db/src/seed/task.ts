@@ -1,4 +1,5 @@
 import f from 'faker'
+
 import { DbBase, TaskBase } from '../interfaces'
 
 const SEED_SIZE = 50

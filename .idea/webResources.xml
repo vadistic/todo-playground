@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebResourcesPaths">
+    <contentEntries>
+      <entry url="file://$PROJECT_DIR$">
+        <entryData>
+          <resourceRoots>
+            <path value="file://$PROJECT_DIR$/packages/api-apollo-graphql" />
+            <path value="file://$PROJECT_DIR$/packages/api-fastify-rest" />
+            <path value="file://$PROJECT_DIR$/packages/api-lambda-rest" />
+            <path value="file://$PROJECT_DIR$/packages/api-nest-graphql" />
+            <path value="file://$PROJECT_DIR$/packages/api-nest-rest" />
+            <path value="file://$PROJECT_DIR$/packages/api-nexus-graphql" />
+            <path value="file://$PROJECT_DIR$/packages/db-fauna" />
+            <path value="file://$PROJECT_DIR$/packages/db-mongoose" />
+            <path value="file://$PROJECT_DIR$/packages/db-prisma" />
+            <path value="file://$PROJECT_DIR$/packages/db-typeorm" />
+            <path value="file://$PROJECT_DIR$/packages/lang-dotnet" />
+            <path value="file://$PROJECT_DIR$/packages/lang-elixir" />
+            <path value="file://$PROJECT_DIR$/packages/lang-go" />
+            <path value="file://$PROJECT_DIR$/packages/lang-python" />
+            <path value="file://$PROJECT_DIR$/packages/lang-rust" />
+            <path value="file://$PROJECT_DIR$/packages/shared-db" />
+            <path value="file://$PROJECT_DIR$/packages/shared-styles" />
+            <path value="file://$PROJECT_DIR$/packages/template" />
+          </resourceRoots>
+        </entryData>
+      </entry>
+    </contentEntries>
+  </component>
+</project>

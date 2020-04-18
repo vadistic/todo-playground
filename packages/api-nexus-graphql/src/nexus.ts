@@ -1,6 +1,6 @@
-import path from 'path'
-import { makeSchema } from 'nexus'
+import { makeSchema } from '@nexus/schema'
 import { nexusPrismaPlugin } from 'nexus-prisma'
+import path from 'path'
 
 import { Query, Mutation, Task, DateTime, scalarEqInputs } from './schema'
 
@@ -18,14 +18,13 @@ export const schema = makeSchema({
     nexusPrismaPlugin({
       prismaClient: (ctx) => ctx.prisma,
       inputs: {
-        // FIXME: does it need to be that ugly?
         prismaClient: path.join(require.resolve('@todo/db-prisma'), '../generated/client'),
       },
     }),
   ],
   outputs: {
-    schema: __dirname + '/schema.graphql',
-    typegen: __dirname + '/generated/nexus.ts',
+    schema: path.join(__dirname, '/schema.graphql'),
+    typegen: path.join(__dirname, '/generated/nexus.ts'),
   },
 
   typegenAutoConfig: {

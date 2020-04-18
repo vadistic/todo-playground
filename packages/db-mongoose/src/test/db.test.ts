@@ -1,10 +1,12 @@
-import { TaskBase } from '@todo/shared-db'
+import { TaskBase, seedTasks } from '@todo/shared-db'
+
 import { MongooseDb, createDb } from '../create-db'
 
 let db = (undefined as unknown) as MongooseDb
 
 beforeAll(async () => {
   db = await createDb()
+  await seedTasks(db)
 })
 
 afterAll(async () => {

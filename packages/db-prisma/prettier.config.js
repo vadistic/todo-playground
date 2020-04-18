@@ -1,1 +1,1 @@
-module.exports = require('@vadistic/prettier-config')
+module.exports = require('../../prettier.config')

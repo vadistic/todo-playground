@@ -1,9 +1,11 @@
 import { ApolloServer } from 'apollo-server-express'
 import express from 'express'
-import { typeDefs } from './schema'
-import { resolvers } from './resolvers'
-import { createContext } from './context'
+
 import { config } from './config'
+import { createContext } from './context'
+import { resolvers } from './resolvers'
+import { typeDefs } from './schema'
+import { Depromisify } from './types'
 
 export const createApi = async () => {
   const app = express()
@@ -23,7 +25,7 @@ export const createApi = async () => {
   const graphqlPath = config.get('graphql_path').replace(/^\/|\/$/g, '')
   const port = config.get('port')
   // TODO: add public url env or smth
-  const url = `http://` + 'localhost' + ':' + port + '/' + graphqlPath
+  const url = 'http://localhost:' + port + '/' + graphqlPath
 
   server.applyMiddleware({ app, path: '/' + graphqlPath })
 
@@ -55,7 +57,5 @@ export const createApi = async () => {
     close,
   }
 }
-
-type Depromisify<T> = T extends Promise<infer U> ? U : never
 
 export type Api = Depromisify<ReturnType<typeof createApi>>

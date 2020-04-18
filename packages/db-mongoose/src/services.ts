@@ -7,7 +7,8 @@ import {
   TaskUpdateOneArgs,
 } from '@todo/shared-db'
 import { Mongoose } from 'mongoose'
-import { Models } from './create-db'
+
+import type { Models } from './create-db'
 import { TaskDocument } from './schema'
 import { makeFilter, fixId } from './utils'
 
@@ -17,14 +18,12 @@ export class TaskService implements TaskServiceBase {
   async findOne(args: TaskFindOneArgs) {
     const res = await this.models.task.findById(args.where.id).lean()
 
-    console.log(res)
-
     return fixId(res)
   }
 
   async findMany(args: TaskFindManyArgs) {
     const cond = makeFilter<TaskDocument>(args.where, {
-      _id: { $in: args.where?.ids as string[] },
+      _id: { $in: args.where?.ids },
       name: { $regex: `.*${args.where?.name}.*` },
       content: { $regex: `.*${args.where?.content}.*` },
       finished: { $eq: args.where?.finished },
