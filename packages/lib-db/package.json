@@ -1,0 +1,23 @@
+{
+  "name": "@todo/lib-db",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Testing stacks with todo apps",
+  "repository": "https://github.com/vadistic/todo",
+  "license": "MIT",
+  "author": "Jakub Wadas <vadistic@gmail.com>",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "yarn tsc -p tsconfig.build.json",
+    "clean": "rm -rf dist *.tsbuildinfo",
+    "format": "prettier --write src",
+    "lint": "eslint --ext ts,tsx src",
+    "test": "jest"
+  },
+  "dependencies": {
+    "faker": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/faker": "^4.1.11"
+  }
+}

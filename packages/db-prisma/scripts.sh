@@ -40,8 +40,8 @@ function bootstrap () {
     db_clean
     db_migrate_init
     db_migrate_up
-    db_seed
     db_cp_test
+    db_seed
 }
 
 function refresh () {
@@ -49,8 +49,8 @@ function refresh () {
     db_clean
     db_migrate
     db_migrate_up
-    db_seed
     db_cp_test
+    db_seed
 }
 
 

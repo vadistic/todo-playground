@@ -16,7 +16,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@todo/shared-db": "^0.1.0",
+    "@todo/lib-db": "^0.1.0",
     "convict": "^5.2.0",
     "reflect-metadata": "^0.1.13",
     "sqlite": "^4.0.7",

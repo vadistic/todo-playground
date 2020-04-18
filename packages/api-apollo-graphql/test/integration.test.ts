@@ -1,5 +1,5 @@
 import { createModule, Client } from '@todo/db-prisma'
-import { seedTasks } from '@todo/shared-db'
+import { seedTasks } from '@todo/lib-db'
 
 import { config } from '../src/config'
 import { createTestClient, TestClient } from './create-test-client'

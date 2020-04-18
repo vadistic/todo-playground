@@ -1,4 +1,4 @@
-import { Nullable } from '@todo/shared-db'
+import { Nullable } from '@todo/lib-db'
 
 type StringMap<T = string> = {
   [key: string]: T

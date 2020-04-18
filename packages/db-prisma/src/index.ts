@@ -1,6 +1,5 @@
-export * from './services'
-export * from './create-db'
+export * from './service'
+export * from './db'
 export * from './config'
 export * from './utils'
-
-export * as Client from './generated/client'
+export * from './generated'

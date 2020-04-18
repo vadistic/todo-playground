@@ -15,10 +15,10 @@
     "lint": "eslint --ext ts,tsx src",
     "scripts": "sh ./scripts.sh",
     "start": "echo TODO",
-    "test": "jest"
+    "test": "jest --runInBand"
   },
   "dependencies": {
-    "@todo/shared-db": "^0.1.0",
+    "@todo/lib-db": "^0.1.0",
     "convict": "^5.2.0",
     "mongoose": "^5.9.9",
     "mongoose-lean-virtuals": "^0.6.1"

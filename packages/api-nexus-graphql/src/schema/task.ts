@@ -1,5 +1,5 @@
 import { objectType, inputObjectType, arg } from '@nexus/schema'
-import { TaskCreateData, TaskUpdateData } from '@todo/shared-db'
+import { TaskCreateData, TaskUpdateData } from '@todo/lib-db'
 
 import { eqInputName, UniqueIDInput, resolveEqFilterArgs } from './input'
 

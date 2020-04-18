@@ -18,11 +18,11 @@
     "generate": "prisma generate",
     "lint": "eslint --ext ts,tsx src",
     "scripts": "sh ./scripts.sh",
-    "test": "jest"
+    "test": "jest --runInBand"
   },
   "dependencies": {
     "@prisma/client": "^2.0.0-beta.2",
-    "@todo/shared-db": "^0.1.0",
+    "@todo/lib-db": "^0.1.0",
     "convict": "^5.2.0",
     "sqlite": "^4.0.7",
     "sqlite3": "^4.1.1"

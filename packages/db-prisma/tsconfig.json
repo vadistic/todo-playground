@@ -5,7 +5,7 @@
     "baseUrl": ".",
 
     "paths": {
-      "@todo/shared-db": ["../shared-db/src"]
+      "@todo/lib-db": ["../lib-db/src"]
     }
   },
   "exclude": ["node_modules", "dist"]

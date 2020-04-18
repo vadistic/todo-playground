@@ -50,7 +50,7 @@
       "path": "packages/lang-rust"
     },
     {
-      "path": "packages/shared-db"
+      "path": "packages/lib-db"
     },
     {
       "path": "packages/shared-styles"

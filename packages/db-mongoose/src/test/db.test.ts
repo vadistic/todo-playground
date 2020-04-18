@@ -1,19 +1,22 @@
-import { TaskBase, seedTasks } from '@todo/shared-db'
+import { TaskBase, testTask } from '@todo/lib-db'
 
-import { MongooseDb, createDb } from '../create-db'
+import { config } from '../config'
+import { MongooseDb, createDb } from '../db'
 
 let db = (undefined as unknown) as MongooseDb
 
 beforeAll(async () => {
+  config.loadFile('./.env.test.json')
   db = await createDb()
-  await seedTasks(db)
+  await db.seed()
 })
 
 afterAll(async () => {
+  await db.drop()
   await db.close()
 })
 
-describe('db-mongoose', () => {
+describe('db-mongoose > internal', () => {
   let fix: TaskBase
 
   beforeAll(async () => {
@@ -23,13 +26,11 @@ describe('db-mongoose', () => {
   })
 
   it('connects', () => {
-    expect(db.mongoose.connection.readyState).toBe(1)
+    expect(db.isConnected()).toBeTruthy()
   })
 
-  it('createOne', async () => {
-    // const task = await ctx.services.task.createOne({ data: { name: 'abc', finished: false } })
-
-    expect(fix).toMatchObject({ name: 'Finish apps' })
+  it('use test database', () => {
+    expect(db.ctn.db.databaseName).toBe('test')
   })
 
   test('id is virtualised', () => {
@@ -43,17 +44,8 @@ describe('db-mongoose', () => {
   test('__v is deleted', () => {
     expect(fix).not.toHaveProperty('__v')
   })
+})
 
-  test('findOne works', async () => {
-    const task = await db.service.task.findOne({ where: { id: fix?.id ?? '' } })
-
-    expect(task).toMatchObject(fix ?? {})
-  })
-
-  test('findMany works', async () => {
-    const tasks = await db.service.task.findMany({ where: { finished: false } })
-
-    expect(tasks.length).toBeGreaterThan(5)
-    expect(tasks.every((task) => typeof task.id === 'string')).toBeTruthy()
-  })
+describe('db-mongoose > service', () => {
+  testTask(() => db.service)
 })

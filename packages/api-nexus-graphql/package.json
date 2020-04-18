@@ -21,7 +21,7 @@
     "@nexus/schema": "^0.13.1",
     "@prisma/client": "^2.0.0-preview024",
     "@todo/db-prisma": "^0.1.0",
-    "@todo/shared-db": "0.1.0",
+    "@todo/lib-db": "0.1.0",
     "apollo-server-express": "^2.12.0",
     "convict": "^5.2.0",
     "express": "^4.17.1",

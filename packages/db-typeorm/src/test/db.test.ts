@@ -1,30 +1,26 @@
-import { runBasicTaskTests, seedTasks } from '@todo/shared-db'
+import { testTask } from '@todo/lib-db'
 
 import { config } from '../config'
-import { createDb, TypeormDb } from '../create-db'
-
-config.loadFile('./.env.test.json')
+import { createDb, TypeormDb } from '../db'
 
 let db: TypeormDb
 
 beforeAll(async () => {
+  config.loadFile('./.env.test.json')
   db = await createDb()
-  await seedTasks(db)
+  await db.sync()
+  await db.seed()
 })
 
 afterAll(async () => {
-  await cleanup()
+  await db.drop()
   await db.close()
 })
 
-const cleanup = async () => {
-  await db.ctn.dropDatabase()
-}
-
 describe('db-typeorm > basic', () => {
   it('connects', async () => {
-    expect(db.ctn.isConnected).toBeTruthy()
+    expect(db.isConnected()).toBeTruthy()
   })
 
-  runBasicTaskTests(() => db)
+  testTask(() => db.service)
 })

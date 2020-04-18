@@ -2,17 +2,17 @@
 
 function db_seed () {
     echo 'db_seed()'
-    ts-node -T -e 'require("./src/test/seed").seed()'
+    ts-node -T './scripts/seed.ts'
 }
 
 function db_clean {
     echo 'db_clean()'
-    rm -rf temp/*.db
+    rm -rf tmp/*.db
 }
 
 function db_cp_test {
     echo 'db_cp_test()'
-    cp ./temp/dev.db ./temp/test.db
+    cp ./tmp/dev.db ./tmp/test.db
 }
 
 function bootstrap () {

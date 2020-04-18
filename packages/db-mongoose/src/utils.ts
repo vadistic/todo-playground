@@ -1,4 +1,4 @@
-import { ID } from '@todo/shared-db'
+import { ID } from '@todo/lib-db'
 import { FilterQuery } from 'mongoose'
 
 // ────────────────────────────────────────────────────────────────────────────────

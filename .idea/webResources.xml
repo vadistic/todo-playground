@@ -20,7 +20,7 @@
             <path value="file://$PROJECT_DIR$/packages/lang-go" />
             <path value="file://$PROJECT_DIR$/packages/lang-python" />
             <path value="file://$PROJECT_DIR$/packages/lang-rust" />
-            <path value="file://$PROJECT_DIR$/packages/shared-db" />
+            <path value="file://$PROJECT_DIR$/packages/lib-db" />
             <path value="file://$PROJECT_DIR$/packages/shared-styles" />
             <path value="file://$PROJECT_DIR$/packages/template" />
           </resourceRoots>

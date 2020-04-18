@@ -19,24 +19,14 @@ function run_mongoku () {
     sudo docker run -d --name mongoku -p 3100:3100 huggingface/mongoku
 }
 
-# https://docs.mongodb.com/v4.0/release-notes/4.0-compatibility/#deprecate-copydb-clone-cmds
-function db_cp_test () {
-    echo 'db_cp_test()'
-    mongodump --archive --db=dev | mongorestore --archive  --nsFrom='dev.*' --nsTo='test.*'
+function seed () {
+    echo 'seed()'
+    ts-node -T './scripts/seed.ts'
 }
-
-function db_cp_temp () {
-    echo 'db_cp_temp()'
-    mongodump --archive --db=test | mongorestore --archive  --nsFrom='test.*' --nsTo='test-temp.*'
-}
-
 
 function bootstrap () {
     run_docker
-    
-    # seed
-    
-    db_cp_test
+    seed
 }
 
 "$@"
