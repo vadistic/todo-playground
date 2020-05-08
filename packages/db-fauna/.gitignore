@@ -1,5 +1,7 @@
 temp
 tmp
+.env.json
+.env.test.json
 
 # Logs
 logs

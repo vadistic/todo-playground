@@ -7,5 +7,5 @@
     "paths": {}
   },
   "include": ["src"],
-  "exclude": ["**/test", "**/*.test.ts", "src/generated/client"]
+  "exclude": ["**/test", "**/*.test.ts"]
 }

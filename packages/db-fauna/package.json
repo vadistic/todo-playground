@@ -1,0 +1,28 @@
+{
+  "name": "@todo/db-fauna",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Testing stacks with todo apps",
+  "repository": "https://github.com/vadistic/todo",
+  "license": "MIT",
+  "author": "Jakub Wadas <vadistic@gmail.com>",
+  "main": "dist/index.js",
+  "source": "src/index.ts",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "rm -rf dist *.tsbuildinfo",
+    "format": "prettier --write src",
+    "lint": "eslint --ext ts,tsx src",
+    "scripts": "sh ./scripts.sh",
+    "test": "jest --runInBand"
+  },
+  "dependencies": {
+    "@todo/lib-db": "^0.1.0",
+    "convict": "^5.2.0",
+    "faunadb": "^2.14.0"
+  },
+  "devDependencies": {
+    "@types/convict": "^5.2.0"
+  }
+}

@@ -1,1 +1,3 @@
-export * as Client from './client'
+import * as Client from './client'
+
+export { Client }
