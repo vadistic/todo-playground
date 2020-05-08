@@ -2,13 +2,12 @@
   "compilerOptions": {
     "target": "es2018",
     "module": "commonjs",
-    "lib": ["esnext"],
+    "lib": ["DOM", "esnext"],
 
     "allowJs": false,
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "incremental": true,
 
     "strict": true,
 

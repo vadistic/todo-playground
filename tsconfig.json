@@ -1,8 +1,32 @@
-// this config is only for vscode eslint extension
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "composite": true
-  },
-  "include": ["packages/*/src"]
+  "files": [],
+  "references": [
+    {
+      "path": "./packages/api-apollo-graphql/tsconfig.json"
+    },
+    {
+      "path": "./packages/api-nest-rest/tsconfig.json"
+    },
+    {
+      "path": "./packages/api-nexus-graphql/tsconfig.json"
+    },
+    {
+      "path": "./packages/db-fauna/tsconfig.json"
+    },
+    {
+      "path": "./packages/db-mongoose/tsconfig.json"
+    },
+    {
+      "path": "./packages/db-prisma/tsconfig.json"
+    },
+    {
+      "path": "./packages/db-typeorm/tsconfig.json"
+    },
+    {
+      "path": "./packages/lib-db/tsconfig.json"
+    },
+    {
+      "path": "./packages/template/tsconfig.json"
+    }
+  ]
 }

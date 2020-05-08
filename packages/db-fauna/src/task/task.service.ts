@@ -11,7 +11,7 @@ import {
 } from '@todo/lib-db'
 import { Client, query as q, Expr, errors } from 'faunadb'
 
-import { Collection } from '../db'
+import { Collection } from '../collections'
 
 export class TaskService implements TaskServiceBase {
   constructor(readonly client: Client) {}

@@ -1,6 +1,8 @@
 /* eslint-disable func-names */
 /* eslint-disable no-param-reassign */
 import { Schema, Query } from 'mongoose'
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
 import mongooseLeanVirtuals from 'mongoose-lean-virtuals'
 
 export const configureSchema = (schema: Schema) => {

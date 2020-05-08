@@ -6,12 +6,13 @@ import { eqInputName, UniqueIDInput, resolveEqFilterArgs } from './input'
 export const Task = objectType({
   name: 'Task',
   definition(t) {
-    t.model.id()
-    t.model.createdAt()
-    t.model.updatedAt()
-    t.model.name()
-    t.model.content()
-    t.model.finished()
+    t.id('id')
+    t.field('createdAt', { type: 'DateTime' })
+    t.field('updatedAt', { type: 'DateTime' })
+
+    t.string('name')
+    t.string('content', { nullable: true })
+    t.boolean('finished')
   },
 })
 

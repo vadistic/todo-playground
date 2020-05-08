@@ -10,8 +10,9 @@
     "build": "yarn scripts build",
     "clean": "rm -rf dist *.tsbuildinfo",
     "dev": "yarn parcel src/index.html",
-    "format": "prettier --write src",
+    "format": "prettier --write **/*.ts",
     "lint": "eslint --ext ts,tsx src",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
     "scripts": "sh ./scripts.sh"
   },
   "dependencies": {
@@ -20,8 +21,8 @@
   "devDependencies": {
     "autoprefixer": "^9.7.6",
     "parcel": "^2.0.0-nightly.180",
-    "postcss": "^7.0.27",
+    "postcss": "^7.0.29",
     "precss": "^4.0.0",
-    "sass": "^1.26.3"
+    "sass": "^1.26.5"
   }
 }

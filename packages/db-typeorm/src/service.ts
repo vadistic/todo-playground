@@ -1,6 +1,6 @@
 import { Connection } from 'typeorm'
 
-import { TaskService } from './task'
+import { TaskService } from './task/task.service'
 
 export class Service {
   constructor(public ctn: Connection) {}

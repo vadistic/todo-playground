@@ -1,8 +1,14 @@
 {
   "extends": "../../tsconfig.node.json",
   "compilerOptions": {
-    "outDir": "dist",
-    "baseUrl": "."
+    "baseUrl": ".",
+    // https://github.com/apollographql/apollo-link/issues/910
+    "skipLibCheck": true,
+
+    "paths": {
+      "@todo/db-prisma": ["../db-prisma/src"],
+      "@todo/lib-db": ["../lib-db/src"]
+    }
   },
   "exclude": ["node_modules", "dist"]
 }

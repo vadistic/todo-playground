@@ -7,13 +7,17 @@ let db = (undefined as unknown) as MongooseDb
 
 beforeAll(async () => {
   config.loadFile('./.env.test.json')
+
   db = await createDb()
+  await db.drop()
+  await db.sync()
   await db.seed()
 })
 
 afterAll(async () => {
-  await db.drop()
-  await db.close()
+  if (db) {
+    await db.close()
+  }
 })
 
 describe('db-mongoose > internal', () => {

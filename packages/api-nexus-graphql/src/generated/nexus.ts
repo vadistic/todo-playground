@@ -15,12 +15,7 @@ declare global {
     date<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "DateTime";
   }
 }
-declare global {
-  interface NexusGenCustomOutputProperties<TypeName extends string> {
-    crud: NexusPrisma<TypeName, 'crud'>
-    model: NexusPrisma<TypeName, 'model'>
-  }
-}
+
 
 declare global {
   interface NexusGen extends NexusGenTypes {}
@@ -134,7 +129,7 @@ export interface NexusGenRootTypes {
     content?: string | null; // String
     createdAt: any; // DateTime!
     finished: boolean; // Boolean!
-    id: string; // String!
+    id: string; // ID!
     name: string; // String!
     updatedAt: any; // DateTime!
   }
@@ -191,7 +186,7 @@ export interface NexusGenFieldTypes {
     content: string | null; // String
     createdAt: any; // DateTime!
     finished: boolean; // Boolean!
-    id: string; // String!
+    id: string; // ID!
     name: string; // String!
     updatedAt: any; // DateTime!
   }

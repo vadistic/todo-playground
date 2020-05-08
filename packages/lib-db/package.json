@@ -8,11 +8,11 @@
   "author": "Jakub Wadas <vadistic@gmail.com>",
   "main": "dist/index.js",
   "scripts": {
-    "build": "yarn tsc -p tsconfig.build.json",
+    "build": "tsc -b tsconfig.build.json",
     "clean": "rm -rf dist *.tsbuildinfo",
-    "format": "prettier --write src",
+    "format": "prettier --write **/*.ts",
     "lint": "eslint --ext ts,tsx src",
-    "test": "jest"
+    "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
     "faker": "^4.1.0"

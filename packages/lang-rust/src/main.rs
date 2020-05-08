@@ -1,5 +1,7 @@
+mod other;
+
 fn main() {
-    print_hello();
+    other::print_hello();
 
     for i in 0..5 {
         if i % 2 == 0 {

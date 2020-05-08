@@ -1,11 +1,13 @@
 {
   "extends": "../../tsconfig.node.json",
   "compilerOptions": {
-    "outDir": "dist",
     "baseUrl": ".",
+    // missmatch of graphql versions
+    "skipLibCheck": true,
 
     "paths": {
-      "@todo/db-prisma": ["../db-prisma/src"]
+      "@todo/db-prisma": ["../db-prisma/src"],
+      "@todo/lib-db": ["../lib-db/src"]
     }
   },
   "exclude": ["node_modules", "dist"]

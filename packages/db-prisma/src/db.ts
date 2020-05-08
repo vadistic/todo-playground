@@ -25,7 +25,7 @@ export const createDb = async (): Promise<PrismaDb> => {
   }
 
   const sync = async () => {
-    console.warn('NOT IMPLEMENTED', 'sync()')
+    // console.warn('NOT IMPLEMENTED', 'sync()')
   }
 
   const drop = async () => {
@@ -37,7 +37,7 @@ export const createDb = async (): Promise<PrismaDb> => {
   }
 
   const isConnected = () => {
-    console.warn('NOT IMPLEMENTED', 'isConnected()')
+    // console.warn('NOT IMPLEMENTED', 'isConnected()')
 
     return true
   }

@@ -1,12 +1,9 @@
 import { DbBase } from '@todo/lib-db'
 import { Client, ClientConfig, query as q } from 'faunadb'
 
+import { Collection } from './collections'
 import { config } from './config'
 import { Service } from './service'
-
-export const Collection = {
-  Task: q.Collection('Task'),
-}
 
 export interface FaunaDb extends DbBase {
   client: Client
@@ -56,7 +53,7 @@ export const createDb = async (): Promise<FaunaDb> => {
   }
 
   const seed = async () => {
-    console.warn('NOT IMPLEMENTED', 'seed()')
+    // console.warn('NOT IMPLEMENTED', 'seed()')
   }
 
   const isConnected = () => {

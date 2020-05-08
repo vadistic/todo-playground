@@ -3,7 +3,7 @@ import { ConnectionOptions, Connection, createConnection, Repository } from 'typ
 
 import { config } from './config'
 import { Service, createService } from './service'
-import { TaskEntity } from './task'
+import { TaskEntity } from './task/task.entity'
 
 export const entities = [TaskEntity]
 

@@ -3,9 +3,14 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "dist",
-    "baseUrl": ".",
+    "incremental": true,
+    "composite": true,
     "paths": {}
   },
+  "references": [
+    { "path": "../db-prisma/tsconfig.build.json" },
+    { "path": "../lib-db/tsconfig.build.json" }
+  ],
   "include": ["src"],
-  "exclude": ["node_modules", "dist", "**/test", "**/*.test.ts"]
+  "exclude": ["**/test", "**/*.test.ts"]
 }

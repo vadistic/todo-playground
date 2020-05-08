@@ -8,14 +8,15 @@
   "author": "Jakub Wadas <vadistic@gmail.com>",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "tsc -b tsconfig.build.json",
     "clean": "rm -rf dist *.tsbuildinfo",
     "dev": "echo 'no dev watch script'",
-    "format": "prettier --write src",
-    "lint": "eslint --ext ts,tsx src",
+    "format": "prettier --write **/*.ts",
+    "lint": "eslint --ext ts,tsx src test",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
     "scripts": "sh ./scripts.sh",
     "start": "node dist/index.js",
-    "test": "jest"
+    "test": "jest --runInBand"
   },
   "dependencies": {},
   "devDependencies": {}

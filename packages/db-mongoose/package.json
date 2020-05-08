@@ -8,22 +8,21 @@
   "author": "Jakub Wadas <vadistic@gmail.com>",
   "scripts": {
     "bootstrap": "yarn scripts bootstrap",
-    "build": "tsc -p tsconfig.build.json",
+    "build": "tsc -b tsconfig.build.json",
     "clean": "rm -rf dist *.tsbuildinfo",
-    "dev": "echo TODO",
-    "format": "prettier --write src",
+    "format": "prettier --write **/*.ts",
     "lint": "eslint --ext ts,tsx src",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
     "scripts": "sh ./scripts.sh",
-    "start": "echo TODO",
     "test": "jest --runInBand"
   },
   "dependencies": {
     "@todo/lib-db": "^0.1.0",
-    "convict": "^5.2.0",
-    "mongoose": "^5.9.9",
-    "mongoose-lean-virtuals": "^0.6.1"
+    "convict": "^6.0.0",
+    "mongoose": "^5.9.12",
+    "mongoose-lean-virtuals": "^0.6.2"
   },
   "devDependencies": {
-    "@types/convict": "^4.2.1"
+    "@types/convict": "^5.2.0"
   }
 }

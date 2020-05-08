@@ -11,25 +11,26 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "bootstrap": "yarn scripts bootstrap",
-    "build": "tsc -p tsconfig.build.json",
+    "build": "tsc -b tsconfig.build.json",
     "postbuild": "mkdir -p dist/generated && cp -fr src/generated/client dist/generated",
     "clean": "rm -rf dist *.tsbuildinfo",
-    "format": "prettier --write src",
+    "format": "prettier --write **/*.ts",
     "generate": "prisma generate",
     "lint": "eslint --ext ts,tsx src",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
     "scripts": "sh ./scripts.sh",
     "test": "jest --runInBand"
   },
   "dependencies": {
-    "@prisma/client": "^2.0.0-beta.2",
+    "@prisma/client": "^2.0.0-beta.4",
     "@todo/lib-db": "^0.1.0",
-    "convict": "^5.2.0",
+    "convict": "^6.0.0",
     "sqlite": "^4.0.7",
-    "sqlite3": "^4.1.1"
+    "sqlite3": "^4.2.0"
   },
   "devDependencies": {
-    "@prisma/cli": "^2.0.0-beta.2",
-    "@types/convict": "^4.2.1",
+    "@prisma/cli": "^2.0.0-beta.4",
+    "@types/convict": "^5.2.0",
     "@types/sqlite3": "^3.1.6",
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0"

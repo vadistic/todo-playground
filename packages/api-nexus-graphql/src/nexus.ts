@@ -1,5 +1,5 @@
 import { makeSchema } from '@nexus/schema'
-import { nexusPrismaPlugin } from 'nexus-prisma'
+import { GraphQLSchema } from 'graphql'
 import path from 'path'
 
 import { Query, Mutation, Task, DateTime, scalarEqInputs } from './schema'
@@ -12,16 +12,8 @@ const types = {
   ...scalarEqInputs,
 }
 
-export const schema = makeSchema({
+export const schema: GraphQLSchema = makeSchema({
   types,
-  plugins: [
-    nexusPrismaPlugin({
-      prismaClient: (ctx) => ctx.prisma,
-      inputs: {
-        prismaClient: path.join(require.resolve('@todo/db-prisma'), '../generated/client'),
-      },
-    }),
-  ],
   outputs: {
     schema: path.join(__dirname, '/schema.graphql'),
     typegen: path.join(__dirname, '/generated/nexus.ts'),

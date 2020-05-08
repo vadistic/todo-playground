@@ -1,5 +1,4 @@
-import { createModule, Client } from '@todo/db-prisma'
-import { seedTasks } from '@todo/lib-db'
+import { createDb, Client } from '@todo/db-prisma'
 
 import { config } from '../src/config'
 import { createTestClient, TestClient } from './create-test-client'
@@ -9,21 +8,18 @@ config.loadFile('./.env.test.json')
 let client: TestClient
 
 beforeAll(async () => {
-  // seed
-  const ctx = await createModule()
-  await seedTasks(ctx)
-  await ctx.close()
+  const db = await createDb()
+
+  await db.drop()
+  await db.sync()
+  await db.seed()
+  await db.close()
 
   client = await createTestClient()
 })
 
 afterAll(async () => {
   await client.close()
-
-  // clean
-  const ctx = await createModule()
-  await ctx.prisma.task.deleteMany({})
-  await ctx.close()
 })
 
 describe('api-apollo-graphql', () => {
@@ -71,6 +67,6 @@ describe('api-apollo-graphql', () => {
     })
 
     expect(errors).toBeUndefined()
-    expect(Object.keys(data?.task)).toContain(['id', 'name', 'content', 'finished'])
+    expect(Object.keys(data?.task)).toEqual(['id', 'name', 'content', 'finished'])
   })
 })

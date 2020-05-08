@@ -1,0 +1,32 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "./packages/api-apollo-graphql/tsconfig.build.json"
+    },
+    {
+      "path": "./packages/api-nest-rest/tsconfig.build.json"
+    },
+    {
+      "path": "./packages/api-nexus-graphql/tsconfig.build.json"
+    },
+    {
+      "path": "./packages/db-fauna/tsconfig.build.json"
+    },
+    {
+      "path": "./packages/db-mongoose/tsconfig.build.json"
+    },
+    {
+      "path": "./packages/db-prisma/tsconfig.build.json"
+    },
+    {
+      "path": "./packages/db-typeorm/tsconfig.build.json"
+    },
+    {
+      "path": "./packages/lib-db/tsconfig.build.json"
+    },
+    {
+      "path": "./packages/template/tsconfig.build.json"
+    }
+  ]
+}

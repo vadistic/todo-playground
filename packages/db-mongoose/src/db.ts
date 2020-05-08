@@ -23,7 +23,7 @@ export const createDb = async (): Promise<MongooseDb> => {
   const service = createService(ctn, models)
 
   const connect = async () => {
-    console.warn('NOT IMPLEMENTED', 'connect()')
+    // console.warn('NOT IMPLEMENTED', 'connect()')
   }
 
   const close = async () => {

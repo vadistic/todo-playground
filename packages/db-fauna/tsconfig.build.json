@@ -3,9 +3,11 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "dist",
-    "baseUrl": ".",
+    "incremental": true,
+    "composite": true,
     "paths": {}
   },
+  "references": [{ "path": "../lib-db/tsconfig.build.json" }],
   "include": ["src"],
   "exclude": ["**/test", "**/*.test.ts"]
 }

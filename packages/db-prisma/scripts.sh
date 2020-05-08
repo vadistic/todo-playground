@@ -44,15 +44,5 @@ function bootstrap () {
     db_seed
 }
 
-function refresh () {
-    echo 'refresh()'
-    db_clean
-    db_migrate
-    db_migrate_up
-    db_cp_test
-    db_seed
-}
-
-
 "$@"
 

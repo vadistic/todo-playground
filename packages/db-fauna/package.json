@@ -10,16 +10,17 @@
   "source": "src/index.ts",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "tsc -b tsconfig.build.json",
     "clean": "rm -rf dist *.tsbuildinfo",
-    "format": "prettier --write src",
+    "format": "prettier --write **/*.ts",
     "lint": "eslint --ext ts,tsx src",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
     "scripts": "sh ./scripts.sh",
     "test": "jest --runInBand"
   },
   "dependencies": {
     "@todo/lib-db": "^0.1.0",
-    "convict": "^5.2.0",
+    "convict": "^6.0.0",
     "faunadb": "^2.14.0"
   },
   "devDependencies": {
