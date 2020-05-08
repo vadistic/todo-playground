@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { AllInputTypes, inputObjectType } from '@nexus/schema'
 
 export const UniqueIDInput = inputObjectType({
@@ -7,58 +8,171 @@ export const UniqueIDInput = inputObjectType({
   },
 })
 
-export interface FilterFieldConfig<T> {
-  required?: boolean
+export const StringFilterInput = inputObjectType({
+  name: `StringFilterInput`,
+  definition(t) {
+    t.field('eq', {
+      type: 'String',
+      required: false,
+    })
+
+    t.field('in', {
+      type: 'String',
+      required: false,
+      list: true,
+    })
+
+    t.field('like', {
+      type: 'String',
+      required: false,
+    })
+  },
+})
+
+// ────────────────────────────────────────────────────────────────────────────────
+
+export interface FilterOptions<T> {
+  type: T
   default?: T
+  required?: boolean
   list?: boolean | boolean[]
 }
 
-export const eqInputName = <T extends AllInputTypes>(type: T, cfg?: FilterFieldConfig<T>) =>
-  [type, cfg?.required && 'Required', cfg?.list && 'List', 'EqualInput']
+const inputCache = new Map<string, ReturnType<typeof inputObjectType>>()
+
+const cachedInput = <T extends AllInputTypes>(
+  nameFn: (options: FilterOptions<T>) => string,
+  inputFn: (name: string, options: FilterOptions<T>) => ReturnType<typeof inputObjectType>,
+) => (options: FilterOptions<T>) => {
+  const name = nameFn(options)
+  const cached = inputCache.get(name)
+
+  if (cached) return cached
+
+  const next = inputFn(name, options)
+
+  inputCache.set(name, next)
+
+  return next
+}
+
+// ────────────────────────────────────────────────────────────────────────────────
+
+const eqFilterInputName = <T extends AllInputTypes>(options: FilterOptions<T>) =>
+  [options.type, options.required && 'Required', options.list && 'List', 'Equal', 'Input']
     .filter(Boolean)
     .join('') as AllInputTypes
 
-// required by default!
-const eqInputGen = <T extends AllInputTypes>(type: T, cfg?: FilterFieldConfig<T>) =>
+const setFilterInputName = <T extends AllInputTypes>(options: FilterOptions<T>) =>
+  [options.type, options.required && 'Required', 'In', 'Input']
+    .filter(Boolean)
+    .join('') as AllInputTypes
+
+const rangeFilterInputName = <T extends AllInputTypes>(options: FilterOptions<T>) =>
+  [options.type, 'Range', 'Input'].filter(Boolean).join('') as AllInputTypes
+
+// ────────────────────────────────────────────────────────────────────────────────
+
+export const eqFilterInput = cachedInput(eqFilterInputName, (name, options) =>
   inputObjectType({
-    name: eqInputName(type, cfg),
+    name,
     definition(t) {
       t.field('eq', {
-        ...cfg,
-        type,
-        required: cfg?.required ?? true,
-        list: cfg?.list === true ? cfg.list : undefined,
+        type: options.type,
+        required: options.required ?? true,
+        list: options.list === true || undefined,
+        default: options.default,
       })
     },
-  })
+  }),
+)
 
-const scalarNames = ['DateTime', 'String', 'Int', 'Boolean', 'Float', 'ID']
+export const setFilterInput = cachedInput(setFilterInputName, (name, options) =>
+  inputObjectType({
+    name,
+    definition(t) {
+      t.field('in', {
+        type: options.type,
+        required: options.required ?? true,
+        list: true,
+        default: options.default,
+      })
+    },
+  }),
+)
 
-export const scalarEqInputs = scalarNames.reduce((acc, type) => {
-  const typedType = type as AllInputTypes
+export const rangeFilterInput = cachedInput(rangeFilterInputName, (name, options) =>
+  inputObjectType({
+    name,
+    definition(t) {
+      t.field('lte', {
+        type: options.type,
+        required: false,
+      })
 
-  const cfgs = [
-    { list: false, required: false },
-    { list: false, required: true },
-    { list: true, required: false },
-    { list: true, required: true },
-  ]
+      t.field('gte', {
+        type: options.type,
+        required: false,
+      })
+    },
+  }),
+)
 
-  cfgs.forEach((cfg) => {
-    acc[eqInputName(typedType, cfg)] = eqInputGen(typedType, cfg)
-  })
+// ────────────────────────────────────────────────────────────────────────────────
 
-  return acc
-}, {} as any)
+export const resolveEqFilter = (res: any, key: string, prop: any) => {
+  if (prop.eq !== undefined) {
+    res[key] = prop.eq
+  }
+}
 
-export const resolveEqFilterArgs = <R>(args: any): R => {
+export const resolveSetFilter = (res: any, key: string, prop: any) => {
+  if (prop.in !== undefined) {
+    res[key] = prop.in
+  }
+}
+
+export const resolveLikeFilter = (res: any, key: string, prop: any) => {
+  if (prop.like !== undefined) {
+    res[key] = prop.like
+  }
+}
+
+export const resolveDateRangeFilter = (res: any, key: string, prop: any) => {
+  if (prop.lte) {
+    if (key === 'createdAt') {
+      res.createdBefore = prop.lte
+    }
+
+    if (key === 'updatedAt') {
+      res.updatedBefore = prop.lte
+    }
+  }
+
+  if (prop.gte) {
+    if (key === 'createdAt') {
+      res.createdAfter = prop.gte
+    }
+
+    if (key === 'updatedAt') {
+      res.updatedAfter = prop.gte
+    }
+  }
+}
+
+export const resolveFilterArgs = <R>(args: any): R => {
   const res: any = {}
 
   if (!args) return res
 
   for (const key of Object.keys(args)) {
-    if (args[key] && typeof args[key] === 'object' && args[key].eq !== undefined) {
-      res[key] = args[key].eq
+    const prop = args[key]
+
+    if (prop && typeof prop === 'object') {
+      resolveEqFilter(res, key, prop)
+      resolveSetFilter(res, key, prop)
+      resolveLikeFilter(res, key, prop)
+      resolveDateRangeFilter(res, key, prop)
     }
   }
 

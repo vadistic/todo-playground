@@ -23,76 +23,19 @@ declare global {
 
 export interface NexusGenInputs {
   BooleanEqualInput: { // input type
-    eq?: boolean | null; // Boolean
-  }
-  BooleanListEqualInput: { // input type
-    eq?: boolean[] | null; // [Boolean!]
-  }
-  BooleanRequiredEqualInput: { // input type
     eq: boolean; // Boolean!
   }
-  BooleanRequiredListEqualInput: { // input type
-    eq: boolean[]; // [Boolean!]!
-  }
-  DateTimeEqualInput: { // input type
-    eq?: any | null; // DateTime
-  }
-  DateTimeListEqualInput: { // input type
-    eq?: any[] | null; // [DateTime!]
-  }
-  DateTimeRequiredEqualInput: { // input type
-    eq: any; // DateTime!
-  }
-  DateTimeRequiredListEqualInput: { // input type
-    eq: any[]; // [DateTime!]!
-  }
-  FloatEqualInput: { // input type
-    eq?: number | null; // Float
-  }
-  FloatListEqualInput: { // input type
-    eq?: number[] | null; // [Float!]
-  }
-  FloatRequiredEqualInput: { // input type
-    eq: number; // Float!
-  }
-  FloatRequiredListEqualInput: { // input type
-    eq: number[]; // [Float!]!
-  }
-  IDEqualInput: { // input type
-    eq?: string | null; // ID
+  DateTimeRangeInput: { // input type
+    gte?: any | null; // DateTime
+    lte?: any | null; // DateTime
   }
   IDListEqualInput: { // input type
-    eq?: string[] | null; // [ID!]
-  }
-  IDRequiredEqualInput: { // input type
-    eq: string; // ID!
-  }
-  IDRequiredListEqualInput: { // input type
     eq: string[]; // [ID!]!
   }
-  IntEqualInput: { // input type
-    eq?: number | null; // Int
-  }
-  IntListEqualInput: { // input type
-    eq?: number[] | null; // [Int!]
-  }
-  IntRequiredEqualInput: { // input type
-    eq: number; // Int!
-  }
-  IntRequiredListEqualInput: { // input type
-    eq: number[]; // [Int!]!
-  }
-  StringEqualInput: { // input type
+  StringFilterInput: { // input type
     eq?: string | null; // String
-  }
-  StringListEqualInput: { // input type
-    eq?: string[] | null; // [String!]
-  }
-  StringRequiredEqualInput: { // input type
-    eq: string; // String!
-  }
-  StringRequiredListEqualInput: { // input type
-    eq: string[]; // [String!]!
+    in?: string[] | null; // [String!]
+    like?: string | null; // String
   }
   TaskCreateInput: { // input type
     content?: string | null; // String
@@ -105,14 +48,12 @@ export interface NexusGenInputs {
     name?: string | null; // String
   }
   TaskWhereFilterInput: { // input type
-    content?: NexusGenInputs['StringEqualInput'] | null; // StringEqualInput
-    createdAfter?: NexusGenInputs['DateTimeEqualInput'] | null; // DateTimeEqualInput
-    createdBefore?: NexusGenInputs['DateTimeEqualInput'] | null; // DateTimeEqualInput
+    content?: NexusGenInputs['StringFilterInput'] | null; // StringFilterInput
+    createdAt?: NexusGenInputs['DateTimeRangeInput'] | null; // DateTimeRangeInput
     finished?: NexusGenInputs['BooleanEqualInput'] | null; // BooleanEqualInput
     ids?: NexusGenInputs['IDListEqualInput'] | null; // IDListEqualInput
-    name?: NexusGenInputs['StringEqualInput'] | null; // StringEqualInput
-    updatedAfter?: NexusGenInputs['DateTimeEqualInput'] | null; // DateTimeEqualInput
-    updatedBefore?: NexusGenInputs['DateTimeEqualInput'] | null; // DateTimeEqualInput
+    name?: NexusGenInputs['StringFilterInput'] | null; // StringFilterInput
+    updatedAt?: NexusGenInputs['DateTimeRangeInput'] | null; // DateTimeRangeInput
   }
   UniqueIDInput: { // input type
     id: string; // ID!
@@ -143,29 +84,9 @@ export interface NexusGenRootTypes {
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
   BooleanEqualInput: NexusGenInputs['BooleanEqualInput'];
-  BooleanListEqualInput: NexusGenInputs['BooleanListEqualInput'];
-  BooleanRequiredEqualInput: NexusGenInputs['BooleanRequiredEqualInput'];
-  BooleanRequiredListEqualInput: NexusGenInputs['BooleanRequiredListEqualInput'];
-  DateTimeEqualInput: NexusGenInputs['DateTimeEqualInput'];
-  DateTimeListEqualInput: NexusGenInputs['DateTimeListEqualInput'];
-  DateTimeRequiredEqualInput: NexusGenInputs['DateTimeRequiredEqualInput'];
-  DateTimeRequiredListEqualInput: NexusGenInputs['DateTimeRequiredListEqualInput'];
-  FloatEqualInput: NexusGenInputs['FloatEqualInput'];
-  FloatListEqualInput: NexusGenInputs['FloatListEqualInput'];
-  FloatRequiredEqualInput: NexusGenInputs['FloatRequiredEqualInput'];
-  FloatRequiredListEqualInput: NexusGenInputs['FloatRequiredListEqualInput'];
-  IDEqualInput: NexusGenInputs['IDEqualInput'];
+  DateTimeRangeInput: NexusGenInputs['DateTimeRangeInput'];
   IDListEqualInput: NexusGenInputs['IDListEqualInput'];
-  IDRequiredEqualInput: NexusGenInputs['IDRequiredEqualInput'];
-  IDRequiredListEqualInput: NexusGenInputs['IDRequiredListEqualInput'];
-  IntEqualInput: NexusGenInputs['IntEqualInput'];
-  IntListEqualInput: NexusGenInputs['IntListEqualInput'];
-  IntRequiredEqualInput: NexusGenInputs['IntRequiredEqualInput'];
-  IntRequiredListEqualInput: NexusGenInputs['IntRequiredListEqualInput'];
-  StringEqualInput: NexusGenInputs['StringEqualInput'];
-  StringListEqualInput: NexusGenInputs['StringListEqualInput'];
-  StringRequiredEqualInput: NexusGenInputs['StringRequiredEqualInput'];
-  StringRequiredListEqualInput: NexusGenInputs['StringRequiredListEqualInput'];
+  StringFilterInput: NexusGenInputs['StringFilterInput'];
   TaskCreateInput: NexusGenInputs['TaskCreateInput'];
   TaskUpdateInput: NexusGenInputs['TaskUpdateInput'];
   TaskWhereFilterInput: NexusGenInputs['TaskWhereFilterInput'];
@@ -222,7 +143,7 @@ export interface NexusGenInheritedFields {}
 
 export type NexusGenObjectNames = "Mutation" | "Query" | "Task";
 
-export type NexusGenInputNames = "BooleanEqualInput" | "BooleanListEqualInput" | "BooleanRequiredEqualInput" | "BooleanRequiredListEqualInput" | "DateTimeEqualInput" | "DateTimeListEqualInput" | "DateTimeRequiredEqualInput" | "DateTimeRequiredListEqualInput" | "FloatEqualInput" | "FloatListEqualInput" | "FloatRequiredEqualInput" | "FloatRequiredListEqualInput" | "IDEqualInput" | "IDListEqualInput" | "IDRequiredEqualInput" | "IDRequiredListEqualInput" | "IntEqualInput" | "IntListEqualInput" | "IntRequiredEqualInput" | "IntRequiredListEqualInput" | "StringEqualInput" | "StringListEqualInput" | "StringRequiredEqualInput" | "StringRequiredListEqualInput" | "TaskCreateInput" | "TaskUpdateInput" | "TaskWhereFilterInput" | "UniqueIDInput";
+export type NexusGenInputNames = "BooleanEqualInput" | "DateTimeRangeInput" | "IDListEqualInput" | "StringFilterInput" | "TaskCreateInput" | "TaskUpdateInput" | "TaskWhereFilterInput" | "UniqueIDInput";
 
 export type NexusGenEnumNames = never;
 

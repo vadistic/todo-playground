@@ -2,14 +2,14 @@ import { makeSchema } from '@nexus/schema'
 import { GraphQLSchema } from 'graphql'
 import path from 'path'
 
-import { Query, Mutation, Task, DateTime, scalarEqInputs } from './schema'
+import { Query, Mutation, Task, DateTime } from './schema'
 
 const types = {
   Query,
   Mutation,
   Task,
   DateTime,
-  ...scalarEqInputs,
+  // ...scalarEqInputs,
 }
 
 export const schema: GraphQLSchema = makeSchema({

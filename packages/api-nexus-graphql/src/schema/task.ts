@@ -1,7 +1,13 @@
 import { objectType, inputObjectType, arg } from '@nexus/schema'
 import { TaskCreateData, TaskUpdateData } from '@todo/lib-db'
 
-import { eqInputName, UniqueIDInput, resolveEqFilterArgs } from './input'
+import {
+  UniqueIDInput,
+  eqFilterInput,
+  rangeFilterInput,
+  resolveFilterArgs,
+  StringFilterInput,
+} from './input'
 
 export const Task = objectType({
   name: 'Task',
@@ -37,16 +43,14 @@ export const TaskUpdateInput = inputObjectType({
 export const TaskWhereFilterInput = inputObjectType({
   name: `TaskWhereFilterInput`,
   definition(t) {
-    t.field('ids', { type: eqInputName('ID', { list: true }) })
+    t.field('ids', { type: eqFilterInput({ type: 'ID', list: true }) })
 
-    t.field('updatedBefore', { type: eqInputName('DateTime') })
-    t.field('updatedAfter', { type: eqInputName('DateTime') })
-    t.field('createdBefore', { type: eqInputName('DateTime') })
-    t.field('createdAfter', { type: eqInputName('DateTime') })
+    t.field('createdAt', { type: rangeFilterInput({ type: 'DateTime' }) })
+    t.field('updatedAt', { type: rangeFilterInput({ type: 'DateTime' }) })
 
-    t.field('name', { type: eqInputName('String') })
-    t.field('content', { type: eqInputName('String', { required: false }) })
-    t.field('finished', { type: eqInputName('Boolean') })
+    t.field('name', { type: StringFilterInput })
+    t.field('content', { type: StringFilterInput })
+    t.field('finished', { type: eqFilterInput({ type: 'Boolean' }) })
   },
 })
 
@@ -78,7 +82,7 @@ export const Query = objectType({
       },
       resolve: async (_, args, ctx) => {
         return ctx.service.task.findMany({
-          where: resolveEqFilterArgs(args.where),
+          where: resolveFilterArgs(args.where),
         })
       },
     })

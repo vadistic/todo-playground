@@ -2,7 +2,7 @@ import type { ApolloError } from 'apollo-server-express'
 import type { DocumentNode } from 'graphql'
 import fetch from 'node-fetch'
 
-import { createApi, Api } from '../src/create-api'
+import { createApi, Api } from '../src/api'
 
 export type TestClientArgs<R, V = {}> = {
   query: string | DocumentNode

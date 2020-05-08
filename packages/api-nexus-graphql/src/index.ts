@@ -1,4 +1,5 @@
 export * from './nexus'
 export * from './config'
 export * from './context'
-export * from './create-api'
+export * from './api'
+export * from './generated'
