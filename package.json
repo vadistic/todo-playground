@@ -13,7 +13,7 @@
     "build": "lerna run build --ignore=@todo/lang-*",
     "test": "lerna run test --ignore=@todo/lang-* --concurrency 1",
     "bump": "ncu -u && lerna exec 'ncu -u' --ignore=@todo/lang-*",
-    "heroku-postbuild": "yarn workspace @todo/api-apollo-graphql build"
+    "heroku-postbuild": "sh ./heroku-build.sh"
   },
   "devDependencies": {
     "@types/jest": "^25.2.1",

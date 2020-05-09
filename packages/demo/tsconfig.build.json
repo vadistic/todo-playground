@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "incremental": true,
+    "composite": true,
+    "paths": {}
+  },
+  "references": [
+    { "path": "../api-apollo-graphql/tsconfig.build.json" },
+    { "path": "../db-marshall/tsconfig.build.json" },
+    { "path": "../lib-db/tsconfig.build.json" }
+  ],
+  "include": ["src"],
+  "exclude": ["**/test", "**/*.test.ts"]
+}

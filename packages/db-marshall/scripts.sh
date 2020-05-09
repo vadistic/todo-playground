@@ -30,6 +30,7 @@ function seed_dev () {
 function bootstrap () {
     echo 'bootstrap()'
     run_docker
+    seed_local
 }
 
 "$@"

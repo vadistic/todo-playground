@@ -1,1 +1,1 @@
-web: yarn workspace @todo/api-apollo-graphql start
+web: yarn workspace @todo/demo start

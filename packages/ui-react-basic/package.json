@@ -1,28 +1,30 @@
 {
-  "name": "@todo/shared-styles",
+  "name": "@todo/ui-react-basic",
   "version": "0.1.0",
   "private": true,
   "description": "Testing stacks with todo apps",
   "repository": "https://github.com/vadistic/todo",
   "license": "MIT",
   "author": "Jakub Wadas <vadistic@gmail.com>",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "yarn scripts build",
+    "build": "yarn parcel build --public-url ./ --no-cache src/index.html",
     "clean": "rm -rf dist *.tsbuildinfo",
     "dev": "yarn parcel src/index.html",
     "format": "prettier --write **/*.ts",
-    "lint": "eslint --ext ts,tsx src",
+    "lint": "eslint --ext ts,tsx src test",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "scripts": "sh ./scripts.sh"
+    "scripts": "sh ./scripts.sh",
+    "test": "jest --runInBand"
   },
   "dependencies": {
-    "milligram": "^1.3.0"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
   "devDependencies": {
-    "autoprefixer": "^9.7.6",
-    "parcel": "^2.0.0-nightly.180",
-    "postcss": "^7.0.29",
-    "precss": "^4.0.0",
-    "sass": "^1.26.5"
+    "@testing-library/react": "^10.0.4",
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.7",
+    "parcel": "^2.0.0-nightly.256"
   }
 }

@@ -14,8 +14,10 @@ export interface MarshallDb extends DbBase {
 export const createDb = async (): Promise<MarshallDb> => {
   const ctn = new Connection()
   const database = new Database(ctn as any)
-
   const service = new Service(database)
+
+  console.log('here', ctn.host)
+  await ctn.connect()
 
   const connect = async () => {
     await ctn.connect()

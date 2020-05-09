@@ -11,9 +11,7 @@ export class Connection {
 
   db!: Db
 
-  host = `mongodb://${config.get('mongodb_host')}:${config.get('mongodb_port')}/${config.get(
-    'mongodb_name',
-  )}`
+  host = this.getHost()
 
   defaultDatabase = config.get('mongodb_name')
 
@@ -40,7 +38,7 @@ export class Connection {
           }
         : undefined
 
-    this.client = await MongoClient.connect(this.host, {
+    this.client = await MongoClient.connect(this.getHost(), {
       auth,
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -51,6 +49,24 @@ export class Connection {
     this.db = this.client.db()
 
     return this.client
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  protected getHost(): string {
+    const port = config.get('mongodb_port')
+    const name = config.get('mongodb_name')
+
+    let host = `mongodb://${config.get('mongodb_host')}`
+
+    if (port !== 21017) {
+      host += `:${port}`
+    }
+
+    if (name) {
+      host += `/${name}`
+    }
+
+    return host
   }
 
   async getCollection(classType: ClassType<any>): Promise<Collection> {

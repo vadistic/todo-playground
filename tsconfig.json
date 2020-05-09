@@ -26,7 +26,13 @@
       "path": "./packages/db-typeorm/tsconfig.json"
     },
     {
+      "path": "./packages/demo/tsconfig.json"
+    },
+    {
       "path": "./packages/lib-db/tsconfig.json"
+    },
+    {
+      "path": "./packages/lib-styles/tsconfig.json"
     },
     {
       "path": "./packages/template/tsconfig.json"

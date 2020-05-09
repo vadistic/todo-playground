@@ -7,9 +7,9 @@ import { createContext } from './context'
 import { resolvers } from './resolvers'
 import { typeDefs } from './schema'
 
-export const createApi = async () => {
-  const app = express()
+export type Server = ApolloServer
 
+export const createServer = async () => {
   const ctx = await createContext()
 
   const server = new ApolloServer({
@@ -21,6 +21,16 @@ export const createApi = async () => {
     introspection: true,
     playground: true,
   })
+
+  return { server, ctx }
+}
+
+export type Api = Depromisify<ReturnType<typeof createApi>>
+
+export const createApi = async () => {
+  const app = express()
+
+  const { server, ctx } = await createServer()
 
   const graphqlRoute = config.get('api_graphql_route').replace(/^\/|\/$/g, '')
   const port = config.get('api_port')
@@ -56,5 +66,3 @@ export const createApi = async () => {
     close,
   }
 }
-
-export type Api = Depromisify<ReturnType<typeof createApi>>

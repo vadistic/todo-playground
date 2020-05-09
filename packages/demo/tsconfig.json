@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.node.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+
+    "paths": {
+      "@todo/api-apollo-graphql": ["../api-apollo-graphql/src"],
+      "@todo/db-marshall": ["../db-marshall/src"],
+      "@todo/lib-db": ["../lib-db/src"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}

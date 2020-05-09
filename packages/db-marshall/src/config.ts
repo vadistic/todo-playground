@@ -42,4 +42,4 @@ export const configSchema = {
 
 export type Config = typeof configSchema extends Schema<infer T> ? T : never
 
-export const config = convict(configSchema).validate({ allowed: 'strict' })
+export const config = convict(configSchema)

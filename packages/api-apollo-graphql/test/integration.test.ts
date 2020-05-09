@@ -4,15 +4,13 @@ import { TaskBase } from '@todo/lib-db'
 import { config } from '../src/config'
 import { createTestClient, TestClient } from './create-test-client'
 
-config.loadFile('./.env.test.json')
-
 let client: TestClient
 
 beforeAll(async () => {
+  config.loadFile('./.env.test.json')
   const db = await createDb()
 
   await db.drop()
-  await db.sync()
   await db.seed()
   await db.close()
 
