@@ -1,7 +1,7 @@
 import { TaskBase, testTask } from '@todo/lib-db'
 
-import { config } from '../config'
-import { MongooseDb, createDb } from '../db'
+import { config } from '../src/config'
+import { MongooseDb, createDb } from '../src/db'
 
 let db = (undefined as unknown) as MongooseDb
 
@@ -20,11 +20,11 @@ afterAll(async () => {
   }
 })
 
-describe('db-mongoose > internal', () => {
-  let fix: TaskBase
+describe('db-mongoose', () => {
+  let fixtureRes: TaskBase
 
   beforeAll(async () => {
-    fix = await db.service.task.createOne({
+    fixtureRes = await db.service.task.createOne({
       data: { name: 'Finish apps', finished: false },
     })
   })
@@ -38,18 +38,16 @@ describe('db-mongoose > internal', () => {
   })
 
   test('id is virtualised', () => {
-    expect(fix).toHaveProperty('id')
+    expect(fixtureRes).toHaveProperty('id')
   })
 
   test('_id is deleted', () => {
-    expect(fix).not.toHaveProperty('_id')
+    expect(fixtureRes).not.toHaveProperty('_id')
   })
 
   test('__v is deleted', () => {
-    expect(fix).not.toHaveProperty('__v')
+    expect(fixtureRes).not.toHaveProperty('__v')
   })
-})
 
-describe('db-mongoose > service', () => {
   testTask(() => db.service)
 })

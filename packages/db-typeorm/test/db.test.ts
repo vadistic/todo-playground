@@ -1,7 +1,7 @@
 import { testTask } from '@todo/lib-db'
 
-import { config } from '../config'
-import { createDb, TypeormDb } from '../db'
+import { config } from '../src/config'
+import { createDb, TypeormDb } from '../src/db'
 
 let db: TypeormDb
 

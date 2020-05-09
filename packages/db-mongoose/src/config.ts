@@ -1,4 +1,4 @@
-import convict from 'convict'
+import convict, { Schema } from 'convict'
 
 /* eslint-disable @typescript-eslint/camelcase */
 export const configSchema = {
@@ -31,8 +31,6 @@ export const configSchema = {
 }
 /* eslint-enable @typescript-eslint/camelcase */
 
-export type ConfigSchema = typeof configSchema
+export type Config = typeof configSchema extends Schema<infer U> ? U : never
 
 export const config = convict(configSchema)
-
-config.validate({ allowed: 'strict' })

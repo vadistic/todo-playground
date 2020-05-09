@@ -1,7 +1,7 @@
 import * as Shared from '@todo/lib-db'
 
-import * as Client from '../generated/client'
-import { buildFilter, range } from '../utils'
+import * as Client from '../src/generated/client'
+import { buildFilter, range } from '../src/utils'
 
 describe('db-prisma > buildFilter', () => {
   const filter = buildFilter<Shared.TaskWhereFilters, Client.TaskWhereInput>((where) => ({

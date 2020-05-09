@@ -16,7 +16,7 @@
     "clean": "rm -rf dist *.tsbuildinfo",
     "format": "prettier --write **/*.ts",
     "generate": "prisma generate",
-    "lint": "eslint --ext ts,tsx src",
+    "lint": "eslint --ext ts,tsx src test",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "scripts": "sh ./scripts.sh",
     "test": "jest --runInBand"

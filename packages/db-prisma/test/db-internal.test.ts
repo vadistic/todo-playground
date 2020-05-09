@@ -1,5 +1,5 @@
-import { config } from '../config'
-import { createDb, PrismaDb } from '../db'
+import { config } from '../src/config'
+import { createDb, PrismaDb } from '../src/db'
 
 let db: PrismaDb
 

@@ -5,24 +5,25 @@ import {
   TaskCreateOneArgs,
   TaskDeleteOneArgs,
   TaskUpdateOneArgs,
+  TaskBase,
 } from '@todo/lib-db'
 import { Connection } from 'mongoose'
 
 import { Models } from '../models'
-import { fixId, makeFilter } from '../utils'
+import { buildFilter } from '../utils'
 import { TaskDocument } from './task.schema'
 
 export class TaskService implements TaskServiceBase {
   constructor(public ctn: Connection, public models: Models) {}
 
-  async findOne(args: TaskFindOneArgs) {
-    const res = await this.models.task.findById(args.where.id).lean()
+  async findOne(args: TaskFindOneArgs): Promise<TaskBase | null> {
+    const doc = await this.models.task.findById(args.where.id)
 
-    return fixId(res)
+    return doc?.toObject({ minimize: false })
   }
 
-  async findMany(args: TaskFindManyArgs) {
-    const cond = makeFilter<TaskDocument>(args.where, {
+  async findMany(args: TaskFindManyArgs): Promise<TaskBase[]> {
+    const cond = buildFilter<TaskDocument>(args.where, {
       _id: { $in: args.where?.ids },
       name: { $regex: `.*${args.where?.name}.*` },
       content: { $regex: `.*${args.where?.content}.*` },
@@ -31,34 +32,34 @@ export class TaskService implements TaskServiceBase {
       updatedAt: { $gte: args.where?.updatedAfter, $lte: args.where?.updatedBefore },
     })
 
-    const res = await this.models.task.find(cond).lean()
+    const res = await this.models.task.find(cond)
 
-    return res.map(fixId)
+    return res.map((doc) => doc.toObject({ minimize: false }))
   }
 
-  async createOne(args: TaskCreateOneArgs) {
-    const doc = await this.models.task.create(args.data)
+  async createOne({ data }: TaskCreateOneArgs): Promise<TaskBase> {
+    const doc = await this.models.task.create(data)
 
-    return doc.toObject()
+    return doc.toObject({ minimize: false })
   }
 
-  async updateOne(args: TaskUpdateOneArgs) {
-    const res = await this.models.task.findByIdAndUpdate(args.where.id, args.data).lean()
+  async updateOne(args: TaskUpdateOneArgs): Promise<TaskBase> {
+    const doc = await this.models.task.findByIdAndUpdate(args.where.id, args.data)
 
-    if (!res) {
+    if (!doc) {
       throw Error('Cannot updateOne - Task not found')
     }
 
-    return fixId(res)
+    return doc.toObject({ minimize: false })
   }
 
-  async deleteOne(args: TaskDeleteOneArgs) {
-    const res = await this.models.task.findByIdAndDelete(args.where.id).lean()
+  async deleteOne(args: TaskDeleteOneArgs): Promise<TaskBase> {
+    const doc = await this.models.task.findByIdAndDelete(args.where.id)
 
-    if (!res) {
+    if (!doc) {
       throw Error('Cannot deleteOne - Task not found')
     }
 
-    return fixId(res)
+    return doc.toObject({ minimize: false })
   }
 }
