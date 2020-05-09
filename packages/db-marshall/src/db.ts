@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { Database } from '@marcj/marshal-mongo'
-import { DbBase } from '@todo/lib-db'
+import { DbBase, seedAll } from '@todo/lib-db'
 
 import { Connection } from './connection'
 import { Service } from './service'
@@ -30,11 +30,13 @@ export const createDb = async (): Promise<MarshallDb> => {
   }
 
   const drop = async () => {
+    await ctn.connect()
     await ctn.db.dropDatabase()
   }
 
   const seed = async () => {
-    // console.warn('NOT IMPLEMENTED', 'seed()')
+    await ctn.connect()
+    await seedAll(service)
   }
 
   const isConnected = () => {

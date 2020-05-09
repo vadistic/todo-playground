@@ -15,7 +15,7 @@ export class TaskModel implements TaskBase {
 
   constructor(
     @f public name: string,
-    @f.optional() content?: string,
+    @f.optional() public content?: string,
     @f public finished: boolean = false,
   ) {}
 }
