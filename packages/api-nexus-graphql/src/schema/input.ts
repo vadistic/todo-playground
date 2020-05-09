@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
 import { AllInputTypes, inputObjectType } from '@nexus/schema'
 
-export const UniqueIDInput = inputObjectType({
-  name: `UniqueIDInput`,
+export const WhereUniqueIDInput = inputObjectType({
+  name: `WhereUniqueIDInput`,
   definition(t) {
     t.id('id', { required: true })
   },
@@ -59,17 +59,17 @@ const cachedInput = <T extends AllInputTypes>(
 // ────────────────────────────────────────────────────────────────────────────────
 
 const eqFilterInputName = <T extends AllInputTypes>(options: FilterOptions<T>) =>
-  [options.type, options.required && 'Required', options.list && 'List', 'Equal', 'Input']
+  [options.type, options.required && 'Required', options.list && 'List', 'FilterInput']
     .filter(Boolean)
     .join('') as AllInputTypes
 
 const setFilterInputName = <T extends AllInputTypes>(options: FilterOptions<T>) =>
-  [options.type, options.required && 'Required', 'In', 'Input']
+  [options.type, options.required && 'Required', 'Set', 'FilterInput']
     .filter(Boolean)
     .join('') as AllInputTypes
 
 const rangeFilterInputName = <T extends AllInputTypes>(options: FilterOptions<T>) =>
-  [options.type, 'Range', 'Input'].filter(Boolean).join('') as AllInputTypes
+  [options.type, 'Range', 'FilterInput'].filter(Boolean).join('') as AllInputTypes
 
 // ────────────────────────────────────────────────────────────────────────────────
 
@@ -105,12 +105,12 @@ export const rangeFilterInput = cachedInput(rangeFilterInputName, (name, options
   inputObjectType({
     name,
     definition(t) {
-      t.field('lte', {
+      t.field('after', {
         type: options.type,
         required: false,
       })
 
-      t.field('gte', {
+      t.field('before', {
         type: options.type,
         required: false,
       })
@@ -139,23 +139,23 @@ export const resolveLikeFilter = (res: any, key: string, prop: any) => {
 }
 
 export const resolveDateRangeFilter = (res: any, key: string, prop: any) => {
-  if (prop.lte) {
+  if (prop.after) {
     if (key === 'createdAt') {
-      res.createdBefore = prop.lte
+      res.createdAfter = prop.after
     }
 
     if (key === 'updatedAt') {
-      res.updatedBefore = prop.lte
+      res.updatedAfter = prop.after
     }
   }
 
-  if (prop.gte) {
+  if (prop.before) {
     if (key === 'createdAt') {
-      res.createdAfter = prop.gte
+      res.createdBefore = prop.before
     }
 
     if (key === 'updatedAt') {
-      res.updatedAfter = prop.gte
+      res.updatedBefore = prop.before
     }
   }
 }

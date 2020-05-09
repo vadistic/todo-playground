@@ -1,3 +1,4 @@
+import { Depromisify } from '@todo/lib-db'
 import { ApolloServer } from 'apollo-server-express'
 import express from 'express'
 
@@ -5,7 +6,6 @@ import { config } from './config'
 import { createContext } from './context'
 import { resolvers } from './resolvers'
 import { typeDefs } from './schema'
-import { Depromisify } from './types'
 
 export const createApi = async () => {
   const app = express()

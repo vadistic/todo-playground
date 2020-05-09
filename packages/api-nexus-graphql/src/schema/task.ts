@@ -2,11 +2,12 @@ import { objectType, inputObjectType, arg } from '@nexus/schema'
 import { TaskCreateData, TaskUpdateData } from '@todo/lib-db'
 
 import {
-  UniqueIDInput,
+  WhereUniqueIDInput,
   eqFilterInput,
   rangeFilterInput,
   resolveFilterArgs,
   StringFilterInput,
+  setFilterInput,
 } from './input'
 
 export const Task = objectType({
@@ -43,7 +44,7 @@ export const TaskUpdateInput = inputObjectType({
 export const TaskWhereFilterInput = inputObjectType({
   name: `TaskWhereFilterInput`,
   definition(t) {
-    t.field('ids', { type: eqFilterInput({ type: 'ID', list: true }) })
+    t.field('ids', { type: setFilterInput({ type: 'ID', list: true }) })
 
     t.field('createdAt', { type: rangeFilterInput({ type: 'DateTime' }) })
     t.field('updatedAt', { type: rangeFilterInput({ type: 'DateTime' }) })
@@ -54,7 +55,7 @@ export const TaskWhereFilterInput = inputObjectType({
   },
 })
 
-const TaskWhereUniqueArg = arg({ type: UniqueIDInput, required: true })
+const TaskWhereUniqueArg = arg({ type: WhereUniqueIDInput, required: true })
 const TaskWhereFilterArg = arg({ type: TaskWhereFilterInput, required: false })
 const TaskCreateDataArg = arg({ type: TaskCreateInput, required: true })
 const TaskUpdateDataArg = arg({ type: TaskUpdateInput, required: true })

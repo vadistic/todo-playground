@@ -22,15 +22,15 @@ declare global {
 }
 
 export interface NexusGenInputs {
-  BooleanEqualInput: { // input type
+  BooleanFilterInput: { // input type
     eq: boolean; // Boolean!
   }
-  DateTimeRangeInput: { // input type
-    gte?: any | null; // DateTime
-    lte?: any | null; // DateTime
+  DateTimeRangeFilterInput: { // input type
+    after?: any | null; // DateTime
+    before?: any | null; // DateTime
   }
-  IDListEqualInput: { // input type
-    eq: string[]; // [ID!]!
+  IDSetFilterInput: { // input type
+    in: string[]; // [ID!]!
   }
   StringFilterInput: { // input type
     eq?: string | null; // String
@@ -49,13 +49,13 @@ export interface NexusGenInputs {
   }
   TaskWhereFilterInput: { // input type
     content?: NexusGenInputs['StringFilterInput'] | null; // StringFilterInput
-    createdAt?: NexusGenInputs['DateTimeRangeInput'] | null; // DateTimeRangeInput
-    finished?: NexusGenInputs['BooleanEqualInput'] | null; // BooleanEqualInput
-    ids?: NexusGenInputs['IDListEqualInput'] | null; // IDListEqualInput
+    createdAt?: NexusGenInputs['DateTimeRangeFilterInput'] | null; // DateTimeRangeFilterInput
+    finished?: NexusGenInputs['BooleanFilterInput'] | null; // BooleanFilterInput
+    ids?: NexusGenInputs['IDSetFilterInput'] | null; // IDSetFilterInput
     name?: NexusGenInputs['StringFilterInput'] | null; // StringFilterInput
-    updatedAt?: NexusGenInputs['DateTimeRangeInput'] | null; // DateTimeRangeInput
+    updatedAt?: NexusGenInputs['DateTimeRangeFilterInput'] | null; // DateTimeRangeFilterInput
   }
-  UniqueIDInput: { // input type
+  WhereUniqueIDInput: { // input type
     id: string; // ID!
   }
 }
@@ -83,14 +83,14 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
-  BooleanEqualInput: NexusGenInputs['BooleanEqualInput'];
-  DateTimeRangeInput: NexusGenInputs['DateTimeRangeInput'];
-  IDListEqualInput: NexusGenInputs['IDListEqualInput'];
+  BooleanFilterInput: NexusGenInputs['BooleanFilterInput'];
+  DateTimeRangeFilterInput: NexusGenInputs['DateTimeRangeFilterInput'];
+  IDSetFilterInput: NexusGenInputs['IDSetFilterInput'];
   StringFilterInput: NexusGenInputs['StringFilterInput'];
   TaskCreateInput: NexusGenInputs['TaskCreateInput'];
   TaskUpdateInput: NexusGenInputs['TaskUpdateInput'];
   TaskWhereFilterInput: NexusGenInputs['TaskWhereFilterInput'];
-  UniqueIDInput: NexusGenInputs['UniqueIDInput'];
+  WhereUniqueIDInput: NexusGenInputs['WhereUniqueIDInput'];
 }
 
 export interface NexusGenFieldTypes {
@@ -119,16 +119,16 @@ export interface NexusGenArgTypes {
       data: NexusGenInputs['TaskCreateInput']; // TaskCreateInput!
     }
     deleteTask: { // args
-      where: NexusGenInputs['UniqueIDInput']; // UniqueIDInput!
+      where: NexusGenInputs['WhereUniqueIDInput']; // WhereUniqueIDInput!
     }
     updateTask: { // args
       data: NexusGenInputs['TaskUpdateInput']; // TaskUpdateInput!
-      where: NexusGenInputs['UniqueIDInput']; // UniqueIDInput!
+      where: NexusGenInputs['WhereUniqueIDInput']; // WhereUniqueIDInput!
     }
   }
   Query: {
     task: { // args
-      where: NexusGenInputs['UniqueIDInput']; // UniqueIDInput!
+      where: NexusGenInputs['WhereUniqueIDInput']; // WhereUniqueIDInput!
     }
     tasks: { // args
       where?: NexusGenInputs['TaskWhereFilterInput'] | null; // TaskWhereFilterInput
@@ -143,7 +143,7 @@ export interface NexusGenInheritedFields {}
 
 export type NexusGenObjectNames = "Mutation" | "Query" | "Task";
 
-export type NexusGenInputNames = "BooleanEqualInput" | "DateTimeRangeInput" | "IDListEqualInput" | "StringFilterInput" | "TaskCreateInput" | "TaskUpdateInput" | "TaskWhereFilterInput" | "UniqueIDInput";
+export type NexusGenInputNames = "BooleanFilterInput" | "DateTimeRangeFilterInput" | "IDSetFilterInput" | "StringFilterInput" | "TaskCreateInput" | "TaskUpdateInput" | "TaskWhereFilterInput" | "WhereUniqueIDInput";
 
 export type NexusGenEnumNames = never;
 

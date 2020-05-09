@@ -23,8 +23,6 @@ afterAll(async () => {
 })
 
 describe('api-apollo-graphql', () => {
-  let tasks: Client.Task[]
-
   const TASKS_QUERY = /* GraphQL */ `
     query Tasks {
       tasks {
@@ -35,38 +33,32 @@ describe('api-apollo-graphql', () => {
       }
     }
   `
-
-  beforeAll(async () => {
-    const { data } = await client.execute<{ tasks: Client.Task[] }>({ query: TASKS_QUERY })
-
-    tasks = data?.tasks
-  })
-
-  it('query many tasks', async () => {
-    expect(tasks.length).toBeGreaterThan(5)
-    expect(tasks.every((task) => typeof task.id === 'string')).toBeTruthy()
-  })
-
-  it('query one task', async () => {
-    const { id } = tasks[Math.floor(Math.random() * tasks.length)]
-
-    const TASK_QUERY = /* GraphQL */ `
-      query Task($id: ID!) {
-        task(id: $id) {
-          id
-          name
-          content
-          finished
-        }
+  const TASK_QUERY = /* GraphQL */ `
+    query Task($id: ID!) {
+      task(where: { id: $id }) {
+        id
+        name
+        content
+        finished
       }
-    `
+    }
+  `
 
-    const { data, errors } = await client.execute<{ task: Client.Task }>({
+  it('task query', async () => {
+    const resMany = await client.execute<{ tasks: Client.Task[] }>({ query: TASKS_QUERY })
+
+    expect(resMany.errors).toBeUndefined()
+
+    expect(resMany.data.tasks.length).toBeGreaterThan(5)
+    expect(resMany.data.tasks.every((task) => typeof task.id === 'string')).toBeTruthy()
+
+    const resOne = await client.execute<{ task: Client.Task }>({
       query: TASK_QUERY,
-      variables: { id },
+      variables: { id: resMany.data.tasks[0].id },
     })
 
-    expect(errors).toBeUndefined()
-    expect(Object.keys(data?.task)).toEqual(['id', 'name', 'content', 'finished'])
+    expect(resOne.errors).toBeUndefined()
+
+    expect(resOne.data.task).toMatchObject(resMany.data.tasks[0])
   })
 })

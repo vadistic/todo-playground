@@ -2,30 +2,30 @@
 ### Do not make changes to this file directly
 
 
-input BooleanEqualInput {
+input BooleanFilterInput {
   eq: Boolean!
 }
 
 """Date scalar type"""
 scalar DateTime
 
-input DateTimeRangeInput {
-  gte: DateTime
-  lte: DateTime
+input DateTimeRangeFilterInput {
+  after: DateTime
+  before: DateTime
 }
 
-input IDListEqualInput {
-  eq: [ID!]!
+input IDSetFilterInput {
+  in: [ID!]!
 }
 
 type Mutation {
   createTask(data: TaskCreateInput!): Task!
-  deleteTask(where: UniqueIDInput!): Task!
-  updateTask(data: TaskUpdateInput!, where: UniqueIDInput!): Task!
+  deleteTask(where: WhereUniqueIDInput!): Task!
+  updateTask(data: TaskUpdateInput!, where: WhereUniqueIDInput!): Task!
 }
 
 type Query {
-  task(where: UniqueIDInput!): Task
+  task(where: WhereUniqueIDInput!): Task
   tasks(where: TaskWhereFilterInput): [Task!]!
 }
 
@@ -58,13 +58,13 @@ input TaskUpdateInput {
 
 input TaskWhereFilterInput {
   content: StringFilterInput
-  createdAt: DateTimeRangeInput
-  finished: BooleanEqualInput
-  ids: IDListEqualInput
+  createdAt: DateTimeRangeFilterInput
+  finished: BooleanFilterInput
+  ids: IDSetFilterInput
   name: StringFilterInput
-  updatedAt: DateTimeRangeInput
+  updatedAt: DateTimeRangeFilterInput
 }
 
-input UniqueIDInput {
+input WhereUniqueIDInput {
   id: ID!
 }
