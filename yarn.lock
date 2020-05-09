@@ -1955,6 +1955,36 @@
     npmlog "^4.1.2"
     write-file-atomic "^2.3.0"
 
+"@marcj/estdlib@^0.1.17":
+  version "0.1.17"
+  resolved "https://registry.yarnpkg.com/@marcj/estdlib/-/estdlib-0.1.17.tgz#1a7c238f9e787b43fd7a045cf95bc008cfae92e7"
+  integrity sha512-1kwmjG5foLmx6SN4u8Fw+47A9A2EuSdIjhH4m75TMVQ1WBTCBdUE6lO/BD0VDACscofdcAhzXqS3F0ivrFZwlg==
+  dependencies:
+    dot-prop "^4.2.0"
+
+"@marcj/marshal-mongo@^2.1.3":
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/@marcj/marshal-mongo/-/marshal-mongo-2.1.3.tgz#85e519de0604f1c8eef49fde62e61da8614bfc0f"
+  integrity sha512-e5YFmasuwg5d7OQUkOEyNJW9bt2IHhLaaoSPCDNCswNhpmJnc4+jTKVLkNcLeqhq0Xtgqi+h/c145+1s0N45UA==
+  dependencies:
+    "@marcj/estdlib" "^0.1.17"
+    "@marcj/marshal" "^2.1.3"
+    buffer "^5.4.3"
+    mongo-uuid "^1.0.0"
+
+"@marcj/marshal@^2.1.3":
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/@marcj/marshal/-/marshal-2.1.3.tgz#9b525a5ceaef8c72430b9b5050f13c9053631fcf"
+  integrity sha512-7/Oef/qpx1ahbaFhVM47Z9gwiPR5V+OiUFJHjpo6jw6TRnfuZ4B60mHXrK1ssgJhTib/7/C4E2JLtC4Vz3l/dw==
+  dependencies:
+    "@marcj/estdlib" "^0.1.17"
+    buffer "^5.4.3"
+    clone "^2.1.2"
+    get-parameter-names "^0.3.0"
+    uuid "^3.2.1"
+  optionalDependencies:
+    moment "^2.0.0"
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -4697,7 +4727,7 @@ buffer@^4.3.0:
     ieee754 "^1.1.4"
     isarray "^1.0.0"
 
-buffer@^5.1.0, buffer@^5.5.0:
+buffer@^5.1.0, buffer@^5.4.3, buffer@^5.5.0:
   version "5.6.0"
   resolved "https://registry.yarnpkg.com/buffer/-/buffer-5.6.0.tgz#a31749dc7d81d84db08abf937b6b8c4033f62786"
   integrity sha512-/gDYp/UtU0eA1ys8bOs9J6a+E/KWIY+DZ+Q2WESNUA0jFRsJOc0SNUO6xJ5SGA1xueg3NL65W6s+NY5l9cunuw==
@@ -5084,7 +5114,7 @@ clone@^1.0.2:
   resolved "https://registry.yarnpkg.com/clone/-/clone-1.0.4.tgz#da309cc263df15994c688ca902179ca3c7cd7c7e"
   integrity sha1-2jCcwmPfFZlMaIypAheco8fNfH4=
 
-clone@^2.1.1:
+clone@^2.1.1, clone@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/clone/-/clone-2.1.2.tgz#1b7f4b9f591f1e8f83670401600345a02887435f"
   integrity sha1-G39Ln1kfHo+DZwQBYANFoCiHQ18=
@@ -7396,6 +7426,11 @@ get-caller-file@^2.0.1:
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-2.0.5.tgz#4f94412a82db32f36e3b0b9741f8a97feb031f7e"
   integrity sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==
 
+get-parameter-names@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/get-parameter-names/-/get-parameter-names-0.3.0.tgz#2d2237cd592e6c5b859ab2efdab435f008e5bb97"
+  integrity sha1-LSI3zVkubFuFmrLv2rQ18Ajlu5c=
+
 get-pkg-repo@^1.0.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/get-pkg-repo/-/get-pkg-repo-1.4.0.tgz#c73b489c06d80cc5536c2c853f9e05232056972d"
@@ -7406,6 +7441,19 @@ get-pkg-repo@^1.0.0:
     normalize-package-data "^2.3.0"
     parse-github-repo-url "^1.3.0"
     through2 "^2.0.0"
+
+get-port-cli@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/get-port-cli/-/get-port-cli-1.1.0.tgz#f334b136995eb52e5a5d5c10e3c6e59e18a946ef"
+  integrity sha1-8zSxNpletS5aXVwQ48blnhipRu8=
+  dependencies:
+    get-port "^3.0.0"
+    meow "^3.4.2"
+
+get-port@^3.0.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/get-port/-/get-port-3.2.0.tgz#dd7ce7de187c06c8bf353796ac71e099f0980ebc"
+  integrity sha1-3Xzn3hh8Bsi/NTeWrHHgmfCYDrw=
 
 get-port@^4.2.0:
   version "4.2.0"
@@ -9638,7 +9686,7 @@ memory-pager@^1.0.2:
   resolved "https://registry.yarnpkg.com/memory-pager/-/memory-pager-1.5.0.tgz#d8751655d22d384682741c972f2c3d6dfa3e66b5"
   integrity sha512-ZS4Bp4r/Zoeq6+NLJpP+0Zzm0pR8whtGPf1XExKLJBAczGMnSi3It14OiNCStjQjM6NU1okjQGSxgEZN8eBYKg==
 
-meow@^3.3.0:
+meow@^3.3.0, meow@^3.4.2:
   version "3.7.0"
   resolved "https://registry.yarnpkg.com/meow/-/meow-3.7.0.tgz#72cb668b425228290abbfa856892587308a801fb"
   integrity sha1-cstmi0JSKCkKu/qFaJJYcwioAfs=
@@ -9886,7 +9934,20 @@ modify-values@^1.0.0:
   resolved "https://registry.yarnpkg.com/modify-values/-/modify-values-1.0.1.tgz#b3939fa605546474e3e3e3c63d64bd43b4ee6022"
   integrity sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==
 
-mongodb@3.5.7:
+moment@^2.0.0:
+  version "2.25.3"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.25.3.tgz#252ff41319cf41e47761a1a88cab30edfe9808c0"
+  integrity sha512-PuYv0PHxZvzc15Sp8ybUCoQ+xpyPWvjOuK72a5ovzp2LI32rJXOiIfyoFoYvG3s6EwwrdkMyWuRiEHSZRLJNdg==
+
+mongo-uuid@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/mongo-uuid/-/mongo-uuid-1.0.0.tgz#a35f70ab3db15edd3120b0cd088fbdd60a5d8b97"
+  integrity sha512-c2V+DaL3Elg+Nqc7ONj+W31abgkkZim1R7/pTfKJIDlTpWtF0tm1zPpZ39eSc8hIX/auTBcYonwyl04G6nrs/A==
+  dependencies:
+    get-port-cli "^1.1.0"
+    uuid "^3.1.0"
+
+mongodb@3.5.7, mongodb@^3.5.7:
   version "3.5.7"
   resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-3.5.7.tgz#6dcfff3bdbf67a53263dcca1647c265eea1d065d"
   integrity sha512-lMtleRT+vIgY/JhhTn1nyGwnSMmJkJELp+4ZbrjctrnBxuLbj6rmLuJFz8W2xUzUqWmqoyVxJLYuC58ZKpcTYQ==
@@ -14265,7 +14326,7 @@ uuid@8.0.0:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.0.0.tgz#bc6ccf91b5ff0ac07bbcdbf1c7c4e150db4dbb6c"
   integrity sha512-jOXGuXZAWdsTH7eZLtyXMqUb9EcWMGZNbL9YcGBJl4MH4nrxHmZJhEHvyLFrkxo+28uLb/NYRcStH48fnD0Vzw==
 
-uuid@^3.0.1, uuid@^3.1.0, uuid@^3.3.2:
+uuid@^3.0.1, uuid@^3.1.0, uuid@^3.2.1, uuid@^3.3.2:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==

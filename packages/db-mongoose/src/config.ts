@@ -35,4 +35,4 @@ export type ConfigSchema = typeof configSchema
 
 export const config = convict(configSchema)
 
-export const getDbUrl = (host: string, name: string) => `mongodb://${host}/${name}`
+config.validate({ allowed: 'strict' })
