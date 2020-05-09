@@ -1,4 +1,5 @@
-import { createDb, Client } from '@todo/db-prisma'
+import { createDb } from '@todo/db-marshall'
+import { TaskBase } from '@todo/lib-db'
 
 import { config } from '../src/config'
 import { createTestClient, TestClient } from './create-test-client'
@@ -45,14 +46,14 @@ describe('api-apollo-graphql', () => {
   `
 
   it('task query', async () => {
-    const resMany = await client.execute<{ tasks: Client.Task[] }>({ query: TASKS_QUERY })
+    const resMany = await client.execute<{ tasks: TaskBase[] }>({ query: TASKS_QUERY })
 
     expect(resMany.errors).toBeUndefined()
 
     expect(resMany.data.tasks.length).toBeGreaterThan(5)
     expect(resMany.data.tasks.every((task) => typeof task.id === 'string')).toBeTruthy()
 
-    const resOne = await client.execute<{ task: Client.Task }>({
+    const resOne = await client.execute<{ task: TaskBase }>({
       query: TASK_QUERY,
       variables: { id: resMany.data.tasks[0].id },
     })

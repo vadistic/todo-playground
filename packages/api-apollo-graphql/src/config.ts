@@ -1,15 +1,15 @@
-import { configSchema as dbConfigSchema } from '@todo/db-prisma'
-import convict from 'convict'
+import { configSchema as dbConfigSchema } from '@todo/db-marshall'
+import convict, { Schema } from 'convict'
 
 /* eslint-disable @typescript-eslint/camelcase */
 export const configSchema = {
   ...dbConfigSchema,
-  port: {
+  api_port: {
     env: 'PORT',
     default: 8000,
     format: 'port',
   },
-  graphql_path: {
+  api_graphql_route: {
     env: 'GRAPHQL_PATH',
     default: 'graphql',
     format: String,
@@ -17,6 +17,6 @@ export const configSchema = {
 }
 /* eslint-enable @typescript-eslint/camelcase */
 
-export type ConfigSchema = typeof configSchema
+export type Config = typeof configSchema extends Schema<infer U> ? U : never
 
 export const config = convict(configSchema)

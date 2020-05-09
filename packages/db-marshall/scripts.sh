@@ -16,10 +16,20 @@ function run_docker () {
     fi
 }
 
+function seed_local () {
+    echo 'seed_local()'
+    ts-node -T './scripts/seed-local.ts'
+}
+
+function seed_dev () {
+    echo 'seed_dev()'
+    ts-node -T './scripts/seed-dev.ts'
+}
+
 
 function bootstrap () {
     echo 'bootstrap()'
-   run_docker
+    run_docker
 }
 
 "$@"

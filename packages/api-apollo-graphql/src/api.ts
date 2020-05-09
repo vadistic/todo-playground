@@ -22,12 +22,13 @@ export const createApi = async () => {
     playground: true,
   })
 
-  const graphqlPath = config.get('graphql_path').replace(/^\/|\/$/g, '')
-  const port = config.get('port')
-  // TODO: add public url env or smth
-  const url = 'http://localhost:' + port + '/' + graphqlPath
+  const graphqlRoute = config.get('api_graphql_route').replace(/^\/|\/$/g, '')
+  const port = config.get('api_port')
 
-  server.applyMiddleware({ app, path: '/' + graphqlPath })
+  // TODO: add public url or smth
+  const url = 'http://localhost:' + port + '/' + graphqlRoute
+
+  server.applyMiddleware({ app, path: '/' + graphqlRoute })
 
   // teardown
   const close = async () => {
@@ -36,7 +37,7 @@ export const createApi = async () => {
   }
 
   // graceful exit
-  const exit = () => {
+  process.on('SIGINT', () => {
     close().then(() => {
       console.log('byebye!')
     })
@@ -44,12 +45,10 @@ export const createApi = async () => {
     setTimeout(() => {
       process.exit(0)
     }, 2000)
-  }
-
-  process.on('SIGINT', exit)
+  })
 
   return {
-    graphqlPath,
+    graphqlRoute,
     server,
     app,
     url,

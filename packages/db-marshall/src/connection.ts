@@ -11,13 +11,15 @@ export class Connection {
 
   db!: Db
 
-  host = `mongodb://${config.get('mongodb_host')}/${config.get('mongodb_name')}`
+  host = `mongodb://${config.get('mongodb_host')}:${config.get('mongodb_port')}/${config.get(
+    'mongodb_name',
+  )}`
 
   defaultDatabase = config.get('mongodb_name')
 
-  password = config.get('mongodb_user')
-
   username = config.get('mongodb_user')
+
+  password = config.get('mongodb_pass')
 
   async close(force?: boolean) {
     if (this.client) {
@@ -30,14 +32,16 @@ export class Connection {
       return this.client
     }
 
+    const auth =
+      config.get('mongodb_user') && config.get('mongodb_pass')
+        ? {
+            user: config.get('mongodb_user'),
+            password: config.get('mongodb_pass'),
+          }
+        : undefined
+
     this.client = await MongoClient.connect(this.host, {
-      auth:
-        this.username && this.password
-          ? {
-              user: this.username,
-              password: this.password,
-            }
-          : undefined,
+      auth,
       useNewUrlParser: true,
       useUnifiedTopology: true,
       ignoreUndefined: true,

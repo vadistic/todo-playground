@@ -6,7 +6,7 @@
     "skipLibCheck": true,
 
     "paths": {
-      "@todo/db-prisma": ["../db-prisma/src"],
+      "@todo/db-marshall": ["../db-marshall/src"],
       "@todo/lib-db": ["../lib-db/src"]
     }
   },
