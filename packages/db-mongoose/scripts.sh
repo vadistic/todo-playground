@@ -19,14 +19,14 @@ function run_mongoku () {
     sudo docker run -d --name mongoku -p 3100:3100 huggingface/mongoku
 }
 
-function seed () {
-    echo 'seed()'
-    ts-node -T './scripts/seed.ts'
+function seed_local () {
+    echo 'seed_local()'
+    ts-node -T './scripts/seed-local.ts'
 }
 
 function bootstrap () {
     run_docker
-    seed
+    seed_local
 }
 
 "$@"

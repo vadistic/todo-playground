@@ -1,5 +1,6 @@
 import { DbBase, seedAll } from '@todo/lib-db'
 
+import { config } from './config'
 import { PrismaClient, PrismaClientOptions } from './generated/client'
 import { Service } from './service'
 
@@ -10,11 +11,13 @@ export interface PrismaDb extends DbBase {
 
 export const createDb = async (): Promise<PrismaDb> => {
   // ! do not use log/loglevel config or tests hang for some reason....
-  const opts: PrismaClientOptions = {}
+  const opts: PrismaClientOptions = { __internal: { debug: config.debug } }
 
   const prisma = new PrismaClient(opts)
 
   const service = new Service(prisma)
+
+  await prisma.connect()
 
   const connect = async () => {
     await prisma.connect()
@@ -25,7 +28,7 @@ export const createDb = async (): Promise<PrismaDb> => {
   }
 
   const sync = async () => {
-    // console.warn('NOT IMPLEMENTED', 'sync()')
+    // manually
   }
 
   const drop = async () => {
@@ -37,8 +40,6 @@ export const createDb = async (): Promise<PrismaDb> => {
   }
 
   const isConnected = () => {
-    // console.warn('NOT IMPLEMENTED', 'isConnected()')
-
     return true
   }
 

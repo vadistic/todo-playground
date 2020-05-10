@@ -4,10 +4,11 @@ import { createDb, PrismaDb } from '../src/db'
 let db: PrismaDb
 
 beforeAll(async () => {
-  config.loadFile('./.env.test.json')
-  process.env.DB_URL = config.get('db_url')
+  config.load({ file: './.env.test' })
 
   db = await createDb()
+
+  await db.drop()
   await db.seed()
 })
 

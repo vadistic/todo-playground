@@ -1,10 +1,7 @@
-import dotenv from 'dotenv'
-
 import { createDb, config } from '../src'
 
 const main = async () => {
-  dotenv.config()
-  config.loadFile('./.env.json')
+  config.load({ file: './.env' })
 
   const db = await createDb()
 

@@ -8,7 +8,7 @@
     "paths": {}
   },
   "references": [
-    { "path": "../db-prisma/tsconfig.build.json" },
+    { "path": "../db-marshall/tsconfig.build.json" },
     { "path": "../lib-db/tsconfig.build.json" }
   ],
   "include": ["src"],

@@ -8,9 +8,6 @@
       "path": "packages/api-apollo-graphql"
     },
     {
-      "path": "packages/api-fastify-rest"
-    },
-    {
       "path": "packages/api-lambda-rest"
     },
     {
@@ -26,6 +23,9 @@
       "path": "packages/db-fauna"
     },
     {
+      "path": "packages/db-marshall"
+    },
+    {
       "path": "packages/db-mongoose"
     },
     {
@@ -33,6 +33,9 @@
     },
     {
       "path": "packages/db-typeorm"
+    },
+    {
+      "path": "packages/demo"
     },
     {
       "path": "packages/lang-dotnet"
@@ -53,10 +56,13 @@
       "path": "packages/lib-db"
     },
     {
-      "path": "packages/shared-styles"
+      "path": "packages/lib-styles"
     },
     {
       "path": "packages/template"
+    },
+    {
+      "path": "packages/ui-react-basic"
     }
   ]
 }

@@ -1,23 +1,8 @@
-import convict from 'convict'
+import { Config as Base } from '@todo/lib-db'
 
-/* eslint-disable @typescript-eslint/camelcase */
-export const configSchema = {
-  env: {
-    format: ['production', 'development', 'test'],
-    default: 'development',
-    env: 'NODE_ENV',
-  },
-  debug: {
-    env: 'DEBUG',
-    default: false,
-  },
-  db_secret: {
-    env: 'DB_SECRET',
-    default: '',
-  },
+export class Config extends Base {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  faunadb_secret: string = process.env.FAUNADB_SECRET!
 }
-/* eslint-enable @typescript-eslint/camelcase */
 
-export type ConfigSchema = typeof configSchema
-
-export const config = convict(configSchema)
+export const config = new Config()

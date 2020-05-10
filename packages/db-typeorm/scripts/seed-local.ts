@@ -1,11 +1,11 @@
 import { createDb, config } from '../src'
 
 const main = async () => {
-  config.loadFile('.env.json')
+  config.load({ file: '.env.local' })
 
   const db = await createDb()
-
   await db.drop()
+  await db.sync()
   await db.seed()
   await db.close()
 

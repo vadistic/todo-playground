@@ -2,7 +2,7 @@ import type { ApolloError } from 'apollo-server-express'
 import type { DocumentNode } from 'graphql'
 import fetch from 'node-fetch'
 
-import { createApi, Api } from '../src/api'
+import { createApi, Api, config } from '../src'
 
 export type TestClientArgs<R, V = {}> = {
   query: string | DocumentNode
@@ -24,10 +24,10 @@ export type TestClient = {
 export const createTestClient = async (): Promise<TestClient> => {
   const api = await createApi()
 
-  const instance = api.app.listen(api.port)
+  const instance = api.app.listen(config.port)
 
   const execute = async <R, V>({ query, variables }: TestClientArgs<R, V>) => {
-    const res = await fetch(api.url, {
+    const res = await fetch(config.local_uri, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ query, variables: variables ?? {} }),

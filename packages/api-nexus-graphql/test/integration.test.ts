@@ -1,13 +1,13 @@
-import { createDb, Client } from '@todo/db-prisma'
+import { createDb } from '@todo/db-marshall'
+import { TaskBase } from '@todo/lib-db'
 
-import { config } from '../src/config'
+import { config } from '../src'
 import { createTestClient, TestClient } from './create-test-client'
-
-config.loadFile('./.env.test.json')
 
 let client: TestClient
 
 beforeAll(async () => {
+  config.load({ file: './.env.test' })
   const db = await createDb()
 
   await db.drop()
@@ -23,7 +23,7 @@ afterAll(async () => {
 })
 
 describe('api-nexus-graphql', () => {
-  let tasks: Client.Task[]
+  let tasks: TaskBase[]
 
   const TASKS_QUERY = /* GraphQL */ `
     query Tasks {
@@ -37,7 +37,7 @@ describe('api-nexus-graphql', () => {
   `
 
   beforeAll(async () => {
-    const { data } = await client.execute<{ tasks: Client.Task[] }>({ query: TASKS_QUERY })
+    const { data } = await client.execute<{ tasks: TaskBase[] }>({ query: TASKS_QUERY })
 
     tasks = data?.tasks
   })
@@ -51,8 +51,8 @@ describe('api-nexus-graphql', () => {
     const { id } = tasks[Math.floor(Math.random() * tasks.length)]
 
     const TASK_QUERY = /* GraphQL */ `
-      query Task($where: UniqueIDInput!) {
-        task(where: $where) {
+      query Task($id: ID!) {
+        task(where: { id: $id }) {
           id
           name
           content
@@ -61,9 +61,9 @@ describe('api-nexus-graphql', () => {
       }
     `
 
-    const { data, errors } = await client.execute<{ task: Client.Task }>({
+    const { data, errors } = await client.execute<{ task: TaskBase }>({
       query: TASK_QUERY,
-      variables: { where: { id } },
+      variables: { id },
     })
 
     expect(errors).toBeUndefined()

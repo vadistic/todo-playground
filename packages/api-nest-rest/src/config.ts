@@ -1,21 +1,9 @@
-import convict from 'convict'
+import { Config as Base } from '@todo/lib-db'
 
-/* eslint-disable @typescript-eslint/camelcase */
-export const config = convict({
-  env: {
-    format: ['production', 'development', 'test'],
-    default: 'development',
-    env: 'NODE_ENV',
-  },
-  debug: {
-    env: 'DEBUG',
-    default: false,
-  },
-  db_file: {
-    env: 'DB_FILE',
-    default: '',
-  },
-})
-/* eslint-enable @typescript-eslint/camelcase */
+export class Config extends Base {
+  port: number = Base.num(process.env.port) ?? 8080
 
-config.loadFile('./.env.json')
+  rest_path: string = process.env.REST_PATH ?? 'api'
+}
+
+export const config = new Config()

@@ -12,6 +12,7 @@ import {
 import { Client, query as q, Expr, errors } from 'faunadb'
 
 import { Collection } from '../collections'
+import { FaunaResponse, serialise } from '../utils'
 
 export class TaskService implements TaskServiceBase {
   constructor(readonly client: Client) {}
@@ -60,11 +61,3 @@ export class TaskService implements TaskServiceBase {
     return {} as TaskBase
   }
 }
-
-interface FaunaResponse<T> {
-  ref: Expr & { id: string }
-  ts: number
-  data: T
-}
-
-const serialise = <T>(res: FaunaResponse<T>): T => ({ id: res.ref.id, ...res.data })

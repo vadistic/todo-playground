@@ -5,25 +5,27 @@ import { config } from './config'
 import { createContext } from './context'
 import { schema } from './nexus'
 
-export const createApi = async () => {
-  const app = express()
-
+export const createServer = async () => {
   const ctx = await createContext()
 
   const server = new ApolloServer({
     schema,
     context: ctx,
-    debug: config.get('debug'),
+    debug: config.debug,
     engine: false,
     introspection: true,
     playground: true,
   })
 
-  const graphqlPath = config.get('graphql_path').replace(/^\/|\/$/g, '')
-  const port = config.get('port')
-  const url = 'http://localhost:' + port + '/' + graphqlPath
+  return { server, ctx }
+}
 
-  server.applyMiddleware({ app, path: '/' + graphqlPath })
+export const createApi = async () => {
+  const app = express()
+
+  const { ctx, server } = await createServer()
+
+  server.applyMiddleware({ app, path: '/' + config.graphql_path })
 
   // teardown
   const close = async () => {
@@ -45,11 +47,8 @@ export const createApi = async () => {
   process.on('SIGINT', exit)
 
   return {
-    graphqlPath,
     server,
     app,
-    url,
-    port,
     close,
   }
 }

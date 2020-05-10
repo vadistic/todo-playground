@@ -16,7 +16,7 @@ export const createServer = async () => {
     typeDefs,
     resolvers,
     context: ctx,
-    debug: config.get('debug'),
+    debug: config.debug,
     engine: false,
     introspection: true,
     playground: true,
@@ -32,13 +32,7 @@ export const createApi = async () => {
 
   const { server, ctx } = await createServer()
 
-  const graphqlRoute = config.get('api_graphql_route').replace(/^\/|\/$/g, '')
-  const port = config.get('api_port')
-
-  // TODO: add public url or smth
-  const url = 'http://localhost:' + port + '/' + graphqlRoute
-
-  server.applyMiddleware({ app, path: '/' + graphqlRoute })
+  server.applyMiddleware({ app, path: '/' + config.graphql_path })
 
   // teardown
   const close = async () => {
@@ -58,11 +52,8 @@ export const createApi = async () => {
   })
 
   return {
-    graphqlRoute,
     server,
     app,
-    url,
-    port,
     close,
   }
 }

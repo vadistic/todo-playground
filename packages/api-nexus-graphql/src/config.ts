@@ -1,22 +1,11 @@
-import { configSchema as dbConfigSchema } from '@todo/db-prisma'
-import convict from 'convict'
+import { Config as Base } from '@todo/db-marshall'
 
-/* eslint-disable @typescript-eslint/camelcase */
-export const configSchema = {
-  ...dbConfigSchema,
-  port: {
-    env: 'PORT',
-    default: 8000,
-    format: 'port',
-  },
-  graphql_path: {
-    env: 'GRAPHQL_PATH',
-    default: 'graphql',
-    format: String,
-  },
+export class Config extends Base {
+  port: number = Base.num(process.env.PORT) ?? 8080
+
+  graphql_path = process.env.GRAPHQL_PATH ?? 'graphql'
+
+  local_uri = `http://localhost:${this.port}/${this.graphql_path}`
 }
-/* eslint-enable @typescript-eslint/camelcase */
 
-export type ConfigSchema = typeof configSchema
-
-export const config = convict(configSchema)
+export const config = new Config()

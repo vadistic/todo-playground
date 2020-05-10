@@ -16,7 +16,6 @@ export const createDb = async (): Promise<MarshallDb> => {
   const database = new Database(ctn as any)
   const service = new Service(database)
 
-  console.log('here', ctn.host)
   await ctn.connect()
 
   const connect = async () => {
@@ -33,7 +32,7 @@ export const createDb = async (): Promise<MarshallDb> => {
 
   const drop = async () => {
     await ctn.connect()
-    await ctn.db.dropDatabase()
+    await ctn.client.db().dropDatabase()
   }
 
   const seed = async () => {

@@ -9,7 +9,8 @@
   "scripts": {
     "build": "tsc -b tsconfig.build.json",
     "clean": "rm -rf dist *.tsbuildinfo",
-    "dev": "ts-node-dev --no-notify --respawn --transpileOnly src/main",
+    "dev": "tsc-watch -b ./tsconfig.build.json --onSuccess 'node ./dist/main.js'",
+    "dev:local": "tsc-watch -b ./tsconfig.build.json --onSuccess 'node ./dist/main-local.js'",
     "format": "prettier --write **/*.ts",
     "generate": "ts-node --transpile-only src/nexus",
     "lint": "eslint --ext ts,tsx src test",
@@ -20,16 +21,13 @@
   },
   "dependencies": {
     "@nexus/schema": "^0.13.1",
-    "@prisma/client": "^2.0.0-preview024",
-    "@todo/db-prisma": "^0.1.0",
+    "@todo/db-marshall": "^0.1.0",
     "@todo/lib-db": "0.1.0",
     "apollo-server-express": "^2.13.0",
-    "convict": "^6.0.0",
     "express": "^4.17.1",
     "graphql": "^15.0.0"
   },
   "devDependencies": {
-    "@types/convict": "^5.2.0",
     "node-fetch": "^2.6.0"
   }
 }

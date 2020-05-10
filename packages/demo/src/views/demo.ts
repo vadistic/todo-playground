@@ -1,7 +1,7 @@
-import { routes } from '../routes'
+import { routes, config } from '../config'
 import { templateHtml } from './template'
 
-export const demoBodyHtml = /* html */ `
+export const demoBodyHtml = () => /* html */ `
   <h1>@todo/demo</h1>
   <nav>
     <h3>UI</h3>
@@ -10,9 +10,9 @@ export const demoBodyHtml = /* html */ `
     </ul>
     <h3>API</h3>
     <ul>
-      <li><a href="${routes.apiApolloGraphql}">@todo/api-apollo-graphql</a></li>
+      <li><a href="${config.graphql_path}">@todo/api-apollo-graphql</a></li>
     </ul>
   </nav>
 `
 
-export const demoHtml = templateHtml({ title: '@todo/demo', body: demoBodyHtml })
+export const demoHtml = () => templateHtml({ title: '@todo/demo', body: demoBodyHtml() })

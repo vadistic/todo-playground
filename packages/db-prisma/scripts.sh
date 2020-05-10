@@ -1,47 +1,41 @@
 #!/bin/bash
 
 
-function db_clean () {
-    echo 'db_clean()'
+function clean () {
+    echo 'clean()'
     # need be in sync with .env.json/.env.test.json
     rm -rf tmp/*.db
 }
 
-function db_seed () {
-    echo 'db_seed()'
-    ts-node -T -e 'require("./src/test/seed").seed()'
+function seed_local () {
+    echo 'seed_local()'
+    ts-node -T './scripts/seed-local.ts'
 }
 
-function db_cp_test () {
-    echo 'db_cp_test()'
-    # need be in sync with .env.json/.env.test.json
-    cp ./tmp/dev.db ./tmp/test.db
+function cp_test () {
+    echo 'cp_test()'
+    # need be in sync with .env/.env.test
+    cp ./tmp/local.db ./tmp/test.db
 }
 
-function db_migrate_init () {
-    echo 'db_migrate_init()'
+function migrate_init () {
+    echo 'migrate_init()'
     rm -rf prisma/migrations
     yarn prisma migrate save --experimental --name init
 }
 
-function db_migrate () {
-    echo 'db_migrate_init()'
-    yarn prisma migrate save --experimental --name init
+function migrate_up () {
+    echo 'migrate_up()'
+    yarn prisma migrate up --experimental -c --auto-approve
 }
-
-function db_migrate_up () {
-    echo 'db_migrate_up()'
-    yarn prisma migrate up --experimental -c
-}
-
 
 function bootstrap () {
     echo 'bootstrap()'
-    db_clean
-    db_migrate_init
-    db_migrate_up
-    db_cp_test
-    db_seed
+    clean
+    migrate_init
+    migrate_up
+    cp_test
+    seed_local
 }
 
 "$@"

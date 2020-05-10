@@ -1,12 +1,11 @@
-import { config } from '@todo/api-apollo-graphql'
-
+import { config } from './config'
 import { createDemo } from './demo'
 
 const main = async () => {
-  config.load('./.env.json')
+  config.load({ file: './.env' })
   const { app } = await createDemo()
 
-  app.listen(process.env.PORT || 8080)
+  app.listen(config.port)
 }
 
 main()

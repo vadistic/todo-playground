@@ -1,5 +1,5 @@
-import { DbBase } from '@todo/lib-db'
-import { Client, ClientConfig, query as q } from 'faunadb'
+import { DbBase, seedAll } from '@todo/lib-db'
+import { Client, query as q, ClientConfig } from 'faunadb'
 
 import { Collection } from './collections'
 import { config } from './config'
@@ -12,7 +12,7 @@ export interface FaunaDb extends DbBase {
 
 export const createDb = async (): Promise<FaunaDb> => {
   const opts: ClientConfig = {
-    secret: config.get('db_secret'),
+    secret: config.faunadb_secret,
   }
 
   const client = new Client(opts)
@@ -53,7 +53,7 @@ export const createDb = async (): Promise<FaunaDb> => {
   }
 
   const seed = async () => {
-    // console.warn('NOT IMPLEMENTED', 'seed()')
+    await seedAll(service)
   }
 
   const isConnected = () => {

@@ -12,9 +12,11 @@
     "clean": "rm -rf dist *.tsbuildinfo",
     "format": "prettier --write **/*.ts",
     "lint": "eslint --ext ts,tsx src",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "jest"
   },
   "dependencies": {
+    "dotenv": "^8.2.0",
     "faker": "^4.1.0"
   },
   "devDependencies": {

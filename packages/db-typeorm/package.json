@@ -7,9 +7,8 @@
   "license": "MIT",
   "author": "Jakub Wadas <vadistic@gmail.com>",
   "scripts": {
-    "bootstrap": "yarn scripts bootstrap",
     "build": "tsc -b tsconfig.build.json",
-    "clean": "rm -rf dist temp *.tsbuildinfo",
+    "clean": "rm -rf dist tmp *.tsbuildinfo",
     "format": "prettier --write **/*.ts",
     "lint": "eslint --ext ts,tsx src",
     "typecheck": "tsc -p tsconfig.json --noEmit",
@@ -18,14 +17,11 @@
   },
   "dependencies": {
     "@todo/lib-db": "^0.1.0",
-    "convict": "^6.0.0",
     "reflect-metadata": "^0.1.13",
     "sqlite": "^4.0.7",
     "sqlite3": "^4.2.0",
     "typeorm": "^0.2.24",
     "typeorm-cursor-pagination": "^0.2.2"
   },
-  "devDependencies": {
-    "@types/convict": "^5.2.0"
-  }
+  "devDependencies": {}
 }

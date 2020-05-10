@@ -26,9 +26,9 @@ export interface TypeormDb extends DbBase {
 export const createDb = async (): Promise<TypeormDb> => {
   const connectionOptions: ConnectionOptions = {
     type: 'sqlite',
-    database: config.get('db_file'),
+    database: config.sqlitedb_file,
     entities,
-    logging: config.get('debug') ? 'all' : ['error'],
+    logging: config.debug ? 'all' : ['error'],
     synchronize: true,
   }
 

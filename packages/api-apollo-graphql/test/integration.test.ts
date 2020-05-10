@@ -7,7 +7,7 @@ import { createTestClient, TestClient } from './create-test-client'
 let client: TestClient
 
 beforeAll(async () => {
-  config.loadFile('./.env.test.json')
+  config.load({ file: './.env.test' })
   const db = await createDb()
 
   await db.drop()

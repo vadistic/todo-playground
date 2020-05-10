@@ -1,21 +1,7 @@
-import convict from 'convict'
+import { Config as Base } from '@todo/lib-db'
 
-/* eslint-disable @typescript-eslint/camelcase */
-export const config = convict({
-  env: {
-    format: ['production', 'development', 'test'],
-    default: 'development',
-    env: 'NODE_ENV',
-  },
-  debug: {
-    env: 'DEBUG',
-    default: false,
-  },
-  db_file: {
-    env: 'DB_FILE',
-    default: '',
-  },
-})
-/* eslint-enable @typescript-eslint/camelcase */
+export class Config extends Base {
+  sqlitedb_file: string = process.env.SQLITEDB_FILE ?? 'tmp/dev.db'
+}
 
-config.loadFile('./.env.json')
+export const config = new Config()

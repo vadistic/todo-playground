@@ -1,7 +1,7 @@
 import { ClassType } from '@marcj/estdlib'
 import { getDatabaseName } from '@marcj/marshal'
 import { resolveCollectionName } from '@marcj/marshal-mongo'
-import { Collection, MongoClient, Db } from 'mongodb'
+import { Collection, MongoClient } from 'mongodb'
 
 import { config } from './config'
 
@@ -9,15 +9,13 @@ import { config } from './config'
 export class Connection {
   client!: MongoClient
 
-  db!: Db
+  host = config.mongodb_uri
 
-  host = this.getHost()
+  defaultDatabase = config.mongodb_name
 
-  defaultDatabase = config.get('mongodb_name')
+  username = config.mongodb_user
 
-  username = config.get('mongodb_user')
-
-  password = config.get('mongodb_pass')
+  password = config.mongodb_pass
 
   async close(force?: boolean) {
     if (this.client) {
@@ -31,14 +29,14 @@ export class Connection {
     }
 
     const auth =
-      config.get('mongodb_user') && config.get('mongodb_pass')
+      config.mongodb_user && config.mongodb_pass
         ? {
-            user: config.get('mongodb_user'),
-            password: config.get('mongodb_pass'),
+            user: config.mongodb_user,
+            password: config.mongodb_pass,
           }
         : undefined
 
-    this.client = await MongoClient.connect(this.getHost(), {
+    this.client = await MongoClient.connect(config.mongodb_uri, {
       auth,
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -46,27 +44,7 @@ export class Connection {
       keepAlive: false,
     })
 
-    this.db = this.client.db()
-
     return this.client
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  protected getHost(): string {
-    const port = config.get('mongodb_port')
-    const name = config.get('mongodb_name')
-
-    let host = `mongodb://${config.get('mongodb_host')}`
-
-    if (port !== 21017) {
-      host += `:${port}`
-    }
-
-    if (name) {
-      host += `/${name}`
-    }
-
-    return host
   }
 
   async getCollection(classType: ClassType<any>): Promise<Collection> {

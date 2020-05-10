@@ -12,11 +12,12 @@ export interface MongooseDb extends DbBase {
 }
 
 export const createDb = async (): Promise<MongooseDb> => {
-  const ctn = await mongoose.createConnection(config.get('db_url'), {
+  const ctn = await mongoose.createConnection(config.mongodb_uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    dbName: config.get('db_name'), // alows db_name env override db_url
-    loggerLevel: config.get('debug') ? 'info' : 'error',
+    ignoreUndefined: true,
+    dbName: config.mongodb_name,
+    loggerLevel: config.debug ? 'info' : 'error',
   })
 
   const models = createModels(ctn)

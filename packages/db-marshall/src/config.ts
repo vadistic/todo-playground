@@ -1,45 +1,30 @@
-import convict, { Schema } from 'convict'
+import { Config as Base } from '@todo/lib-db'
 
-/* eslint-disable @typescript-eslint/camelcase */
-export const configSchema = {
-  env: {
-    format: ['production', 'development', 'test'],
-    default: 'development',
-    env: 'NODE_ENV',
-  },
-  debug: {
-    env: 'DEBUG',
-    default: false,
-  },
+export class Config extends Base {
+  mongodb_user?: string = process.env.MONGODB_USER
 
-  mongodb_user: {
-    default: (undefined as unknown) as string,
-    format: String,
-    env: 'MONGODB_USER',
-  },
-  mongodb_pass: {
-    default: (undefined as unknown) as string,
-    format: String,
-    env: 'MONGODB_PASS',
-  },
-  mongodb_name: {
-    default: (undefined as unknown) as string,
-    format: String,
-    env: 'MONGODB_NAME',
-  },
-  mongodb_port: {
-    default: (undefined as unknown) as number,
-    format: 'port',
-    env: 'MONGODB_PORT',
-  },
-  mongodb_host: {
-    default: (undefined as unknown) as string,
-    format: String,
-    env: 'MONGODB_HOST',
-  },
+  mongodb_pass?: string = process.env.MONGODB_PASS
+
+  mongodb_name: string = process.env.MONGODB_NAME || 'dev'
+
+  mongodb_port: number = Base.num(process.env.MONGODB_port) ?? 21017
+
+  mongodb_host: string = process.env.MONGODB_HOST || 'localhost'
+
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  get mongodb_uri() {
+    let uri = `mongodb://${this.mongodb_host}`
+
+    if (config.mongodb_port !== 21017) {
+      uri += `:${this.mongodb_port}`
+    }
+
+    if (config.mongodb_name) {
+      uri += `/${this.mongodb_name}`
+    }
+
+    return uri
+  }
 }
-/* eslint-enable @typescript-eslint/camelcase */
 
-export type Config = typeof configSchema extends Schema<infer T> ? T : never
-
-export const config = convict(configSchema)
+export const config = new Config()

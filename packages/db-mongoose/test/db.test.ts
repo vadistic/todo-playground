@@ -6,9 +6,10 @@ import { MongooseDb, createDb } from '../src/db'
 let db = (undefined as unknown) as MongooseDb
 
 beforeAll(async () => {
-  config.loadFile('./.env.test.json')
+  config.load({ file: './.env.test' })
 
   db = await createDb()
+
   await db.drop()
   await db.sync()
   await db.seed()
@@ -29,12 +30,8 @@ describe('db-mongoose', () => {
     })
   })
 
-  it('connects', () => {
+  test('works', () => {
     expect(db.isConnected()).toBeTruthy()
-  })
-
-  it('use test database', () => {
-    expect(db.ctn.db.databaseName).toBe('test')
   })
 
   test('id is virtualised', () => {

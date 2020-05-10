@@ -1,11 +1,15 @@
 import { NestFactory } from '@nestjs/core'
 
 import { AppModule } from './app.module'
+import { config } from './config'
 
-async function bootstrap() {
+async function main() {
+  config.load({ file: './.env' })
   const app = await NestFactory.create(AppModule)
-  await app.listen(3000)
+
+  await app.listen(config.port)
+
   console.log(`Application is running on: ${await app.getUrl()}`)
 }
 
-bootstrap()
+main()

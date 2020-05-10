@@ -1,7 +1,7 @@
 import { createDb, config } from '../src'
 
 const main = async () => {
-  config.loadFile('.env.json')
+  config.load({ file: '.env.local' })
 
   const db = await createDb()
 

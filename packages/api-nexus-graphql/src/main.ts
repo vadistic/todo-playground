@@ -2,11 +2,12 @@ import { createApi } from './api'
 import { config } from './config'
 
 const main = async () => {
-  config.loadFile('./.env.json')
+  config.load({ file: './.env' })
+
   const api = await createApi()
 
-  api.app.listen({ port: api.port }, () => {
-    console.log(`🚀 Server ready at ${api.url}`)
+  api.app.listen({ port: config.port }, () => {
+    console.log(`🚀 Server ready at ${config.local_uri}`)
   })
 }
 

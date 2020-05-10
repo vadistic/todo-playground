@@ -7,7 +7,7 @@ import { SimpleModel, simpleModelExample } from './example.model'
 let db: MarshallDb
 
 beforeAll(async () => {
-  config.loadFile('./.env.test.json')
+  config.load({ file: './.env.test' })
   db = await createDb()
 
   await db.connect()

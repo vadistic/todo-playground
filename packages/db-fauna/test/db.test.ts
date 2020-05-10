@@ -4,7 +4,7 @@ import { createDb, FaunaDb } from '../src/db'
 let db: FaunaDb
 
 beforeAll(async () => {
-  config.loadFile('./.env.test.json')
+  config.load({ file: './.env.test' })
   db = await createDb()
 })
 
@@ -12,11 +12,6 @@ describe('db-fauna', () => {
   // eslint-disable-next-line jest/expect-expect
   it('sync', async () => {
     await db.sync()
-  })
-
-  // eslint-disable-next-line jest/expect-expect
-  it('seed', async () => {
-    await db.seed()
   })
 
   it('createOne & findOne', async () => {
@@ -29,9 +24,8 @@ describe('db-fauna', () => {
     expect(taskNull).toBe(null)
   })
 
-  // testTask(() => db.service)
-
+  // eslint-disable-next-line jest/expect-expect
   it('drop', async () => {
-    expect(db.isConnected()).toBeTruthy()
+    await db.drop()
   })
 })
