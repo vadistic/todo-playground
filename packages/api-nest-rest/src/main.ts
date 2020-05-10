@@ -5,6 +5,12 @@ import { config } from './config'
 
 async function main() {
   config.load({ file: './.env' })
+
+  if (config.debug) {
+    console.log('config')
+    console.log({ ...config })
+  }
+
   const app = await NestFactory.create(AppModule)
 
   await app.listen(config.port)

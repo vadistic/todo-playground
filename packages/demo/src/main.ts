@@ -3,6 +3,12 @@ import { createDemo } from './demo'
 
 const main = async () => {
   config.load({ file: './.env' })
+
+  if (config.debug) {
+    console.log('config')
+    console.log({ ...config })
+  }
+
   const { app } = await createDemo()
 
   app.listen(config.port)

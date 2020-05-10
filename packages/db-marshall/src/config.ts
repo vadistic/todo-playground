@@ -7,7 +7,7 @@ export class Config extends Base {
 
   mongodb_name: string = process.env.MONGODB_NAME || 'dev'
 
-  mongodb_port: number = Base.num(process.env.MONGODB_port) ?? 21017
+  mongodb_port: number = Base.num(process.env.MONGODB_PORT) ?? 21017
 
   mongodb_host: string = process.env.MONGODB_HOST || 'localhost'
 

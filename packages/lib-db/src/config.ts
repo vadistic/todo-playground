@@ -14,19 +14,19 @@ export class Config {
   // ────────────────────────────────────────────────────────────────────────────────
 
   load({ file }: ConfigLoadOptions): this {
-    const { error, parsed } = dotenv.config({ path: file })
-
-    if (error) throw error
+    const { parsed } = dotenv.config({ path: file })
 
     if (parsed) {
-      // overwrite env
-      Object.assign(process.env, parsed)
-
-      const temp = new (this.constructor as any)()
-
-      // overwrite instance - spread to remove methods
-      Object.assign(this, { ...temp })
+      // overwrite env, skip undefined
+      for (const [key, val] of Object.entries(parsed)) {
+        if (val !== undefined) process.env[key] = val
+      }
     }
+
+    const temp = new (this.constructor as any)()
+
+    // overwrite instance - spread to remove methods
+    Object.assign(this, { ...temp })
 
     return this
   }

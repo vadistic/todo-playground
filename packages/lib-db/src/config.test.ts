@@ -22,4 +22,8 @@ describe('config', () => {
     expect(config.node_env).toBe('test')
     expect(config.debug).toBe(false)
   })
+
+  test('should not throw on missing env file', () => {
+    expect(() => config.load({ file: './.random' })).not.toThrowError()
+  })
 })

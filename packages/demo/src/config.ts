@@ -1,7 +1,9 @@
 import { Config as Base } from '@todo/api-apollo-graphql'
 import path from 'path'
 
-export class Config extends Base {}
+export class Config extends Base {
+  graphql_path = 'api/graphql'
+}
 
 export const config = new Config()
 

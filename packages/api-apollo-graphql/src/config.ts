@@ -5,7 +5,10 @@ export class Config extends Base {
 
   graphql_path = process.env.GRAPHQL_PATH ?? 'graphql'
 
-  local_uri = `http://localhost:${this.port}/${this.graphql_path}`
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  get local_uri() {
+    return `http://localhost:${this.port}/${this.graphql_path}`
+  }
 }
 
 export const config = new Config()
