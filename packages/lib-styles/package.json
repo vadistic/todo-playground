@@ -7,22 +7,23 @@
   "license": "MIT",
   "author": "Jakub Wadas <vadistic@gmail.com>",
   "scripts": {
-    "build": "yarn scripts build",
+    "build:sass": "sass --load-path ../../node_modules src:dist",
+    "build:tsm": "yarn tsm src/components -l -i ../../node_modules --nameFormat none --exportType default --implementation sass",
+    "build": "yarn clean && yarn build:tsm && cp -r src dist && yarn build:sass",
     "clean": "rm -rf dist *.tsbuildinfo",
-    "dev": "yarn parcel src/index.html",
-    "format": "prettier --write **/*.ts",
-    "lint": "eslint --ext ts,tsx src",
+    "dev": "yarn parcel --dist-dir tmp --cache-dir .cache dev/index.html",
+    "format": "prettier --write **/*.scss",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "scripts": "sh ./scripts.sh"
   },
-  "dependencies": {
-    "milligram": "^1.3.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "autoprefixer": "^9.7.6",
+    "milligram": "^1.3.0",
     "parcel": "^2.0.0-nightly.256",
     "postcss": "^7.0.29",
     "precss": "^4.0.0",
-    "sass": "^1.26.5"
+    "sass": "^1.26.5",
+    "typed-scss-modules": "^1.3.0"
   }
 }

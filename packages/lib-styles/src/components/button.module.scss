@@ -1,0 +1,16 @@
+@use '../theme' as *;
+@use '../mixin' as *;
+
+@import 'milligram/src/_Button.sass';
+
+#{component(button)} {
+  @extend .button;
+
+  &.clear {
+    @extend .button-clear;
+  }
+
+  &.outline {
+    @extend .button-outline;
+  }
+}

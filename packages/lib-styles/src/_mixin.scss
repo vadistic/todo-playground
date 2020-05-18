@@ -1,0 +1,9 @@
+@use './theme' as *;
+
+@function component($name) {
+  @if $is_module {
+    @return '.#{$name}, .root';
+  }
+
+  @return '.component__' + $name;
+}

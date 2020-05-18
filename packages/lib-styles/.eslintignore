@@ -4,3 +4,5 @@ build
 
 *.js
 **/generated/**
+
+src/**/*.d.ts

@@ -1,0 +1,37 @@
+@use '../theme' as *;
+@use '../mixin' as *;
+
+#{component(todo-list)} {
+  .list {
+    list-style: none;
+  }
+}
+
+#{component(todo-item)} {
+  font-size: large;
+  margin: 1rem 0;
+  padding: 1rem;
+
+  user-select: initial;
+
+  box-shadow: 0.5rem 0.5rem 1rem $color-tertiary;
+
+  &.active,
+  &:focus {
+    outline: solid 1px $color-primary;
+  }
+
+  .name {
+    font-size: larger;
+  }
+
+  .content {
+    font-size: smaller;
+  }
+}
+
+#{component(todo-add)} {
+  input {
+    padding: 1.2rem 1rem;
+  }
+}

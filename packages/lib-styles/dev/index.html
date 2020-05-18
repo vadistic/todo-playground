@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>@todo</title>
+    <link rel="stylesheet" href="../src/base.scss" />
+    <link rel="stylesheet" href="../src/styles.scss" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="component__header">
+        <h1 class="title">@todo</h1>
+      </header>
+      <main class="app-main">
+        <div class="component__todo-add">
+          <input type="text" placeholder="What needs to be done?" autofocus />
+        </div>
+
+        <div class="component__todo-list">
+          <ul class="list">
+            <li class="component__todo-item" tabindex="0">
+              <span class="name">Navigate multi-byte capacitor</span>
+              <div class="content">
+                <p>
+                  The SQL interface is down, navigate the haptic bus so we can navigate the AI
+                  sensor!
+                </p>
+              </div>
+            </li>
+            <li class="component__todo-item" tabindex="0">
+              <span class="name">Reboot neural microchip</span>
+              <div class="content">
+                If we override the matrix, we can get to the IB feed through the back-end JBOD
+                bandwidth!
+              </div>
+            </li>
+            <li class="component__todo-item" tabindex="0">
+              <span class="name">Bypass redundant transmitter</span>
+              <div class="content">
+                Indexing the sensor won't do anything, we need to index the solid state SAS monitor!
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="component__controls">
+          <span class="count"
+            ><span class="active">4</span> items left of <span class="total">10</span></span
+          >
+          <ul class="filters">
+            <li class="item">
+              <button class="component__button clear">All</button>
+            </li>
+            <li class="item">
+              <button class="component__button clear">Active</button>
+            </li>
+            <li class="item">
+              <button class="component__button clear">Completed</button>
+            </li>
+          </ul>
+        </section>
+      </main>
+      <footer class="component__footer">
+        <p>Double-click to edit a todo</p>
+        <p>
+          Inspired by <a href="https://github.com/gothinkster/realworld">realworld</a> and
+          <a href="https://github.com/tastejs/todomvc">todomvc</a>
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>
